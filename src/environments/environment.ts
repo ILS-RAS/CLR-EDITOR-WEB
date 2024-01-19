@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  API: 'http://localhost:3000/v2/'
+  API: 'http://localhost:3000/v2/',
+  Login: 'http://localhost:3000/auth/login'
 };
 
 /*
