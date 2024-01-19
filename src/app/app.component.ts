@@ -8,7 +8,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-  title = 'Corpus Latino-Rossicum';
+  title = 'CORPUS LATINO-ROSSICUM';
   public isAuthenticated = false;
   private _destroySub$ = new Subject<void>();
   constructor(private _authService: AuthService) {}
