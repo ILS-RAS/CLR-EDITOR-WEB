@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _authService: AuthService
   ) {
-    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/home';
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
   }
 
   public ngOnInit(): void {
@@ -47,7 +47,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: _ => {
         this.loginValid = true;
-        this._router.navigateByUrl('/home');
+        this._router.navigateByUrl('/editor');
       },
       error: _ => this.loginValid = false
     });

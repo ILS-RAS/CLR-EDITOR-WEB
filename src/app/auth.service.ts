@@ -44,11 +44,14 @@ export class AuthService implements OnDestroy, OnInit {
 
   public logout(redirect: string){
     sessionStorage.removeItem('token');
+    sessionStorage.removeItem('user')
     this._isAuthenticated$.next(false);
+    this.router.navigateByUrl(redirect);
   }
 
   private handleSignInResponse(resp: any): void {
     sessionStorage.setItem('token', resp.token);
+    sessionStorage.setItem('user', resp.user.email)
     this._isAuthenticated$.next(true);
   }
 }
