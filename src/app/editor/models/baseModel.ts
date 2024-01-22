@@ -1,3 +1,4 @@
-export class BaseModel {
-    _id: string | undefined;
+export abstract class BaseModel {
+    _id?: string;
+    apiType?: string;
 }

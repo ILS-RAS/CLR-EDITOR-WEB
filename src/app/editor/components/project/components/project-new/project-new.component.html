@@ -1,0 +1,9 @@
+<h4>Новый проект</h4>
+<mat-form-field>
+  <mat-label>Код проекта</mat-label>
+  <mat-select>
+    @for (work of works; track work) {
+      <mat-option [value]="work.code">{{work.code}}</mat-option>
+    }
+  </mat-select>
+</mat-form-field>

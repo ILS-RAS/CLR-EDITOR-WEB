@@ -25,9 +25,9 @@ import { DefaultComponent } from './editor/components/default/default.component'
 import { FooterComponent } from './editor/components/footer/footer.component';
 import { HeaderComponent } from './editor/components/header/header.component';
 import { SidebarComponent } from './editor/components/sidebar/sidebar.component';
-import { ProjectNewComponent } from './editor/components/project/project-new/project-new.component';
-import { ProjectListComponent } from './editor/components/project/project-list/project-list.component';
-
+import { ProjectNewComponent } from './editor/components/project/components/project-new/project-new.component';
+import { ProjectListComponent } from './editor/components/project/components/project-list/project-list.component';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,6 +59,7 @@ import { ProjectListComponent } from './editor/components/project/project-list/p
     MatSidenavModule,
     MatListModule,
     MatTooltipModule,
+    MatSnackBarModule,
     HttpClientModule,
   ],
   providers: [HttpClientModule],
