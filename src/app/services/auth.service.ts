@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { User } from '../editor/models/user';
+import { UserModel } from '../editor/models/userModel';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
@@ -35,7 +35,7 @@ export class AuthService implements OnDestroy, OnInit {
     return Math.floor(Math.random() * max);
   }
 
-  public Login(user: User){
+  public Login(user: UserModel){
     return this.httpClient
     .post(`${environment.Login}`, user, {
       headers: this.headers,

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { filter, Subject, take, takeUntil } from 'rxjs';
-import { User } from '../../editor/models/user';
+import { UserModel } from '../../editor/models/userModel';
 import { AppConfig } from '../../constants/app-config';
 
 @Component({
@@ -49,7 +49,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.loginValid = true;
-    var user: User = new User();
+    var user: UserModel = new UserModel();
     user.email = this.username;
     user.password = this.password;
 

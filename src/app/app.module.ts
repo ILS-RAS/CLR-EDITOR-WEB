@@ -25,6 +25,8 @@ import { DefaultComponent } from './editor/components/default/default.component'
 import { FooterComponent } from './editor/components/footer/footer.component';
 import { HeaderComponent } from './editor/components/header/header.component';
 import { SidebarComponent } from './editor/components/sidebar/sidebar.component';
+import { ProjectNewComponent } from './editor/components/project/project-new/project-new.component';
+import { ProjectListComponent } from './editor/components/project/project-list/project-list.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +36,8 @@ import { SidebarComponent } from './editor/components/sidebar/sidebar.component'
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
+    ProjectNewComponent,
+    ProjectListComponent,
   ],
   imports: [
     BrowserModule,
