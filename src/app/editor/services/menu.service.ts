@@ -18,8 +18,11 @@ export class MenuService {
 
   GetMenuItems() {
     this.menuData.next([
-      new MenuItem({ title: 'Aperire Opus', action: 1, icon: 'folder_open', link: '/', type: MenuItemType.Normal }),
-      new MenuItem({ title: 'Addere Opus', action: 2, icon: 'add', link: '/', type: MenuItemType.Normal  })
+      new MenuItem({ title: 'Проекты', action: 1, icon: 'works', link: '/', type: MenuItemType.Normal }),
+      new MenuItem({ title: 'Создать проект', action: 2, icon: 'add', link: '/', type: MenuItemType.Normal  }),
+      new MenuItem({ type: MenuItemType.Divider  }),
+      new MenuItem({ title: 'Справочники', action: 2, icon: 'toc', link: '/', type: MenuItemType.Normal  }),
+      new MenuItem({ title: 'Создать справочник', action: 2, icon: 'add', link: '/', type: MenuItemType.Normal  }),
     ]);
   }
 }
