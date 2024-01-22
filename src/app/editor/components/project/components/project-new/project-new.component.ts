@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 import { TaxonomyViewModel } from '../../../../models/taxonomyViewModel';
+import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 
 @Component({
   selector: 'app-project-new',
@@ -11,7 +12,8 @@ import { TaxonomyViewModel } from '../../../../models/taxonomyViewModel';
 export class ProjectNewComponent implements OnInit {
   works: TaxonomyViewModel[] = [];
 
-  constructor(private projectService: ProjectService, private router: Router) {
+  constructor(private projectService: ProjectService, private router: Router, 
+    private _bottomSheetRef: MatBottomSheetRef<ProjectNewComponent>) {
 
   }
   ngOnInit(): void {
@@ -20,5 +22,10 @@ export class ProjectNewComponent implements OnInit {
         this.works = items;
       });
     });
+  }
+
+  openLink(event: MouseEvent): void {
+    this._bottomSheetRef.dismiss();
+    event.preventDefault();
   }
 }
