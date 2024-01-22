@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { filter, Subject, take, takeUntil } from 'rxjs';
-import { User } from '../../../models/user';
+import { User } from '../../editor/models/user';
 import { AppConfig } from '../../constants/app-config';
 
 @Component({

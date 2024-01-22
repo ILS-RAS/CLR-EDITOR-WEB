@@ -1,4 +1,4 @@
-import { MenuItemType } from "../app/enums/menuItemType";
+import { MenuItemType } from "../enums/menuItemType";
 
 
 export class MenuItem {

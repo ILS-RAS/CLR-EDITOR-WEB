@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { MenuItem } from '../../../../models/menuItem';
+import { MenuItem } from '../../models/menuItem';
 
 @Component({
   selector: 'app-sidebar',

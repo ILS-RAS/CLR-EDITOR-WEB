@@ -2,7 +2,7 @@ import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
-import { User } from '../../models/user';
+import { User } from '../editor/models/user';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({

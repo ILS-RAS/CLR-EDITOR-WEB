@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MenuItem } from '../../../../models/menuItem';
+import { MenuItem } from '../../models/menuItem';
 import { MenuService } from '../../services/menu.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppConfig } from '../../../constants/app-config';

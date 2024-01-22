@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { MenuItem } from '../../../models/menuItem';
-import { MenuItemType } from '../../enums/menuItemType';
+import { MenuItem } from '../models/menuItem';
+import { MenuItemType } from '../enums/menuItemType';
 
 @Injectable({
   providedIn: 'root'
