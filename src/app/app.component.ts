@@ -52,45 +52,9 @@ export class AppComponent {
       )
     );
     this.matIconRegistry.addSvgIcon(
-      `chunk-menu`,
+      `add_toc`,
       this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/chunk_menu.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `tree-open`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/tree_open.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `tree-close`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/tree_close.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `book`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/book.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `library`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/library.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `fragment`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/fragment.svg'
-      )
-    );
-    this.matIconRegistry.addSvgIcon(
-      `empty_fragment`,
-      this.domSanitizer.bypassSecurityTrustResourceUrl(
-        '../assets/icons/empty_fragment.svg'
+        '../assets/icons/add_toc.svg'
       )
     );
   }
