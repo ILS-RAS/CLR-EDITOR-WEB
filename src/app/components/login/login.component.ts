@@ -1,8 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AuthService } from '../auth.service';
+import { AuthService } from '../../services/auth.service';
 import { filter, Subject, take, takeUntil } from 'rxjs';
-import { User } from '../../models/user';
+import { User } from '../../../models/user';
+import { AppConfig } from '../../constants/app-config';
 
 @Component({
   selector: 'app-login',
@@ -10,10 +11,13 @@ import { User } from '../../models/user';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit, OnDestroy {
+  public title?: string;
   public loginValid = true;
-  public username = '';
-  public password = '';
-
+  public username?: string;
+  public password?: string;
+  public sum?: number;
+  public firstRandom:number = 0;
+  public secondRandom:number = 0;
   private _destroySub$ = new Subject<void>();
   private readonly returnUrl: string;
 
@@ -23,9 +27,12 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _authService: AuthService
   ) {
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
+    this.firstRandom = _authService.GetRandomNumber(15);
+    this.secondRandom = _authService.GetRandomNumber(15);
   }
 
   public ngOnInit(): void {
+    this.title = AppConfig.AppFullTitle;
     this._authService.isAuthenticated$.pipe(
       filter((isAuthenticated: boolean) => isAuthenticated),
       takeUntil(this._destroySub$)
@@ -34,6 +41,10 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public ngOnDestroy(): void {
     this._destroySub$.next();
+  }
+
+  public isCorrect():boolean{
+    return this.sum == this.firstRandom + this.firstRandom;
   }
 
   public onSubmit(): void {
@@ -47,7 +58,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     ).subscribe({
       next: _ => {
         this.loginValid = true;
-        this._router.navigateByUrl('/editor');
+        this._router.navigateByUrl('/');
       },
       error: _ => this.loginValid = false
     });

@@ -1,8 +1,8 @@
 import { Injectable, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { User } from '../models/user';
+import { environment } from '../../environments/environment';
+import { User } from '../../models/user';
 import { BehaviorSubject, Observable, map } from 'rxjs';
 
 @Injectable({
@@ -28,6 +28,11 @@ export class AuthService implements OnDestroy, OnInit {
 
   constructor(private router: Router, private httpClient: HttpClient) {
     this._isAuthenticated$.next(sessionStorage.getItem("token") != undefined);
+  }
+
+  public GetRandomNumber(max:number):number
+  {
+    return Math.floor(Math.random() * max);
   }
 
   public Login(user: User){

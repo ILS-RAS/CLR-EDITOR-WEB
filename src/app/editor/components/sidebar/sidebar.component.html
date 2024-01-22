@@ -1,0 +1,8 @@
+<mat-nav-list>
+    <div *ngFor="let item of menuItems" [ngSwitch]="item.type">
+        <mat-list-item *ngSwitchCase="0">
+            <mat-icon color="primary" (click)="click(item)" matTooltip="{{item.title}}" [routerLink]="item.link">{{item.icon}}</mat-icon>
+        </mat-list-item>
+        <mat-divider *ngSwitchCase="1"></mat-divider>
+    </div>
+</mat-nav-list>
