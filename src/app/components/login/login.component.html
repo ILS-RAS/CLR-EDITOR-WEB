@@ -1,8 +1,7 @@
 <mat-card>
   <mat-card-content>
     <form #loginForm="ngForm" (ngSubmit)="onSubmit()">
-      <h2>{{title}}</h2>
-      <h3>INTROITUS</h3>
+      <h2>INTROITUS</h2>
       <mat-error *ngIf="!loginValid">
         Имя пользователя (почтовый адрес) и пароль не известны
       </mat-error>
