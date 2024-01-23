@@ -1,1 +1,7 @@
-<p>{{project?.code}}</p>
+<mat-toolbar>
+    <span color="secondary">{{project?.desc}}</span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="Close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>

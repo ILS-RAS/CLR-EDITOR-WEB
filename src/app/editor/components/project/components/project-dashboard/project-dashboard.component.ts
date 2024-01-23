@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ProjectModel } from '../../../../models/projectModel';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -10,11 +11,17 @@ import { ProjectModel } from '../../../../models/projectModel';
 export class ProjectDashboardComponent implements OnInit {
   public project?: ProjectModel;
   constructor(
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.projectService.currentProject.subscribe(item=>{
       this.project = item;
     })
   }
+
+  Close() {
+    this.projectService.currentProject.next(undefined);
+    this.router.navigateByUrl('/');
+    }
 }
