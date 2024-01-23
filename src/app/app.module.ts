@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -30,7 +30,8 @@ import { ProjectListComponent } from './editor/components/project/components/pro
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import { MatFormFieldModule } from '@angular/material/form-field';
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,9 +67,15 @@ import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatBottomSheetModule
+    MatBottomSheetModule,
+    MatFormFieldModule, 
+    MatSelectModule, 
+    FormsModule, 
+    ReactiveFormsModule, 
+    MatInputModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule,
+    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

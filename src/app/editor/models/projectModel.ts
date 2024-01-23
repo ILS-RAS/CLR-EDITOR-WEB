@@ -1,7 +1,8 @@
+import { AppType } from '../enums/appType';
 import { BaseModel } from './baseModel';
 
 export class ProjectModel extends BaseModel {
-  code: string | undefined;
+  code?: string;
   desc: string | undefined;
   creatorId: string | undefined;
   created: string | undefined;

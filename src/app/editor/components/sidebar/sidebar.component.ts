@@ -25,7 +25,11 @@ export class SidebarComponent implements OnInit {
 
   click(item: MenuItem) {
     if(item.action == Action.NewProject){
-      this._bottomSheet.open(ProjectNewComponent);
+      this._bottomSheet.open(ProjectNewComponent, {
+        hasBackdrop: false,
+        autoFocus: 'first-tabbable',
+        closeOnNavigation: true
+      });
     }
     this.menuItemSelected.emit(item);
   }

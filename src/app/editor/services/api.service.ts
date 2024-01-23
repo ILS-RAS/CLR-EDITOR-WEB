@@ -13,18 +13,28 @@ export class ApiService<T extends BaseModel> implements OnInit {
   private headers = new HttpHeaders();
   private token: string | null | undefined;
 
-  constructor(private httpClient: HttpClient, private errorService: ErrorService) { }
-  
-  ngOnInit(): void {
-    this.headers.append('Content-Type', 'application/x-www-form-urlencoded');
+  constructor(private httpClient: HttpClient, private errorService: ErrorService) { 
+
     this.token = sessionStorage.getItem('token');
+   
     if(this.token){
-      this.headers.append('x-access-token', this.token);
+      this.headers = this.getCustomHeaders(this.token);
     }
+  }
+  getCustomHeaders(token:string): HttpHeaders {
+    const headers = new HttpHeaders()
+      .set('Content-Type', 'application/json')
+      .set('x-access-token', token);
+    return headers;
+  }
+  ngOnInit(): void {
+
   }
 
   findAll(item: T) {
-    return this.httpClient.get(`${environment.API}${item.apiType}`).pipe(
+    return this.httpClient.get(`${environment.API}${item.apiType}`, {
+      headers: this.headers
+    }).pipe(
       map((res: any) => {
         return res;
       }),
@@ -34,7 +44,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
 
   findOne(item: T) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}/${item._id}`)
+      .get(`${environment.API}${item.apiType}/${item._id}`, {
+        headers: this.headers
+      })
       .pipe(
         map((res) => {
           return res;
@@ -45,7 +57,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
 
   findByQuery(item: T, query: string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`)
+      .get(`${environment.API}${item.apiType}?params=${query}`, {
+        headers: this.headers
+      })
       .pipe(
         map((res: any) => {
           return res;
@@ -56,7 +70,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
 
   findPageByQuery(item: T, query: string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`)
+      .get(`${environment.API}${item.apiType}?params=${query}`, {
+        headers: this.headers
+      })
       .pipe(
         map((res: any) => {
           return res;
@@ -67,7 +83,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
 
   countByQuery(item: T, query: string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`)
+      .get(`${environment.API}${item.apiType}?params=${query}`, {
+        headers: this.headers
+      })
       .pipe(
         map((res: any) => {
           return res;
@@ -79,7 +97,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
   remove(item: T) {
     return this.httpClient
       .delete(`${environment.API}${item.apiType}/${item._id}`, {
-        headers: this.headers,
+        headers: this.headers
       })
       .pipe(
         map((res) => {
@@ -89,10 +107,10 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
-  save(item: T) {
+  save(item: T, path:string) {
     if (item._id !== undefined) {
       return this.httpClient
-        .put(`${environment.API}${item.apiType}/${item._id}`, item, {
+        .put(`${environment.API}${path}/${item._id}`, item, {
           headers: this.headers,
         })
         .pipe(
@@ -103,7 +121,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         );
     } else {
       return this.httpClient
-        .post(`${environment.API}${item.apiType}`, item, {
+        .post(`${environment.API}${path}`, item, {
           headers: this.headers,
         })
         .pipe(
