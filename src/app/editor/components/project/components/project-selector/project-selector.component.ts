@@ -3,6 +3,7 @@ import { ProjectModel } from '../../../../models/projectModel';
 import { FormControl, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-project-selector',
@@ -21,7 +22,8 @@ export class ProjectSelectorComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     public dialogRef: MatDialogRef<ProjectSelectorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ProjectModel
+    @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
+    private router: Router,
   ) {}
   ngOnInit(): void {
     this.projectService.GetProjects().then(() => {
@@ -39,6 +41,7 @@ export class ProjectSelectorComponent implements OnInit {
     let p = this.projects.find((i) => i.code == this.selected.value?.toString());
     this.projectService.currentProject.next(p);
     this.Cancel();
+    this.router.navigateByUrl('/project');
   }
 
   Change() {

@@ -17,15 +17,12 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public isAuthenticated = false;
   private _destroySub$ = new Subject<void>();
-  public currentProject?: ProjectModel;
+
   constructor(private _authService: AuthService, private projectService: ProjectService) {}
 
   public ngOnInit(): void {  
     this._authService.isAuthenticated$.subscribe((item)=>{
       this.isAuthenticated = item;
-    });
-    this.projectService.currentProject.subscribe(item =>{
-      this.currentProject = item;
     });
   }
 

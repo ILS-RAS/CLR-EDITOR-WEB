@@ -76,7 +76,7 @@ export class ProjectNewComponent implements OnInit {
         this.projectService.currentProject.next(this.projects.find(i=>i.code == p.code));
       })
       this.Cancel();
-      this.router.navigateByUrl('/project')
+      this.router.navigateByUrl('/project');
     });
   }
 
