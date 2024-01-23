@@ -26,12 +26,13 @@ import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './editor/components/sidebar/sidebar.component';
 import { ProjectNewComponent } from './editor/components/project/components/project-new/project-new.component';
-import { ProjectListComponent } from './editor/components/project/components/project-list/project-list.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
-import {MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, MatBottomSheetModule} from '@angular/material/bottom-sheet';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ProjectSelectorComponent } from './editor/components/project/components/project-selector/project-selector.component';
+import { ProjectDashboardComponent } from './editor/components/project/components/project-dashboard/project-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,7 +42,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     HeaderComponent,
     SidebarComponent,
     ProjectNewComponent,
-    ProjectListComponent
+    ProjectSelectorComponent,
+    ProjectDashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -67,15 +69,14 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     MatProgressBarModule,
     MatProgressSpinnerModule,
     HttpClientModule,
-    MatBottomSheetModule,
     MatFormFieldModule, 
     MatSelectModule, 
     FormsModule, 
     ReactiveFormsModule, 
-    MatInputModule
+    MatInputModule,
+    MatDialogModule
   ],
-  providers: [HttpClientModule,
-    {provide: MAT_BOTTOM_SHEET_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}],
+  providers: [HttpClientModule],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

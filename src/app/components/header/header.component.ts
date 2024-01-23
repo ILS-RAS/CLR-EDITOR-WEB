@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { AuthService } from '../../services/auth.service';
 import { Subject } from 'rxjs';
 import { Router } from '@angular/router';
+import { ProjectModel } from '../../editor/models/projectModel';
+import { ProjectService } from '../../editor/components/project/services/project.service';
 
 @Component({
   selector: 'app-header',
@@ -15,12 +17,16 @@ export class HeaderComponent implements OnInit, OnDestroy {
 
   public isAuthenticated = false;
   private _destroySub$ = new Subject<void>();
-  constructor(private _authService: AuthService) {}
+  public currentProject?: ProjectModel;
+  constructor(private _authService: AuthService, private projectService: ProjectService) {}
 
   public ngOnInit(): void {  
     this._authService.isAuthenticated$.subscribe((item)=>{
       this.isAuthenticated = item;
-    })
+    });
+    this.projectService.currentProject.subscribe(item =>{
+      this.currentProject = item;
+    });
   }
 
   public logout(): void {

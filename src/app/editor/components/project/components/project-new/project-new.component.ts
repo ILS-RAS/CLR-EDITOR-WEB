@@ -1,24 +1,31 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 import { TaxonomyViewModel } from '../../../../models/taxonomyViewModel';
-import { MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { FormControl, Validators } from '@angular/forms';
 import { ProjectModel } from '../../../../models/projectModel';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Action } from '../../../../enums/action';
-import { AppType } from '../../../../enums/appType';
 import { ProjectStatus } from '../../../../enums/projectStatus';
-
-
+import { MatBottomSheetRef} from '@angular/material/bottom-sheet';
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
 @Component({
   selector: 'app-project-new',
   templateUrl: './project-new.component.html',
-  styleUrl: './project-new.component.scss',
+  styleUrl: './project-new.component.scss'
 })
 export class ProjectNewComponent implements OnInit {
 
   works: TaxonomyViewModel[] = [];
+
   projects: ProjectModel[] = [];
 
   selected = new FormControl([Validators.required]);
@@ -30,8 +37,9 @@ export class ProjectNewComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private router: Router,
-    private _bottomSheetRef: MatBottomSheetRef<ProjectNewComponent>,
-    private _snackBar: MatSnackBar
+    private _snackBar: MatSnackBar,
+    public dialogRef: MatDialogRef<ProjectNewComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
   ) {}
 
   ngOnInit(): void {
@@ -52,10 +60,10 @@ export class ProjectNewComponent implements OnInit {
   }
 
   Cancel() {
-    this._bottomSheetRef.dismiss();
+    this.dialogRef.close();
   }
 
-  Save() {
+  CreateAndOpen() {
     var p = new ProjectModel({});
     p.code = this.selected.value?.toString();
     p.desc = this.works.find(i => i.code == p.code)?.desc;
@@ -64,13 +72,14 @@ export class ProjectNewComponent implements OnInit {
     p.creatorId = sessionStorage.getItem("_id")?.toString();
 
     this.projectService.save(p).then((item)=>{
+      this.projectService.GetProjects().then(()=>{
+        this.projectService.currentProject.next(this.projects.find(i=>i.code == p.code));
+      })
       this.Cancel();
-      this.openSnackBar(JSON.stringify(item), Action.NewProject.toString());
+      this.router.navigateByUrl('/project')
     });
   }
-  openSnackBar(message: string, action: string) {
-    this._snackBar.open(message, action);
-  }
+
   Change() {
     this.isDisabled = this.selected.value == undefined;
     if(!this.isDisabled){

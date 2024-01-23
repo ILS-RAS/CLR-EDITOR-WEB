@@ -1,12 +1,9 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { MenuItem } from '../../models/menuItem';
 import { Action } from '../../enums/action';
-import {
-  MatBottomSheet,
-  MatBottomSheetModule,
-  MatBottomSheetRef,
-} from '@angular/material/bottom-sheet';
 import { ProjectNewComponent } from '../project/components/project-new/project-new.component';
+import { MatDialog } from '@angular/material/dialog';
+import { ProjectSelectorComponent } from '../project/components/project-selector/project-selector.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -18,18 +15,17 @@ export class SidebarComponent implements OnInit {
   @Input() menuItems: MenuItem[] = [];
   @Output() menuItemSelected: EventEmitter<any> = new EventEmitter<any>();
 
-  constructor(private _bottomSheet: MatBottomSheet) { }
+  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
   }
 
   click(item: MenuItem) {
     if(item.action == Action.NewProject){
-      this._bottomSheet.open(ProjectNewComponent, {
-        hasBackdrop: false,
-        autoFocus: 'first-tabbable',
-        closeOnNavigation: true
-      });
+      this.dialog.open(ProjectNewComponent);
+    }
+    if(item.action == Action.OpenProject){
+      this.dialog.open(ProjectSelectorComponent);
     }
     this.menuItemSelected.emit(item);
   }

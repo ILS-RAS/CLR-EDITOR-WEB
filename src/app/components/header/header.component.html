@@ -4,6 +4,8 @@
                 <mat-icon svgIcon="menu"></mat-icon>
             </button>
             <span class="title">{{title}}</span>
+            <mat-icon *ngIf="currentProject?.desc" svgIcon="more_vert"></mat-icon>
+            <span class="current-project" color="secondary">{{currentProject?.desc}}</span>
             <span class="spacer"></span>
             <button *ngIf="isAuthenticated" mat-icon-button (click)="logout()">
                 <mat-icon svgIcon="exit"></mat-icon>

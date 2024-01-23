@@ -13,11 +13,11 @@ import { AppType } from '../../../enums/appType';
 export class ProjectService {
   public authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
   public projects = new BehaviorSubject<ProjectModel[]>([]);
-
+  public currentProject = new BehaviorSubject<ProjectModel | undefined>(new ProjectModel({}));
   constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>, private projectApiService: ApiService<ProjectModel>) { }
 
   public async GetProjects(){
-    await this.projectApiService.findAll(new ProjectModel({apiType:AppType.Project}))
+    await this.projectApiService.findAll(new ProjectModel({}), AppType.Project)
     .toPromise()
     .then((items: ProjectModel[]) => {
       this.projects.next(items);
@@ -35,7 +35,8 @@ export class ProjectService {
     return await this.taxonomyApiService
       .findByQuery(
         new TaxonomyViewModel({}),
-        JSON.stringify(new TaxonomyQuery({categoryCode: TaxonomyCategoryEnum.AuthWork}))
+        JSON.stringify(new TaxonomyQuery({categoryCode: TaxonomyCategoryEnum.AuthWork})), 
+        AppType.Taxonomy
       )
       .toPromise()
       .then((items: TaxonomyViewModel[]) => {

@@ -31,8 +31,8 @@ export class ApiService<T extends BaseModel> implements OnInit {
 
   }
 
-  findAll(item: T) {
-    return this.httpClient.get(`${environment.API}${item.apiType}`, {
+  findAll(item: T, path:string) {
+    return this.httpClient.get(`${environment.API}${path}`, {
       headers: this.headers
     }).pipe(
       map((res: any) => {
@@ -42,9 +42,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
     );
   }
 
-  findOne(item: T) {
+  findOne(item: T, path:string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}/${item._id}`, {
+      .get(`${environment.API}${path}/${item._id}`, {
         headers: this.headers
       })
       .pipe(
@@ -55,9 +55,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
-  findByQuery(item: T, query: string) {
+  findByQuery(item: T, query: string, path:string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`, {
+      .get(`${environment.API}${path}?params=${query}`, {
         headers: this.headers
       })
       .pipe(
@@ -68,9 +68,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
-  findPageByQuery(item: T, query: string) {
+  findPageByQuery(item: T, query: string, path:string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`, {
+      .get(`${environment.API}${path}?params=${query}`, {
         headers: this.headers
       })
       .pipe(
@@ -81,9 +81,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
-  countByQuery(item: T, query: string) {
+  countByQuery(item: T, query: string, path:string) {
     return this.httpClient
-      .get(`${environment.API}${item.apiType}?params=${query}`, {
+      .get(`${environment.API}${path}?params=${query}`, {
         headers: this.headers
       })
       .pipe(
@@ -94,9 +94,9 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
-  remove(item: T) {
+  remove(item: T, path:string) {
     return this.httpClient
-      .delete(`${environment.API}${item.apiType}/${item._id}`, {
+      .delete(`${environment.API}${path}/${item._id}`, {
         headers: this.headers
       })
       .pipe(
