@@ -1,4 +1,3 @@
-import { AppType } from '../enums/appType';
 import { BaseModel } from './baseModel';
 
 export class ProjectModel extends BaseModel {

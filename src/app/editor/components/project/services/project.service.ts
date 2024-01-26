@@ -6,6 +6,8 @@ import { BehaviorSubject } from 'rxjs';
 import { TaxonomyQuery } from '../../../queries/taxonomyQuery';
 import { TaxonomyCategoryEnum } from '../../../enums/taxonomyCategory';
 import { AppType } from '../../../enums/appType';
+import { HeaderModel } from '../../../models/headerModel';
+import { HeaderQuery } from '../../../queries/headerQuery';
 
 @Injectable({
   providedIn: 'root'
@@ -13,8 +15,11 @@ import { AppType } from '../../../enums/appType';
 export class ProjectService {
   public authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
   public projects = new BehaviorSubject<ProjectModel[]>([]);
+  public headers = new BehaviorSubject<HeaderModel[]>([]);
   public currentProject = new BehaviorSubject<ProjectModel | undefined>(new ProjectModel({}));
-  constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>, private projectApiService: ApiService<ProjectModel>) { }
+  constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>, 
+    private projectApiService: ApiService<ProjectModel>,
+    private headerApiService: ApiService<HeaderModel>) { }
 
   public async GetProjects(){
     await this.projectApiService.findAll(new ProjectModel({}), AppType.Project)
@@ -25,13 +30,23 @@ export class ProjectService {
     });
   }
 
-  public async save(project: ProjectModel){
+  public async GetHeaders(projectId?: string){
+    return await this.headerApiService.findByQuery(new HeaderModel({}), JSON.stringify(new HeaderQuery({projectId:projectId})),
+    AppType.Header
+    ).toPromise()
+    .then((items: HeaderModel[]) => {
+      this.headers.next(items);
+      Promise.resolve();
+    });
+  }
+
+  public async Save(project: ProjectModel){
     return this.projectApiService.save(project, AppType.Project).toPromise().then((item)=>{
         return item;
     });
   }
 
-  public async loadAuthWorks(){
+  public async GetWorkTaxonomy(){
     return await this.taxonomyApiService
       .findByQuery(
         new TaxonomyViewModel({}),

@@ -48,7 +48,7 @@ export class ProjectNewComponent implements OnInit {
         this.projects = projects;
       });
     });
-    this.projectService.loadAuthWorks().then(() => {
+    this.projectService.GetWorkTaxonomy().then(() => {
       this.projectService.authWorks.subscribe((items) => {
         this.works = items;
       });
@@ -71,7 +71,7 @@ export class ProjectNewComponent implements OnInit {
     p.status = ProjectStatus.Edited;
     p.creatorId = sessionStorage.getItem("_id")?.toString();
 
-    this.projectService.save(p).then((item)=>{
+    this.projectService.Save(p).then((item)=>{
       this.projectService.GetProjects().then(()=>{
         this.projectService.currentProject.next(this.projects.find(i=>i.code == p.code));
       })

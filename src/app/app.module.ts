@@ -33,6 +33,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatDialogModule} from '@angular/material/dialog';
 import { ProjectSelectorComponent } from './editor/components/project/components/project-selector/project-selector.component';
 import { ProjectDashboardComponent } from './editor/components/project/components/project-dashboard/project-dashboard.component';
+import {MatGridListModule} from '@angular/material/grid-list';
+import { TextSelectorComponent } from './editor/components/project/components/text-selector/text-selector.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,7 +45,8 @@ import { ProjectDashboardComponent } from './editor/components/project/component
     SidebarComponent,
     ProjectNewComponent,
     ProjectSelectorComponent,
-    ProjectDashboardComponent
+    ProjectDashboardComponent,
+    TextSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -74,7 +77,8 @@ import { ProjectDashboardComponent } from './editor/components/project/component
     FormsModule, 
     ReactiveFormsModule, 
     MatInputModule,
-    MatDialogModule
+    MatDialogModule,
+    MatGridListModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],
