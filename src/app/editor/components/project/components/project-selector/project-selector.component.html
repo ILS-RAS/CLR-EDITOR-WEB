@@ -3,7 +3,7 @@
         <mat-card-title>Проекты</mat-card-title>
     </mat-card-header>
     <mat-card-content>
-        <mat-form-field>
+        <mat-form-field class="input-field-full-width">
             <mat-label>{{label}}</mat-label>
             <mat-select [formControl]="selected" (selectionChange)="Change()">
                 @for (project of projects; track project) {

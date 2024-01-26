@@ -35,6 +35,7 @@ import { ProjectSelectorComponent } from './editor/components/project/components
 import { ProjectDashboardComponent } from './editor/components/project/components/project-dashboard/project-dashboard.component';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TextSelectorComponent } from './editor/components/project/components/text-selector/text-selector.component';
+import { ProjectToolbarComponent } from './editor/components/project/components/project-toolbar/project-toolbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,8 @@ import { TextSelectorComponent } from './editor/components/project/components/te
     ProjectNewComponent,
     ProjectSelectorComponent,
     ProjectDashboardComponent,
-    TextSelectorComponent
+    TextSelectorComponent,
+    ProjectToolbarComponent
   ],
   imports: [
     BrowserModule,

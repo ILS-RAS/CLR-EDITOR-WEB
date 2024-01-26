@@ -1,7 +1,7 @@
-<mat-form-field class="input-field-full-width">
+<mat-form-field class="input-field-full-width" *ngIf="project">
   <mat-select [formControl]="selected" (selectionChange)="Change()">
     @for (header of headers; track header) {
-    <mat-option [value]="header.code">{{header.code}}</mat-option>
+    <mat-option [value]="header.code">{{header.desc}}</mat-option>
     }
   </mat-select>
 </mat-form-field>

@@ -1,0 +1,8 @@
+<mat-toolbar *ngIf="project">
+  <span color="secondary">{{project.desc}}</span>
+  <app-text-selector [project]="project"></app-text-selector>
+  <span class="spacer"></span>
+  <button mat-icon-button (click)="Close()">
+    <mat-icon>close</mat-icon>
+  </button>
+</mat-toolbar>

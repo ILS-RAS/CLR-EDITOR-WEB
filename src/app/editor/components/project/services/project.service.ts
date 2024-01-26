@@ -16,7 +16,7 @@ export class ProjectService {
   public authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
   public projects = new BehaviorSubject<ProjectModel[]>([]);
   public headers = new BehaviorSubject<HeaderModel[]>([]);
-  public currentProject = new BehaviorSubject<ProjectModel | undefined>(new ProjectModel({}));
+  public currentProject = new BehaviorSubject<ProjectModel | undefined>(undefined);
   constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>, 
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>) { }
@@ -35,8 +35,7 @@ export class ProjectService {
     AppType.Header
     ).toPromise()
     .then((items: HeaderModel[]) => {
-      this.headers.next(items);
-      Promise.resolve();
+      return items;
     });
   }
 

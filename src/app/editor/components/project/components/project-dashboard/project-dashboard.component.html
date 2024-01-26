@@ -1,12 +1,5 @@
-<mat-toolbar>
-    <span color="secondary">{{project?.desc}}</span>
-    <app-text-selector></app-text-selector>
-    <span class="spacer"></span>
-    <button mat-icon-button (click)="Close()">
-      <mat-icon>close</mat-icon>
-    </button>
-  </mat-toolbar>
-  <mat-grid-list cols="2" rowHeight="1:1">
+<app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
+  <mat-grid-list cols="2" rowHeight="2:1">
     <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>1</mat-grid-tile>
+    <mat-grid-tile>2</mat-grid-tile>
   </mat-grid-list>
