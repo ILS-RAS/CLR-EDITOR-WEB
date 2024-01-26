@@ -1,19 +1,20 @@
 import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable, Input} from '@angular/core';
+import {Component, Injectable, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {BehaviorSubject, merge, Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
-import {MatProgressBarModule} from '@angular/material/progress-bar';
-import {MatIconModule} from '@angular/material/icon';
-import {MatButtonModule} from '@angular/material/button';
-import {MatTreeModule} from '@angular/material/tree';
 import { HeaderModel } from '../../../../models/headerModel';
+import { ProjectService } from '../../services/project.service';
+import { IndexModel } from '../../../../models';
 
 /** Flat node with expandable and level information */
 export class DynamicFlatNode {
   constructor(
+    public _id: string,
     public item: string,
+    public parentId: string,
     public level = 1,
+    public order:number,
     public expandable = false,
     public isLoading = false,
   ) {}
@@ -30,9 +31,6 @@ export class DynamicDatabase {
   rootLevelNodes: string[] = ['Fruits', 'Vegetables'];
 
   /** Initial data from database */
-  initialData(): DynamicFlatNode[] {
-    return this.rootLevelNodes.map(name => new DynamicFlatNode(name, 0, true));
-  }
 
   getChildren(node: string): string[] | undefined {
     return this.dataMap.get(node);
@@ -42,7 +40,7 @@ export class DynamicDatabase {
     return this.dataMap.has(node);
   }
 }
-export class DynamicDataSource implements DataSource<DynamicFlatNode> {
+export class DynamicDataSource {
   dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
 
   get data(): DynamicFlatNode[] {
@@ -55,7 +53,7 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
 
   constructor(
     private _treeControl: FlatTreeControl<DynamicFlatNode>,
-    private _database: DynamicDatabase,
+    private _projectService: ProjectService,
   ) {}
 
   connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
@@ -86,11 +84,15 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
     }
   }
 
+  isExtendable(id:string):boolean{
+    return this._projectService.$currentIndeces.find(i=>i.parentId == id) !== undefined;
+  }
+
   /**
    * Toggle the node, remove from display list
    */
   toggleNode(node: DynamicFlatNode, expand: boolean) {
-    const children = this._database.getChildren(node.item);
+    const children = this._projectService.$currentIndeces.filter(i=>i.parentId == node._id).sort((a, b) => (a.order > b.order ? 1 : -1));
     const index = this.data.indexOf(node);
     if (!children || index < 0) {
       // If no children, or cannot find the node, no op
@@ -102,7 +104,7 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
     setTimeout(() => {
       if (expand) {
         const nodes = children.map(
-          name => new DynamicFlatNode(name, node.level + 1, this._database.isExpandable(name)),
+          name => new DynamicFlatNode(name._id as string, name.name as string, node.parentId, node.level + 1, node.order, this.isExtendable(name._id as string)),
         );
         this.data.splice(index + 1, 0, ...nodes);
       } else {
@@ -118,7 +120,7 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
       // notify the change
       this.dataChange.next(this.data);
       node.isLoading = false;
-    }, 1000);
+    }, 250);
   }
 }
 @Component({
@@ -126,15 +128,28 @@ export class DynamicDataSource implements DataSource<DynamicFlatNode> {
   templateUrl: './text-index.component.html',
   styleUrl: './text-index.component.scss'
 })
-export class TextIndexComponent {
-  constructor(database: DynamicDatabase) {
-    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
-    this.dataSource = new DynamicDataSource(this.treeControl, database);
-
-    this.dataSource.data = database.initialData();
-  }
+export class TextIndexComponent implements OnInit, OnChanges {
   
   @Input() header?: HeaderModel;
+  public indeces: IndexModel[] = [];
+
+  constructor(database: DynamicDatabase, private projectService: ProjectService) {
+    this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
+    this.dataSource = new DynamicDataSource(this.treeControl, projectService);
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if(this.header){
+      this.projectService.GetIndeces(this.header._id).then(items=>{
+        this.projectService.$currentIndeces = items;
+        this.dataSource.data = items.filter(i=>!i.parentId).sort((a, b) => (a.order > b.order ? 1 : -1)).map(name => new DynamicFlatNode(name._id as string, name.name as string, name.parentId as string, 0, name.order, this.dataSource.isExtendable(name._id as string)))
+      })
+    }
+  }
+
+  ngOnInit(): void {
+
+
+  }
   
   treeControl: FlatTreeControl<DynamicFlatNode>;
 
