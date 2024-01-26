@@ -1,5 +1,5 @@
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-  <mat-grid-list cols="2" rowHeight="2:1">
-    <mat-grid-tile>1</mat-grid-tile>
-    <mat-grid-tile>2</mat-grid-tile>
-  </mat-grid-list>
+  <mat-grid-list cols="5">
+    <mat-grid-tile class="text-index-panel" [colspan]="1"><app-text-index *ngIf="header" [header]="header"></app-text-index></mat-grid-tile>
+    <mat-grid-tile class="text-chunk-panel" [colspan]="4"><app-text-chunk *ngIf="header"></app-text-chunk></mat-grid-tile>
+  </mat-grid-list> 

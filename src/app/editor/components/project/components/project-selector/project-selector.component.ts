@@ -27,7 +27,7 @@ export class ProjectSelectorComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     this.projectService.GetProjects().then(() => {
-      this.projectService.projects.subscribe((projects) => {
+      this.projectService.$projects.subscribe((projects) => {
         this.projects = projects;
       });
     });
@@ -38,8 +38,7 @@ export class ProjectSelectorComponent implements OnInit {
   }
 
   Open() {
-    let p = this.projects.find((i) => i.code == this.selected.value?.toString());
-    this.projectService.currentProject.next(p);
+    this.projectService.$currentProject.next(this.selected.value as unknown as ProjectModel);
     this.Cancel();
     this.router.navigateByUrl('/project');
   }

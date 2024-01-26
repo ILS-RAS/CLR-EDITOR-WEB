@@ -13,10 +13,11 @@ import { HeaderQuery } from '../../../queries/headerQuery';
   providedIn: 'root'
 })
 export class ProjectService {
-  public authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
-  public projects = new BehaviorSubject<ProjectModel[]>([]);
-  public headers = new BehaviorSubject<HeaderModel[]>([]);
-  public currentProject = new BehaviorSubject<ProjectModel | undefined>(undefined);
+  public $authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
+  public $projects = new BehaviorSubject<ProjectModel[]>([]);
+  public $currentProject = new BehaviorSubject<ProjectModel | undefined>(undefined);
+  public $currentHeader = new BehaviorSubject<HeaderModel | undefined>(undefined);
+
   constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>, 
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>) { }
@@ -25,7 +26,7 @@ export class ProjectService {
     await this.projectApiService.findAll(new ProjectModel({}), AppType.Project)
     .toPromise()
     .then((items: ProjectModel[]) => {
-      this.projects.next(items);
+      this.$projects.next(items);
       Promise.resolve();
     });
   }
@@ -54,7 +55,7 @@ export class ProjectService {
       )
       .toPromise()
       .then((items: TaxonomyViewModel[]) => {
-        this.authWorks.next(items);
+        this.$authWorks.next(items);
         Promise.resolve();
       });
   }

@@ -36,6 +36,9 @@ import { ProjectDashboardComponent } from './editor/components/project/component
 import {MatGridListModule} from '@angular/material/grid-list';
 import { TextSelectorComponent } from './editor/components/project/components/text-selector/text-selector.component';
 import { ProjectToolbarComponent } from './editor/components/project/components/project-toolbar/project-toolbar.component';
+import {MatTreeModule} from '@angular/material/tree';
+import { TextChunkComponent } from './editor/components/project/components/text-chunk/text-chunk.component';
+import { TextIndexComponent } from './editor/components/project/components/text-index/text-index.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +51,9 @@ import { ProjectToolbarComponent } from './editor/components/project/components/
     ProjectSelectorComponent,
     ProjectDashboardComponent,
     TextSelectorComponent,
-    ProjectToolbarComponent
+    ProjectToolbarComponent,
+    TextChunkComponent,
+    TextIndexComponent
   ],
   imports: [
     BrowserModule,
@@ -80,7 +85,8 @@ import { ProjectToolbarComponent } from './editor/components/project/components/
     ReactiveFormsModule, 
     MatInputModule,
     MatDialogModule,
-    MatGridListModule
+    MatGridListModule,
+    MatTreeModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

@@ -44,12 +44,12 @@ export class ProjectNewComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.GetProjects().then(() => {
-      this.projectService.projects.subscribe((projects)=>{
+      this.projectService.$projects.subscribe((projects)=>{
         this.projects = projects;
       });
     });
     this.projectService.GetWorkTaxonomy().then(() => {
-      this.projectService.authWorks.subscribe((items) => {
+      this.projectService.$authWorks.subscribe((items) => {
         this.works = items;
       });
     });
@@ -73,7 +73,7 @@ export class ProjectNewComponent implements OnInit {
 
     this.projectService.Save(p).then((item)=>{
       this.projectService.GetProjects().then(()=>{
-        this.projectService.currentProject.next(this.projects.find(i=>i.code == p.code));
+        this.projectService.$currentProject.next(this.projects.find(i=>i.code == p.code));
       })
       this.Cancel();
       this.router.navigateByUrl('/project');

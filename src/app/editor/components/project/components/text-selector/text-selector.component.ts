@@ -29,7 +29,6 @@ export class TextSelectorComponent implements OnInit {
   }
 
   Change() {
-    
-    
+    this.projectService.$currentHeader.next(this.selected.value as HeaderModel);
   }
 }
