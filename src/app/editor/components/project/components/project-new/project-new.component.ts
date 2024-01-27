@@ -71,16 +71,15 @@ export class ProjectNewComponent implements OnInit {
     p.status = ProjectStatus.Edited;
     p.creatorId = sessionStorage.getItem("_id")?.toString();
 
-    this.projectService.Save(p).then((item)=>{
+    this.projectService.SaveProject(p).then((item)=>{
       this.projectService.GetProjects().then(()=>{
-        this.projectService.$currentProject.next(this.projects.find(i=>i.code == p.code));
-        this.projectService.$currentChunk.next(undefined);
-        this.projectService.$currentInterpChunks.next(undefined);
-        this.projectService.$currentIndex.next(undefined);
-        this.projectService.$currentHeader.next(undefined);
+        let savedProject = this.projects.find(i=>i.code == p.code);
+        if(savedProject){
+          this.projectService.InitContext(savedProject)
+        }
       })
       this.Cancel();
-      this.router.navigateByUrl('/project');
+      this.router.navigateByUrl('/proiectus');
     });
   }
 

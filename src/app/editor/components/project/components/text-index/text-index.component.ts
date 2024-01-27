@@ -85,14 +85,14 @@ export class DynamicDataSource {
   }
 
   isExtendable(id:string):boolean{
-    return this._projectService.$currentIndeces.find(i=>i.parentId == id) !== undefined;
+    return this._projectService.$currentIndeces.value?.find(i=>i.parentId == id) !== undefined;
   }
 
   /**
    * Toggle the node, remove from display list
    */
   toggleNode(node: DynamicFlatNode, expand: boolean) {
-    const children = this._projectService.$currentIndeces.filter(i=>i.parentId == node._id).sort((a, b) => (a.order > b.order ? 1 : -1));
+    const children = this._projectService.$currentIndeces.value?.filter(i=>i.parentId == node._id).sort((a, b) => (a.order > b.order ? 1 : -1));
     const index = this.data.indexOf(node);
     if (!children || index < 0) {
       // If no children, or cannot find the node, no op
@@ -138,10 +138,13 @@ export class TextIndexComponent implements OnInit, OnChanges {
     this.dataSource = new DynamicDataSource(this.treeControl, projectService);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    if(this.header){
-      this.projectService.GetIndeces(this.header._id).then(items=>{
-        this.projectService.$currentIndeces = items;
-        this.dataSource.data = items.filter(i=>!i.parentId).sort((a, b) => (a.order > b.order ? 1 : -1)).map(name => new DynamicFlatNode(name._id as string, name.name as string, name.parentId as string, 0, name.order, this.dataSource.isExtendable(name._id as string)))
+    if(this.header && this.header._id){
+      this.projectService.GetIndeces(this.header._id).then((indeces) => {
+        if(indeces){
+          this.dataSource.data = indeces
+          .filter(i=>!i.parentId).sort((a, b) => (a.order > b.order ? 1 : -1))
+          .map(name => new DynamicFlatNode(name._id as string, name.name as string, name.parentId as string, 0, name.order, this.dataSource.isExtendable(name._id as string)))
+        }
       })
     }
   }
@@ -152,7 +155,7 @@ export class TextIndexComponent implements OnInit, OnChanges {
   }
   
   Select(id: string) {
-    this.projectService.$currentIndex.next(this.projectService.$currentIndeces.find(i=>i._id == id));
+    this.projectService.$currentIndex.next(this.projectService.$currentIndeces.value?.find(i=>i._id == id));
     this.projectService.GetChunk(id);
   }
 

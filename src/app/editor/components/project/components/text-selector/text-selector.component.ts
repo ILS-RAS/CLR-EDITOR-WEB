@@ -20,12 +20,17 @@ export class TextSelectorComponent implements OnInit {
   headers: HeaderModel[] = [];
 
   constructor(private projectService: ProjectService) {
-
-  }
-  ngOnInit(): void {
-    this.projectService.GetHeaders(this.project?._id).then(items =>{
-      this.headers = items;
+    this.projectService.$projectHeaders.subscribe((headers)=>{
+      if(headers){
+        this.headers = headers;
+      }
     });
+  }
+  
+  ngOnInit(): void {
+    if(this.project && this.project._id){
+      this.projectService.GetHeaders(this.project._id);
+    }
   }
 
   Change() {

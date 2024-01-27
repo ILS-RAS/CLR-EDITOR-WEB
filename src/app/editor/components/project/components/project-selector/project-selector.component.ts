@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrl: './project-selector.component.scss',
 })
 export class ProjectSelectorComponent implements OnInit {
+  
   projects: ProjectModel[] = [];
 
   selected = new FormControl([Validators.required]);
@@ -38,13 +39,12 @@ export class ProjectSelectorComponent implements OnInit {
   }
 
   Open() {
-    this.projectService.$currentProject.next(this.selected.value as unknown as ProjectModel);
-    this.projectService.$currentChunk.next(undefined);
-    this.projectService.$currentInterpChunks.next(undefined);
-    this.projectService.$currentIndex.next(undefined);
-    this.projectService.$currentHeader.next(undefined);
-    this.Cancel();
-    this.router.navigateByUrl('/project');
+    let selectedProject = this.selected.value as unknown as ProjectModel;
+    if(selectedProject){
+      this.projectService.InitContext(selectedProject);
+      this.Cancel();
+      this.router.navigateByUrl('/proiectus');
+    }
   }
 
   Change() {

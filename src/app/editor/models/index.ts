@@ -5,3 +5,7 @@ export * from './projectModel';
 export * from './taxonomyModel';
 export * from './taxonomyViewModel';
 export * from './userModel';
+export * from './chunkModel';
+export * from './chunkValueItemModel';
+export * from './chunkViewModel';
+export * from './interpModel';
