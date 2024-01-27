@@ -3,8 +3,10 @@
         <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
     </ng-container>
 </div>
-<div *ngIf="version" class="text-chunk">
-    <ng-container *ngFor="let element of version.elements">
-        <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
-    </ng-container>
+<div *ngIf="versions">
+    <div *ngFor="let version of versions" class="text-version">
+        <ng-container *ngFor="let element of version.elements">
+            <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+        </ng-container>
+    </div>
 </div>

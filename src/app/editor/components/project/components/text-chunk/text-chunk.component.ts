@@ -10,7 +10,7 @@ import { ChunkViewModel } from '../../../../models/chunkViewModel';
 export class TextChunkComponent implements OnInit {
 
   chunk?: ChunkViewModel;
-  version?: ChunkViewModel;
+  versions?: ChunkViewModel[];
 
   constructor(private projectService: ProjectService) {
     
@@ -23,10 +23,12 @@ export class TextChunkComponent implements OnInit {
       }
     });
 
-    this.projectService.$currentInterpChunk.subscribe(item=>{
-      this.version = item;
-      if(this.version){
-        this.version.elements = JSON.parse(item?.valueObj as string);
+    this.projectService.$currentInterpChunks.subscribe(item=>{
+      this.versions = item;
+      if(this.versions){
+        this.versions.forEach(version=>{
+          version.elements = JSON.parse(version.valueObj as string);
+        })
       }
     });
   }

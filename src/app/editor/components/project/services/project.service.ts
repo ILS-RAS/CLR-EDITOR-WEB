@@ -32,7 +32,7 @@ export class ProjectService {
 
   public $currentChunk = new BehaviorSubject<ChunkViewModel | undefined>(undefined);
 
-  public $currentInterpChunk = new BehaviorSubject<ChunkViewModel | undefined>(undefined);
+  public $currentInterpChunks = new BehaviorSubject<ChunkViewModel[] | undefined>(undefined);
 
   public $showVersion = new BehaviorSubject<boolean>(false);
 
@@ -117,11 +117,11 @@ export class ProjectService {
         await this.chunkApiService
         .findByQuery(
           new ChunkViewModel({}),
-          JSON.stringify({ _id: chunkIds[0]}),
+          JSON.stringify({ _id: chunkIds}),
           AppType.Chunk
         ).toPromise()
         .then((result)=>{
-          this.$currentInterpChunk.next(result[0]);
+          this.$currentInterpChunks.next(result);
           Promise.resolve();
         });
     }
