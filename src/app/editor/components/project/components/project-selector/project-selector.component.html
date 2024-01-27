@@ -1,8 +1,5 @@
-<mat-card>
-    <mat-card-header>
-        <mat-card-title>Проекты</mat-card-title>
-    </mat-card-header>
-    <mat-card-content>
+<app-dialog (onCancel)="Cancel()" (onSave)="Open()" [disabled]="isDisabled" title='Проекты'>
+    <mat-form-field class="input-field-full-width">
         <mat-form-field class="input-field-full-width">
             <mat-label>{{label}}</mat-label>
             <mat-select [formControl]="selected" (selectionChange)="Change()">
@@ -11,9 +8,5 @@
                 }
             </mat-select>
         </mat-form-field>
-    </mat-card-content>
-    <mat-card-actions align="end">
-        <button mat-button (click)="Open()" [disabled]="isDisabled">Открыть</button>
-        <button mat-button (click)="Cancel()">Отмена</button>
-    </mat-card-actions>
-</mat-card>
+    </mat-form-field>
+  </app-dialog>

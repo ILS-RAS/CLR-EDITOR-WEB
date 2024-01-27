@@ -44,6 +44,7 @@ import { TextToolbarComponent } from './editor/components/project/components/tex
 import { TextChunkElementComponent } from './editor/components/project/components/text-chunk-element/text-chunk-element.component';
 import { TextIndexToolbarComponent } from './editor/components/project/components/text-index-toolbar/text-index-toolbar.component';
 import { TextIndexItemToolbarComponent } from './editor/components/project/components/text-index-item-toolbar/text-index-item-toolbar.component';
+import { DialogComponent } from './widgets/dialog/dialog.component';
 
 @NgModule({
   declarations: [
@@ -63,7 +64,8 @@ import { TextIndexItemToolbarComponent } from './editor/components/project/compo
     TextToolbarComponent,
     TextChunkElementComponent,
     TextIndexToolbarComponent,
-    TextIndexItemToolbarComponent
+    TextIndexItemToolbarComponent,
+    DialogComponent
   ],
   imports: [
     BrowserModule,
