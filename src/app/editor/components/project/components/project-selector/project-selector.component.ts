@@ -39,6 +39,10 @@ export class ProjectSelectorComponent implements OnInit {
 
   Open() {
     this.projectService.$currentProject.next(this.selected.value as unknown as ProjectModel);
+    this.projectService.$currentChunk.next(undefined);
+    this.projectService.$currentInterpChunks.next(undefined);
+    this.projectService.$currentIndex.next(undefined);
+    this.projectService.$currentHeader.next(undefined);
     this.Cancel();
     this.router.navigateByUrl('/project');
   }

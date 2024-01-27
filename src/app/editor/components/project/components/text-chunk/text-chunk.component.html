@@ -4,7 +4,7 @@
     </ng-container>
 </div>
 <div *ngIf="versions">
-    <div *ngFor="let version of versions" class="text-version">
+    <div *ngFor="let version of versions" class="text-version text-chunk">
         <ng-container *ngFor="let element of version.elements">
             <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
         </ng-container>
