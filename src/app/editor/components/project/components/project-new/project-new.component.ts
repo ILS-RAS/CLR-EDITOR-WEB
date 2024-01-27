@@ -72,12 +72,16 @@ export class ProjectNewComponent implements OnInit {
     p.creatorId = sessionStorage.getItem("_id")?.toString();
 
     this.projectService.SaveProject(p).then((item)=>{
-      this.projectService.GetProjects().then(()=>{
-        let savedProject = this.projects.find(i=>i.code == p.code);
-        if(savedProject){
-          this.projectService.InitContext(savedProject)
-        }
-      })
+      let savedProject = item as ProjectModel;
+      if(savedProject){
+        this.projectService.InitContext(savedProject);
+      }
+      // this.projectService.GetProjects().then(()=>{
+      //   // let savedProject = this.projects.find(i=>i.code == p.code);
+      //   // if(savedProject){
+      //   //   
+      //   // }
+      // })
       this.Cancel();
       this.router.navigateByUrl('/proiectus');
     });

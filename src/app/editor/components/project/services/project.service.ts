@@ -59,6 +59,7 @@ export class ProjectService {
 
   public InitContext(project: ProjectModel) {
     this.$currentProject.next(project);
+    this.$projectHeaders.next(undefined);
     this.$currentIndeces.next(undefined);
     this.$currentIndex.next(undefined);
     this.$currentHeader.next(undefined);
@@ -150,11 +151,11 @@ export class ProjectService {
   }
 
   public async SaveProject(project: ProjectModel) {
-    return this.projectApiService
+    return await this.projectApiService
       .save(project, AppType.Project)
       .toPromise()
       .then((item) => {
-        return item;
+        return Promise.resolve(item);
       });
   }
 
