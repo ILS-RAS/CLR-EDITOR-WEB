@@ -11,6 +11,7 @@ import { HeaderQuery } from '../../../queries/headerQuery';
 import { IndexModel } from '../../../models';
 import { ChunkModel } from '../../../models/chunkModel';
 import { ChunkViewModel } from '../../../models/chunkViewModel';
+import { InterpModel } from '../../../models/interpModel';
 
 @Injectable({
   providedIn: 'root',
@@ -31,12 +32,17 @@ export class ProjectService {
 
   public $currentChunk = new BehaviorSubject<ChunkViewModel | undefined>(undefined);
 
+  public $currentInterpChunk = new BehaviorSubject<ChunkViewModel | undefined>(undefined);
+
+  public $showVersion = new BehaviorSubject<boolean>(false);
+
   constructor(
     private taxonomyApiService: ApiService<TaxonomyViewModel>,
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
     private indexApiService: ApiService<IndexModel>,
-    private chunkApiService: ApiService<ChunkViewModel>
+    private chunkApiService: ApiService<ChunkViewModel>,
+    private interpApiService: ApiService<InterpModel>
   ) {}
 
   public async GetProjects() {
@@ -76,7 +82,7 @@ export class ProjectService {
   }
 
   public async GetChunk(indexId:string | undefined){
-    return await this.chunkApiService
+    await this.chunkApiService
     .findByQuery(
       new ChunkViewModel({}),
       JSON.stringify({ indexId: indexId}),
@@ -84,8 +90,41 @@ export class ProjectService {
     ).toPromise()
     .then((result)=>{
       this.$currentChunk.next(result[0]);
+      if(this.$showVersion.value){
+        this.GetInterp(result[0]._id, result[0].headerLang == 'lat');
+      }
       Promise.resolve();
     });
+  }
+
+  public async GetInterp(
+    id: string,
+    interp: boolean = true
+  ) {
+    let query = interp ? { sourceId: id } : { interpId: id };
+
+    const interps = await this.interpApiService
+      .findByQuery(new InterpModel({}), JSON.stringify(query), AppType.Interp)
+      .toPromise();
+
+    if (interps.length == 0) {
+      Promise.resolve([]);
+    } else {
+      let chunkIds = interp
+        ? interps.map((i: { interpId: any; }) => i.interpId)
+        : interps.map((i_1: { sourceId: any; }) => i_1.sourceId);
+
+        await this.chunkApiService
+        .findByQuery(
+          new ChunkViewModel({}),
+          JSON.stringify({ _id: chunkIds[0]}),
+          AppType.Chunk
+        ).toPromise()
+        .then((result)=>{
+          this.$currentInterpChunk.next(result[0]);
+          Promise.resolve();
+        });
+    }
   }
 
   public async Save(project: ProjectModel) {

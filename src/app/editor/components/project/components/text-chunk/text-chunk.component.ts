@@ -8,7 +8,10 @@ import { ChunkViewModel } from '../../../../models/chunkViewModel';
   styleUrl: './text-chunk.component.scss'
 })
 export class TextChunkComponent implements OnInit {
+
   chunk?: ChunkViewModel;
+  version?: ChunkViewModel;
+
   constructor(private projectService: ProjectService) {
     
   }
@@ -18,6 +21,13 @@ export class TextChunkComponent implements OnInit {
       if(this.chunk){
         this.chunk.elements = JSON.parse(item?.valueObj as string);
       }
-    })
+    });
+
+    this.projectService.$currentInterpChunk.subscribe(item=>{
+      this.version = item;
+      if(this.version){
+        this.version.elements = JSON.parse(item?.valueObj as string);
+      }
+    });
   }
 }

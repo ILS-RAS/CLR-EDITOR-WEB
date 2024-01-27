@@ -4,5 +4,5 @@
     </button>
     <mat-chip *ngIf="index">{{index.name}}</mat-chip>
     <div class="spacer"></div>
-    <mat-slide-toggle [aria-label]="toggleLabel" color="warn"></mat-slide-toggle>
+    <mat-slide-toggle [aria-label]="toggleLabel" color="warn" [(ngModel)]="isChecked" (change)="Change()"></mat-slide-toggle>
 </mat-toolbar>

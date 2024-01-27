@@ -9,9 +9,9 @@ export class ChunkViewModel extends ChunkModel {
     projectDesc?: string;
     headerEditionType?: string;
     projectId?: string;
-    ProjectCode?: string;
-    HeaderCode?: string;
-    HeaderLang?: string;
+    projectCode?: string;
+    headerCode?: string;
+    headerLang?: string;
     elements: ChunkValueItemModel[] = []
     public constructor(fields: Partial<ChunkViewModel>) {
       super(fields);
