@@ -2,18 +2,17 @@
     <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
         <mat-icon>more_vert</mat-icon>
     </button>
-    <mat-menu #menu="matMenu">
-        <button mat-menu-item>
-            <mat-icon>edit</mat-icon>
-            <span>{{index.name}}</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>delete</mat-icon>
-            <span>{{index.name}}</span>
-        </button>
-        <button mat-menu-item>
-            <mat-icon>add</mat-icon>
-            <span>{{index.name}}</span>
-        </button>
+    <mat-menu #menu="matMenu" yPosition="below">
+        <div class="item-menu" fxLayout="row" fxLayoutAlign="start center">
+            <button mat-menu-item>
+                <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>delete</mat-icon>
+            </button>
+            <button mat-menu-item>
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
     </mat-menu>
 </div>
