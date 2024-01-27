@@ -76,12 +76,6 @@ export class ProjectNewComponent implements OnInit {
       if(savedProject){
         this.projectService.InitContext(savedProject);
       }
-      // this.projectService.GetProjects().then(()=>{
-      //   // let savedProject = this.projects.find(i=>i.code == p.code);
-      //   // if(savedProject){
-      //   //   
-      //   // }
-      // })
       this.Cancel();
       this.router.navigateByUrl('/proiectus');
     });
