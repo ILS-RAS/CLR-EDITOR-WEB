@@ -27,7 +27,9 @@ export class TextToolbarComponent implements OnInit{
   }
 
   ngOnInit(): void {
-
+    this.projectService.$showVersion.subscribe(item=>{
+      this.isChecked = item;
+    });
   }
 
   Change() {
