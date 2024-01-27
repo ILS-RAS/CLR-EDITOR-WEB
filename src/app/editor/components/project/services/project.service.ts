@@ -9,6 +9,8 @@ import { AppType } from '../../../enums/appType';
 import { HeaderModel } from '../../../models/headerModel';
 import { HeaderQuery } from '../../../queries/headerQuery';
 import { IndexModel } from '../../../models';
+import { ChunkModel } from '../../../models/chunkModel';
+import { ChunkViewModel } from '../../../models/chunkViewModel';
 
 @Injectable({
   providedIn: 'root',
@@ -25,11 +27,16 @@ export class ProjectService {
 
   public $currentIndeces: IndexModel[] = [];
 
+  public $currentIndex = new BehaviorSubject<IndexModel | undefined>(undefined);
+
+  public $currentChunk = new BehaviorSubject<ChunkViewModel | undefined>(undefined);
+
   constructor(
     private taxonomyApiService: ApiService<TaxonomyViewModel>,
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
-    private indexApiService: ApiService<IndexModel>
+    private indexApiService: ApiService<IndexModel>,
+    private chunkApiService: ApiService<ChunkViewModel>
   ) {}
 
   public async GetProjects() {
@@ -66,6 +73,19 @@ export class ProjectService {
       .then((result) => {
         return Promise.resolve(result);
       });
+  }
+
+  public async GetChunk(indexId:string | undefined){
+    return await this.chunkApiService
+    .findByQuery(
+      new ChunkViewModel({}),
+      JSON.stringify({ indexId: indexId}),
+      AppType.Chunk
+    ).toPromise()
+    .then((result)=>{
+      this.$currentChunk.next(result[0]);
+      Promise.resolve();
+    });
   }
 
   public async Save(project: ProjectModel) {

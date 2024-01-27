@@ -2,6 +2,7 @@
     <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="Click()">
       <mat-icon [svgIcon]="toggleIcon"></mat-icon>
     </button>
+    <mat-chip *ngIf="index">{{index.name}}</mat-chip>
     <div class="spacer"></div>
     <button mat-icon-button aria-label="Example icon-button with heart icon">
       <mat-icon>add</mat-icon>

@@ -151,6 +151,11 @@ export class TextIndexComponent implements OnInit, OnChanges {
 
   }
   
+  Select(id: string) {
+    this.projectService.$currentIndex.next(this.projectService.$currentIndeces.find(i=>i._id == id));
+    this.projectService.GetChunk(id);
+  }
+
   treeControl: FlatTreeControl<DynamicFlatNode>;
 
   dataSource: DynamicDataSource;

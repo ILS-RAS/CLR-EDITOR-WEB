@@ -12,7 +12,6 @@ import { AppConfig } from './constants/app-config';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-  showFiller = true;
   menuItems:MenuItem[] = [];
   sideBarOpen = false;
   deviceInfo?:object = undefined;

@@ -13,7 +13,6 @@ import { HeaderModel } from '../../../../models/headerModel';
 export class ProjectDashboardComponent implements OnInit {
   public project?: ProjectModel;
   public header?:HeaderModel;
-  showFiller = false;
   constructor(
     private projectService: ProjectService,
     private router: Router,
