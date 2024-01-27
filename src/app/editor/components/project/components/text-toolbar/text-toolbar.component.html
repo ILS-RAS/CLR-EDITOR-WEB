@@ -4,10 +4,5 @@
     </button>
     <mat-chip *ngIf="index">{{index.name}}</mat-chip>
     <div class="spacer"></div>
-    <button mat-icon-button aria-label="Example icon-button with heart icon">
-      <mat-icon>add</mat-icon>
-    </button>
-    <button mat-icon-button  aria-label="Example icon-button with share icon">
-      <mat-icon>edit</mat-icon>
-    </button>
+    <mat-slide-toggle [aria-label]="toggleLabel" color="warn"></mat-slide-toggle>
 </mat-toolbar>

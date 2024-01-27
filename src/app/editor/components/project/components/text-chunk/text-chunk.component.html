@@ -1,4 +1,4 @@
-<div *ngIf="chunk">
+<div *ngIf="chunk" class="text-chunk">
     <ng-container *ngFor="let element of chunk.elements">
         <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
     </ng-container>

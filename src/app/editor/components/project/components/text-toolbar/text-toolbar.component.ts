@@ -11,6 +11,7 @@ export class TextToolbarComponent implements OnInit {
   
   @Output() onToggleIndex: EventEmitter<void> = new EventEmitter();
   toggleIcon: string = "left_panel_open";
+  toggleLabel: string = "Interpretatio"
   index?:IndexModel;
   constructor(private projectService: ProjectService) {
     this.projectService.$currentIndex.subscribe(item=>{

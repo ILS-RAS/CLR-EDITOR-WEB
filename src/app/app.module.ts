@@ -42,6 +42,7 @@ import { TextIndexComponent } from './editor/components/project/components/text-
 import {MatChipsModule} from '@angular/material/chips';
 import { TextToolbarComponent } from './editor/components/project/components/text-toolbar/text-toolbar.component';
 import { TextChunkElementComponent } from './editor/components/project/components/text-chunk-element/text-chunk-element.component';
+
 @NgModule({
   declarations: [
     AppComponent,

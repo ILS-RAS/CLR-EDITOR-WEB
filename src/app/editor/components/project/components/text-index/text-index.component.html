@@ -1,17 +1,19 @@
 <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-    <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
-        <button mat-icon-button disabled></button>
-        <mat-chip (click)="Select(node._id)" class="index-chip">{{node.item}}</mat-chip>
-    </mat-tree-node>
-    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-        <button mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
-            <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-            </mat-icon>
-        </button>
-        <mat-chip (click)="Select(node._id)" class="index-chip">{{node.item}}</mat-chip>
-        @if (node.isLoading) {
-        <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
-        }
-    </mat-tree-node>
+    <mat-chip-listbox [selectable]="true">
+        <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
+            <button mat-icon-button disabled></button>
+            <mat-chip-option (click)="Select(node._id)" class="index-chip">{{node.item}}</mat-chip-option>
+        </mat-tree-node>
+        <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
+            <button mat-icon-button [attr.aria-label]="'Toggle ' + node.item" matTreeNodeToggle>
+                <mat-icon class="mat-icon-rtl-mirror">
+                    {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
+                </mat-icon>
+            </button>
+            <mat-chip-option (click)="Select(node._id)" class="index-chip">{{node.item}}</mat-chip-option>
+            @if (node.isLoading) {
+            <mat-progress-bar mode="indeterminate" class="example-tree-progress-bar"></mat-progress-bar>
+            }
+        </mat-tree-node>
+    </mat-chip-listbox>
 </mat-tree>
