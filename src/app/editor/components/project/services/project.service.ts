@@ -114,7 +114,7 @@ export class ProjectService {
       .toPromise()
       .then((result) => {
         this.$currentChunk.next(result[0]);
-        if (this.$showVersion.value) {
+        if (this.$showVersion.value && result[0]) {
           this.GetInterp(result[0]._id, result[0].headerLang == 'lat');
         }
         Promise.resolve();
