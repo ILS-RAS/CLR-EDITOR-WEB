@@ -135,6 +135,7 @@ export class TextIndexComponent implements OnInit, OnChanges {
   
   Select(id: string) {
     this.projectService.$currentIndex.next(this.projectService.$currentIndeces.value?.find(i=>i._id == id));
+    this.projectService.$currentInterpChunks.next(undefined);
     this.projectService.GetChunk(id);
   }
 
