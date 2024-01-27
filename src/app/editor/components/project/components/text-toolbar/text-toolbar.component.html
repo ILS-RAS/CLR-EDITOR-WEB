@@ -1,8 +1,9 @@
 <mat-toolbar>
-    <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="Click()">
-      <mat-icon [svgIcon]="toggleIcon"></mat-icon>
-    </button>
-    <mat-chip *ngIf="index">{{index.name}}</mat-chip>
-    <div class="spacer"></div>
-    <mat-slide-toggle [aria-label]="toggleLabel" color="warn" [(ngModel)]="isChecked" (change)="Change()"></mat-slide-toggle>
+  <app-text-index-toolbar *ngIf="isToggled" [index]="index"></app-text-index-toolbar>
+  <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="Click()">
+    <mat-icon [svgIcon]="toggleIcon"></mat-icon>
+  </button>
+  <div class="spacer"></div>
+  <mat-slide-toggle [aria-label]="toggleLabel" color="warn" [(ngModel)]="isChecked"
+    (change)="Change()"></mat-slide-toggle>
 </mat-toolbar>

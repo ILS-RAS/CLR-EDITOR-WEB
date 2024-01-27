@@ -17,6 +17,7 @@ export class ProjectDashboardComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
   ) {}
+  
   ngOnInit(): void {
     this.projectService.$currentProject.subscribe(item=>{
       this.project = item;
