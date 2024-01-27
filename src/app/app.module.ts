@@ -39,11 +39,8 @@ import { ProjectToolbarComponent } from './editor/components/project/components/
 import {MatTreeModule} from '@angular/material/tree';
 import { TextChunkComponent } from './editor/components/project/components/text-chunk/text-chunk.component';
 import { TextIndexComponent } from './editor/components/project/components/text-index/text-index.component';
-import { TextIndexToolbarComponent } from './editor/components/project/components/text-index-toolbar/text-index-toolbar.component';
 import {MatChipsModule} from '@angular/material/chips';
-import { TextChunkToolbarComponent } from './editor/components/project/components/text-chunk-toolbar/text-chunk-toolbar.component';
-import { TextChunkPanelComponent } from './editor/components/project/components/text-chunk-panel/text-chunk-panel.component';
-import { TextIndexPanelComponent } from './editor/components/project/components/text-index-panel/text-index-panel.component';
+import { TextToolbarComponent } from './editor/components/project/components/text-toolbar/text-toolbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,10 +56,7 @@ import { TextIndexPanelComponent } from './editor/components/project/components/
     ProjectToolbarComponent,
     TextChunkComponent,
     TextIndexComponent,
-    TextIndexToolbarComponent,
-    TextChunkToolbarComponent,
-    TextChunkPanelComponent,
-    TextIndexPanelComponent
+    TextToolbarComponent
   ],
   imports: [
     BrowserModule,

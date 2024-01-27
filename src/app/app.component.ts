@@ -115,5 +115,19 @@ export class AppComponent {
         '../assets/icons/more_vert.svg'
       )
     );
+
+    this.matIconRegistry.addSvgIcon(
+      `left_panel_close`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/left_panel_close.svg'
+      )
+    );
+
+    this.matIconRegistry.addSvgIcon(
+      `left_panel_open`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/left_panel_open.svg'
+      )
+    );
   }
 }

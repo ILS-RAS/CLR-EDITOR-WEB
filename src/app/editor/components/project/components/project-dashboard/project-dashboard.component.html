@@ -1,9 +1,10 @@
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-<mat-grid-list cols="10">
-  <mat-grid-tile class="text-index-panel" [colspan]="1">
-    <app-text-index-panel [header]="header"></app-text-index-panel>
-  </mat-grid-tile>
-  <mat-grid-tile class="text-chunk-panel" [colspan]="9">
-    <app-text-chunk-panel></app-text-chunk-panel>
-  </mat-grid-tile>
-</mat-grid-list>
+<app-text-toolbar *ngIf="header" (onToggleIndex)="drawer.toggle()"></app-text-toolbar>
+<mat-drawer-container class="container" autosize>
+  <mat-drawer #drawer class="sidenav" mode="side">
+    <app-text-index *ngIf="header" [header]="header"></app-text-index>
+  </mat-drawer>
+  <div class="sidenav-content">
+    <app-text-chunk *ngIf="header"></app-text-chunk>
+  </div>
+</mat-drawer-container>
