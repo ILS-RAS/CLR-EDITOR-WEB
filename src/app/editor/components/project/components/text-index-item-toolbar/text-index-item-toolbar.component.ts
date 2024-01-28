@@ -1,5 +1,5 @@
 import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { IndexModel } from '../../../../models';
+import { ChunkModel, IndexModel } from '../../../../models';
 import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
@@ -30,14 +30,11 @@ export class TextIndexItemToolbarComponent implements OnChanges {
 
   ngOnInit(): void {}
 
-  AddChunk() {
-    this.dialog.open(TextChunkEditorComponent);
-  }
   DeleteNode() {
     throw new Error('Method not implemented.');
   }
   EditNode() {
-    this.dialog.open(TextIndexItemEditorComponent);
+    this.dialog.open(TextIndexItemEditorComponent,  { width: `600px`, hasBackdrop: true, data: this.index  });
   }
   AddSubnodes() {
     throw new Error('Method not implemented.');

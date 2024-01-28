@@ -1,1 +1,6 @@
-<p>text-chunk-editor works!</p>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Novum fragmentum'>
+    <mat-form-field class="input-field-full-width">
+        <mat-label>Textus fragmenti</mat-label>
+        <textarea matInput rows="10"></textarea>
+    </mat-form-field>
+</app-dialog>

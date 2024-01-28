@@ -16,7 +16,6 @@ import {
   providedIn: 'root',
 })
 export class ProjectService {
-  
 
   public $projects = new BehaviorSubject<ProjectModel[]>([]);
 
@@ -119,6 +118,10 @@ export class ProjectService {
         }
         Promise.resolve();
       });
+  }
+
+  SaveChunk() {
+    throw new Error('Method not implemented.');
   }
 
   public async GetInterp(chunkId: string, interp: boolean = true) {
