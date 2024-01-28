@@ -1,26 +1,29 @@
-import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { IndexModel } from '../../../../models';
+import { ActionService } from '../../services/action.service';
+import { Action } from '../../../../enums';
 
 @Component({
   selector: 'app-text-toolbar',
   templateUrl: './text-toolbar.component.html',
-  styleUrl: './text-toolbar.component.scss'
+  styleUrl: './text-toolbar.component.scss',
 })
 export class TextToolbarComponent implements OnInit {
-DeleteChunk() {
-throw new Error('Method not implemented.');
-}
-EditChunk() {
-throw new Error('Method not implemented.');
-}
+
   @Output() onToggleIndex: EventEmitter<void> = new EventEmitter();
   toggleIcon: string = 'left_panel_open';
   toggleLabel: string = 'Interpretatio';
   index?: IndexModel;
   isChecked = false;
   isToggled = false;
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService, private actionService: ActionService) {
     this.projectService.$currentIndex.subscribe((item) => {
       this.index = item;
     });
@@ -39,6 +42,18 @@ throw new Error('Method not implemented.');
     this.projectService.$showVersion.subscribe((item) => {
       this.isChecked = item;
     });
+  }
+
+  DeleteChunk() {
+    throw new Error('Method not implemented.');
+  }
+
+  EditChunk() {
+    this.actionService.$currentAction.next(Action.EditChunk);
+  }
+
+  SaveChunk() {
+    this.actionService.$currentAction.next(Action.SaveChunk);
   }
 
   Change() {

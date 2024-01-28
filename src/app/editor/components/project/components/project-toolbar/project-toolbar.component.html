@@ -2,17 +2,17 @@
   <mat-chip color="secondary">{{project.code}}</mat-chip>
   <app-text-selector [project]="project"></app-text-selector>
   <span class="spacer"></span>
-  <button mat-icon-button (click)="AddTextHeader()">
+  <button mat-mini-fab color="secondary" (click)="AddTextHeader()">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button (click)="EditTextHeader()">
+  <button mat-mini-fab color="secondary" (click)="EditTextHeader()">
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-icon-button (click)="DeleteText()">
+  <button mat-mini-fab color="warn" (click)="DeleteText()">
     <mat-icon>delete</mat-icon>
   </button>
-  <mat-divider [vertical]="true" color="warn"></mat-divider>
-  <button mat-icon-button (click)="Close()">
+  <mat-divider [vertical]="true"></mat-divider>
+  <button mat-mini-fab color="primary" (click)="Close()">
     <mat-icon>close</mat-icon>
   </button>
 </mat-toolbar>

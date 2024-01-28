@@ -1,6 +1,8 @@
 export enum Action {
-    NewProject,
-    OpenProject,
-    NewTaxonomy,
-    OpenTaxonomy
+  NewProject,
+  OpenProject,
+  NewTaxonomy,
+  OpenTaxonomy,
+  EditChunk,
+  SaveChunk
 }

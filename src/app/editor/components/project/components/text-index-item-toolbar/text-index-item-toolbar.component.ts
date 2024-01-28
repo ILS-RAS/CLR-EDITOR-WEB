@@ -2,7 +2,6 @@ import { Component, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { ChunkModel, IndexModel } from '../../../../models';
 import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
-import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
 
 @Component({

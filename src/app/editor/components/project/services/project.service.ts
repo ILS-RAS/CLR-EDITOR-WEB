@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { BehaviorSubject } from 'rxjs';
-import { AppType, TaxonomyCategoryEnum } from '../../../enums';
-import { HeaderQuery, TaxonomyQuery } from '../../../queries';
+import { AppType } from '../../../enums';
+import { HeaderQuery } from '../../../queries';
 import {
   IndexModel,
   InterpModel,
   ChunkViewModel,
   ProjectModel,
-  TaxonomyViewModel,
   HeaderModel,
 } from '../../../models';
 
@@ -121,7 +120,7 @@ export class ProjectService {
   }
 
   SaveChunk() {
-    throw new Error('Method not implemented.');
+    
   }
 
   public async GetInterp(chunkId: string, interp: boolean = true) {

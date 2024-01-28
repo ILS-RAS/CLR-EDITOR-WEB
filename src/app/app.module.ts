@@ -47,7 +47,6 @@ import { TextIndexItemToolbarComponent } from './editor/components/project/compo
 import { DialogComponent } from './widgets/dialog/dialog.component';
 import { TextHeaderEditorComponent } from './editor/components/project/components/text-header-editor/text-header-editor.component';
 import { TextIndexItemEditorComponent } from './editor/components/project/components/text-index-item-editor/text-index-item-editor.component';
-import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
 import { ConfirmComponent } from './widgets/confirm/confirm.component';
 
 @NgModule({
@@ -72,7 +71,6 @@ import { ConfirmComponent } from './widgets/confirm/confirm.component';
     DialogComponent,
     TextHeaderEditorComponent,
     TextIndexItemEditorComponent,
-    TextChunkEditorComponent,
     ConfirmComponent
   ],
   imports: [
