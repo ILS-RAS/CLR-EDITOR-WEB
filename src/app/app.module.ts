@@ -45,6 +45,10 @@ import { TextChunkElementComponent } from './editor/components/project/component
 import { TextIndexToolbarComponent } from './editor/components/project/components/text-index-toolbar/text-index-toolbar.component';
 import { TextIndexItemToolbarComponent } from './editor/components/project/components/text-index-item-toolbar/text-index-item-toolbar.component';
 import { DialogComponent } from './widgets/dialog/dialog.component';
+import { TextHeaderEditorComponent } from './editor/components/project/components/text-header-editor/text-header-editor.component';
+import { TextIndexItemEditorComponent } from './editor/components/project/components/text-index-item-editor/text-index-item-editor.component';
+import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
+import { ConfirmComponent } from './widgets/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -65,7 +69,11 @@ import { DialogComponent } from './widgets/dialog/dialog.component';
     TextChunkElementComponent,
     TextIndexToolbarComponent,
     TextIndexItemToolbarComponent,
-    DialogComponent
+    DialogComponent,
+    TextHeaderEditorComponent,
+    TextIndexItemEditorComponent,
+    TextChunkEditorComponent,
+    ConfirmComponent
   ],
   imports: [
     BrowserModule,

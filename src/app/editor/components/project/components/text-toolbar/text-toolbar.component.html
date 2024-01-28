@@ -1,8 +1,8 @@
 <mat-toolbar>
-  <app-text-index-toolbar *ngIf="isToggled" [index]="index"></app-text-index-toolbar>
   <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="Click()">
     <mat-icon [svgIcon]="toggleIcon"></mat-icon>
   </button>
+  <app-text-index-toolbar *ngIf="isToggled" [index]="index"></app-text-index-toolbar>
   <div class="spacer"></div>
   <mat-slide-toggle [aria-label]="toggleLabel" color="warn" [(ngModel)]="isChecked"
     (change)="Change()"></mat-slide-toggle>

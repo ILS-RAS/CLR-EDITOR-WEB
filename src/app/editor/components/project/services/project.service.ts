@@ -16,7 +16,7 @@ import {
   providedIn: 'root',
 })
 export class ProjectService {
-  public $authWorks = new BehaviorSubject<TaxonomyViewModel[]>([]);
+  
 
   public $projects = new BehaviorSubject<ProjectModel[]>([]);
 
@@ -49,7 +49,6 @@ export class ProjectService {
   public $showVersion = new BehaviorSubject<boolean>(false);
 
   constructor(
-    private taxonomyApiService: ApiService<TaxonomyViewModel>,
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
     private indexApiService: ApiService<IndexModel>,
@@ -156,22 +155,6 @@ export class ProjectService {
       .toPromise()
       .then((item) => {
         return Promise.resolve(item);
-      });
-  }
-
-  public async GetWorkTaxonomy() {
-    return await this.taxonomyApiService
-      .findByQuery(
-        new TaxonomyViewModel({}),
-        JSON.stringify(
-          new TaxonomyQuery({ categoryCode: TaxonomyCategoryEnum.AuthWork })
-        ),
-        AppType.Taxonomy
-      )
-      .toPromise()
-      .then((items: TaxonomyViewModel[]) => {
-        this.$authWorks.next(items);
-        Promise.resolve();
       });
   }
 }

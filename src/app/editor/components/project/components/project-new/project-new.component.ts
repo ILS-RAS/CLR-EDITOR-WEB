@@ -4,19 +4,12 @@ import { Router } from '@angular/router';
 import { TaxonomyViewModel } from '../../../../models/taxonomyViewModel';
 import { FormControl, Validators } from '@angular/forms';
 import { ProjectModel } from '../../../../models/projectModel';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { Action } from '../../../../enums/action';
 import { ProjectStatus } from '../../../../enums/projectStatus';
-import { MatBottomSheetRef} from '@angular/material/bottom-sheet';
 import {
-  MatDialog,
   MAT_DIALOG_DATA,
   MatDialogRef,
-  MatDialogTitle,
-  MatDialogContent,
-  MatDialogActions,
-  MatDialogClose,
 } from '@angular/material/dialog';
+import { MetaService } from '../../services/meta.service';
 @Component({
   selector: 'app-project-new',
   templateUrl: './project-new.component.html',
@@ -36,10 +29,10 @@ export class ProjectNewComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    private metaService:MetaService,
     private router: Router,
-    private _snackBar: MatSnackBar,
     public dialogRef: MatDialogRef<ProjectNewComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
+    @Inject(MAT_DIALOG_DATA) public data: ProjectModel
   ) {}
 
   ngOnInit(): void {
@@ -48,8 +41,8 @@ export class ProjectNewComponent implements OnInit {
         this.projects = projects;
       });
     });
-    this.projectService.GetWorkTaxonomy().then(() => {
-      this.projectService.$authWorks.subscribe((items) => {
+    this.metaService.GetWorkTaxonomy().then(() => {
+      this.metaService.$authWorks.subscribe((items) => {
         this.works = items;
       });
     });
