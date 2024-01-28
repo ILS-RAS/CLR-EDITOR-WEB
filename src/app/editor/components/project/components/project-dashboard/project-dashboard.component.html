@@ -1,10 +1,11 @@
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-<app-text-toolbar *ngIf="header" (onToggleIndex)="drawer.toggle()"></app-text-toolbar>
 <mat-drawer-container class="container" autosize>
   <mat-drawer #drawer class="sidenav" mode="side">
+    <app-text-index-toolbar></app-text-index-toolbar>
     <app-text-index *ngIf="header" [header]="header"></app-text-index>
   </mat-drawer>
   <div class="sidenav-content">
+    <app-text-toolbar *ngIf="header" (onToggleIndex)="drawer.toggle()"></app-text-toolbar>
     <app-text-chunk *ngIf="header"></app-text-chunk>
   </div>
 </mat-drawer-container>
