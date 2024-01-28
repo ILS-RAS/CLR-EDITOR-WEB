@@ -1,13 +1,19 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { IndexModel } from '../../../../models';
 
 @Component({
   selector: 'app-text-toolbar',
   templateUrl: './text-toolbar.component.html',
-  styleUrl: './text-toolbar.component.scss',
+  styleUrl: './text-toolbar.component.scss'
 })
 export class TextToolbarComponent implements OnInit {
+DeleteChunk() {
+throw new Error('Method not implemented.');
+}
+EditChunk() {
+throw new Error('Method not implemented.');
+}
   @Output() onToggleIndex: EventEmitter<void> = new EventEmitter();
   toggleIcon: string = 'left_panel_open';
   toggleLabel: string = 'Interpretatio';

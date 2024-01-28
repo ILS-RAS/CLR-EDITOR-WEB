@@ -1,7 +1,16 @@
 <mat-toolbar>
-  <button mat-icon-button aria-label="Example icon-button with menu icon" (click)="Click()">
+  <button mat-mini-fab color="primary" aria-label="Open index panel" (click)="Click()">
     <mat-icon [svgIcon]="toggleIcon"></mat-icon>
   </button>
+  <mat-divider [vertical]="true" class="mat-divider"></mat-divider>
+  <div class="chunk-toolbar" *ngIf="index">
+    <button mat-mini-fab color="secondary" aria-label="Edit chunk" (click)="EditChunk()">
+      <mat-icon>edit</mat-icon>
+    </button>
+    <button mat-mini-fab color="secondary" aria-label="Delete chunk" (click)="DeleteChunk()">
+      <mat-icon>delete</mat-icon>
+    </button>
+  </div>
   <div class="spacer"></div>
   <mat-slide-toggle [aria-label]="toggleLabel" color="warn" [(ngModel)]="isChecked"
     (change)="Change()"></mat-slide-toggle>
