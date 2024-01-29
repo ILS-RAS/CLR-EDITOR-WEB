@@ -9,6 +9,7 @@ import {
 import { MetaService } from '../../services/meta.service';
 import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
 import { ProjectService } from '../../services/project.service';
+import { Helper } from '../../../../../utils';
 
 @Component({
   selector: 'app-text-header-editor',
@@ -45,18 +46,7 @@ export class TextHeaderEditorComponent implements OnInit {
     this.editorForm.controls['langSelect'].setValue(this.header.lang);
     this.editorForm.controls['biblioInput'].setValue(this.header.desc);
 
-    this.editorForm.statusChanges.subscribe(val => this.onFormValidation(val));
-  }
-
-  onFormValidation(validity: string) {
-    switch (validity) {
-      case "VALID":
-        this.isDisabled = false;
-        break;
-      case "INVALID":
-        this.isDisabled = true;
-        break;
-    }
+    this.editorForm.statusChanges.subscribe(val => this.isDisabled = !Helper.IsFormValid(val));
   }
 
   Save() {
