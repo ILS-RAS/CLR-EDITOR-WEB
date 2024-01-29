@@ -48,7 +48,7 @@ import { DialogComponent } from './widgets/dialog/dialog.component';
 import { TextHeaderEditorComponent } from './editor/components/project/components/text-header-editor/text-header-editor.component';
 import { TextIndexItemEditorComponent } from './editor/components/project/components/text-index-item-editor/text-index-item-editor.component';
 import { ConfirmComponent } from './widgets/confirm/confirm.component';
-
+import {MatBadgeModule} from '@angular/material/badge';
 @NgModule({
   declarations: [
     AppComponent,
@@ -105,7 +105,8 @@ import { ConfirmComponent } from './widgets/confirm/confirm.component';
     MatDialogModule,
     MatGridListModule,
     MatTreeModule,
-    MatChipsModule
+    MatChipsModule,
+    MatBadgeModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

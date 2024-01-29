@@ -8,20 +8,21 @@
         <mat-form-field class="input-field-full-width">
             <mat-label>Textus fragmenti</mat-label>
             <textarea matInput formControlName="chunkTextNew" rows="10"></textarea>
-          </mat-form-field>
+        </mat-form-field>
     </div>
-    
+
     <div *ngIf="action" class="text-chunk">
         <mat-form-field class="input-field-full-width">
             <textarea matInput formControlName="chunkText" rows="10"></textarea>
-          </mat-form-field>
+        </mat-form-field>
     </div>
 </form>
 
 <div *ngIf="versions">
     <div *ngFor="let version of versions" class="text-version text-chunk">
-        <ng-container *ngFor="let element of version.elements">
-            <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
-        </ng-container>
+            <ng-container *ngFor="let element of version.elements">
+                <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+            </ng-container>
+            <span class="header-code">{{version.headerCode}}</span>
     </div>
 </div>
