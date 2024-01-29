@@ -43,7 +43,7 @@ export class ProjectNewComponent implements OnInit {
       });
     });
 
-    this.works = this.metaService.GetByCategory(TaxonomyCategory.AuthWork);
+    this.works = this.metaService.GetByCategory(TaxonomyCategory.AuthWork).sort();
   }
 
   ProjectExists(code: string|undefined): boolean {

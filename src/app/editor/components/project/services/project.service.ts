@@ -11,6 +11,7 @@ import {
   HeaderModel,
   ChunkModel,
 } from '../../../models';
+import { Helper } from '../../../../utils';
 
 @Injectable({
   providedIn: 'root',
