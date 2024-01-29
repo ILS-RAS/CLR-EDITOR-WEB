@@ -7,8 +7,7 @@ import { HeaderModel } from '../../../../models/headerModel';
 @Component({
   selector: 'app-project-dashboard',
   templateUrl: './project-dashboard.component.html',
-  styleUrl: './project-dashboard.component.scss',
-  encapsulation:ViewEncapsulation.None
+  styleUrl: './project-dashboard.component.scss'
 })
 export class ProjectDashboardComponent implements OnInit {
   public project?: ProjectModel;

@@ -1,7 +1,12 @@
 import { BaseModel } from './baseModel';
 
 export class TaxonomyModel extends BaseModel {
-  code: string | undefined;
-  desc: string | undefined;
-  parentId: string | undefined;
+  code?: string;
+  desc?: string;
+  parentId?: string;
+
+  public constructor(fields: Partial<TaxonomyModel>) {
+    super();
+    Object.assign(this, fields);
+ }
 }

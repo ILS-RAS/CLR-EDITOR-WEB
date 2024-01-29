@@ -1,4 +1,4 @@
-export enum TaxonomyCategoryEnum
+export enum TaxonomyCategory
 {
     AuthWork = 'AuthWork',
     Pos = 'Pos',

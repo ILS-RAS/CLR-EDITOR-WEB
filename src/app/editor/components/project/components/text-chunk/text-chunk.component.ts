@@ -36,7 +36,7 @@ export class TextChunkComponent implements OnInit {
         }
       }
       if(action == Action.SaveChunk){
-        this.projectService.SaveChunk();
+        //this.projectService.SaveChunk();
         this.actionService.$currentAction.next(undefined);
       }
     });

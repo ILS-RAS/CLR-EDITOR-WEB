@@ -22,10 +22,10 @@ export class SidebarComponent implements OnInit {
 
   click(item: MenuItem) {
     if(item.action == Action.NewProject){
-      this.dialog.open(ProjectNewComponent);
+      this.dialog.open(ProjectNewComponent, {width:'600px'});
     }
     if(item.action == Action.OpenProject){
-      this.dialog.open(ProjectSelectorComponent);
+      this.dialog.open(ProjectSelectorComponent, {width:'600px'});
     }
     this.menuItemSelected.emit(item);
   }

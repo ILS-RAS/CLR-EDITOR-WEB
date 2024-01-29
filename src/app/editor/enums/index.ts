@@ -3,3 +3,4 @@ export * from './appType';
 export * from './menuItemType';
 export * from './projectStatus';
 export * from './taxonomyCategory';
+export * from './editionType';

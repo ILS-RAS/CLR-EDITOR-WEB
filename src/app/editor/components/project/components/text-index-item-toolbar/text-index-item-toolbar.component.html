@@ -4,13 +4,13 @@
     </button>
     <mat-menu #menu="matMenu" yPosition="below">
         <div class="item-menu" fxLayout="row" fxLayoutAlign="start center">
-            <button mat-menu-item (click)="AddSubnodes()">
+            <button mat-mini-fab color="primary" (click)="AddSubnodes()">
                 <mat-icon>add</mat-icon>
             </button>
-            <button mat-menu-item (click)="EditNode()">
+            <button mat-mini-fab color="primary" (click)="EditNode()">
                 <mat-icon>edit</mat-icon>
             </button>
-            <button mat-menu-item (click)="DeleteNode()">
+            <button mat-mini-fab color="warn" (click)="DeleteNode()">
                 <mat-icon>delete</mat-icon>
             </button>
         </div>

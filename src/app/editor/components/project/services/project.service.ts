@@ -9,6 +9,7 @@ import {
   ChunkViewModel,
   ProjectModel,
   HeaderModel,
+  ChunkModel,
 } from '../../../models';
 
 @Injectable({
@@ -119,7 +120,16 @@ export class ProjectService {
       });
   }
 
-  SaveChunk() {
+  public async SaveHeader(header: HeaderModel){
+    return await this.headerApiService
+    .save(header, AppType.Header)
+    .toPromise()
+    .then((item) => {
+      return Promise.resolve(item);
+    });
+  }
+
+  public async SaveChunk(chunk: ChunkModel) {
     
   }
 

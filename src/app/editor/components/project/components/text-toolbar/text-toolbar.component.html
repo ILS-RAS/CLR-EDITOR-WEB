@@ -1,19 +1,17 @@
 <mat-toolbar>
-  <button mat-mini-fab color="primary" aria-label="Open index panel" (click)="Click()">
+  <button mat-mini-fab color="secondary" aria-label="Open index panel" (click)="Click()">
     <mat-icon [svgIcon]="toggleIcon"></mat-icon>
   </button>
   <mat-divider [vertical]="true" class="mat-divider"></mat-divider>
-  <div class="chunk-toolbar" *ngIf="index">
-    <button mat-mini-fab color="primary" aria-label="Edit chunk" (click)="EditChunk()">
-      <mat-icon>edit</mat-icon>
-    </button>
-    <button mat-mini-fab color="primary" aria-label="Save chunk" (click)="SaveChunk()">
-      <mat-icon>save</mat-icon>
-    </button>
-    <button mat-mini-fab color="warn" aria-label="Delete chunk" (click)="DeleteChunk()">
-      <mat-icon>delete</mat-icon>
-    </button>
-  </div>
+  <button mat-mini-fab color="secondary" aria-label="Edit chunk" (click)="EditChunk()" [disabled]="!index">
+    <mat-icon>edit</mat-icon>
+  </button>
+  <button mat-mini-fab color="secondary" aria-label="Save chunk" (click)="SaveChunk()" [disabled]="!index">
+    <mat-icon>save</mat-icon>
+  </button>
+  <button mat-mini-fab color="warn" aria-label="Delete chunk" (click)="DeleteChunk()" [disabled]="!index">
+    <mat-icon>delete</mat-icon>
+  </button>
   <div class="spacer"></div>
   <mat-slide-toggle [aria-label]="toggleLabel" color="primary" [(ngModel)]="isChecked"
     (change)="Change()"></mat-slide-toggle>

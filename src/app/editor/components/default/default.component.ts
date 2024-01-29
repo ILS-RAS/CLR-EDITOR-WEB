@@ -3,6 +3,7 @@ import { MenuItem } from '../../models/menuItem';
 import { MenuService } from '../../services/menu.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppConfig } from '../../../constants/app-config';
+import { MetaService } from '../project/services/meta.service';
 
 @Component({
   selector: 'app-default',
@@ -11,6 +12,8 @@ import { AppConfig } from '../../../constants/app-config';
 })
 export class DefaultComponent {
 
-  
+  constructor(private metaService: MetaService){
+    this.metaService.GetTaxonomy();
+  }
 
 }

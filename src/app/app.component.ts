@@ -34,7 +34,7 @@ export class AppComponent {
   }
   
   menuItemSelected(menuItem: MenuItem) {
-    this.sideBarOpen = false;
+    //this.sideBarOpen = false;
   }
 
   sideBarToggler() {

@@ -10,6 +10,7 @@ import {
   MatDialogRef,
 } from '@angular/material/dialog';
 import { MetaService } from '../../services/meta.service';
+import { TaxonomyCategory } from '../../../../enums';
 @Component({
   selector: 'app-project-new',
   templateUrl: './project-new.component.html',
@@ -41,11 +42,8 @@ export class ProjectNewComponent implements OnInit {
         this.projects = projects;
       });
     });
-    this.metaService.GetWorkTaxonomy().then(() => {
-      this.metaService.$authWorks.subscribe((items) => {
-        this.works = items;
-      });
-    });
+
+    this.works = this.metaService.GetByCategory(TaxonomyCategory.AuthWork);
   }
 
   ProjectExists(code: string|undefined): boolean {
