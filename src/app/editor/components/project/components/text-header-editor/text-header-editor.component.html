@@ -1,4 +1,4 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="!editorForm.valid" title='Новое издание'>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Новое издание'>
     <form class="form" [formGroup]="editorForm">
         <mat-form-field class="input-field-full-width">
           <mat-label>Код</mat-label>
@@ -22,7 +22,7 @@
         </mat-form-field>
         <mat-form-field class="input-field-full-width">
           <mat-label>Библиография</mat-label>
-          <textarea matInput formControlName="biblioInput" required></textarea>
+          <textarea rows="10" matInput formControlName="biblioInput" required></textarea>
         </mat-form-field>
       </form>
   </app-dialog>

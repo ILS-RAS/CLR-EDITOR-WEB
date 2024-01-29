@@ -35,10 +35,10 @@ export class ProjectToolbarComponent implements OnInit {
     })     
   }
   EditTextHeader() {
-    this.dialog.open(TextHeaderEditorComponent);
+    this.dialog.open(TextHeaderEditorComponent, {width:'600px', data: this.header});
   }
   AddTextHeader() {
-    this.dialog.open(TextHeaderEditorComponent);
+    this.dialog.open(TextHeaderEditorComponent, {width:'600px', data: new HeaderModel({})});
   }
 
   Close() {
