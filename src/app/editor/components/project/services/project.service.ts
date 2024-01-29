@@ -17,6 +17,7 @@ import {
 })
 export class ProjectService {
 
+
   public $projects = new BehaviorSubject<ProjectModel[]>([]);
 
   public $currentProject = new BehaviorSubject<ProjectModel | undefined>(
@@ -129,6 +130,12 @@ export class ProjectService {
     });
   }
 
+  public async DeleteHeader(header: HeaderModel) {
+    //Need to remove all dependent items before this op;
+    await this.headerApiService.remove(header, AppType.Header).toPromise().then(()=>{
+      Promise.resolve();
+    });
+  }
   public async SaveChunk(chunk: ChunkModel) {
     
   }

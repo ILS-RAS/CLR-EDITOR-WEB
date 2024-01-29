@@ -1,1 +1,3 @@
-<p>confirm works!</p>
+<app-dialog (onCancel)="Cancel()" (onSave)="Do()" title='Подтведите свое намерение' [disabled]="false">
+    {{message}}
+</app-dialog>

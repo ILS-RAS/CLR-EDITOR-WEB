@@ -5,10 +5,10 @@
   <button mat-mini-fab color="secondary" (click)="AddTextHeader()">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-mini-fab color="secondary" (click)="EditTextHeader()">
+  <button mat-mini-fab color="secondary" (click)="EditTextHeader()" [disabled]="!header">
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-mini-fab color="warn" (click)="DeleteText()">
+  <button mat-mini-fab color="warn" (click)="DeleteText()" [disabled]="!header">
     <mat-icon>delete</mat-icon>
   </button>
   <mat-divider [vertical]="true"></mat-divider>
