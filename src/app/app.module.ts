@@ -49,6 +49,8 @@ import { TextHeaderEditorComponent } from './editor/components/project/component
 import { TextIndexItemEditorComponent } from './editor/components/project/components/text-index-item-editor/text-index-item-editor.component';
 import { ConfirmComponent } from './widgets/confirm/confirm.component';
 import {MatBadgeModule} from '@angular/material/badge';
+import { DictionaryDashboardComponent } from './editor/components/dictionary/components/dictionary-dashboard/dictionary-dashboard.component';
+import { TaxonomyDashboardComponent } from './editor/components/taxonomy/components/taxonomy-dashboard/taxonomy-dashboard.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +73,9 @@ import {MatBadgeModule} from '@angular/material/badge';
     DialogComponent,
     TextHeaderEditorComponent,
     TextIndexItemEditorComponent,
-    ConfirmComponent
+    ConfirmComponent,
+    DictionaryDashboardComponent,
+    TaxonomyDashboardComponent
   ],
   imports: [
     BrowserModule,

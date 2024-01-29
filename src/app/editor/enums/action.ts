@@ -4,5 +4,6 @@ export enum Action {
   NewTaxonomy,
   OpenTaxonomy,
   EditChunk,
-  SaveChunk
+  SaveChunk,
+  OpenDictionary
 }

@@ -128,5 +128,12 @@ export class AppComponent {
         '../assets/icons/left_panel_open.svg'
       )
     );
+
+    this.matIconRegistry.addSvgIcon(
+      `dictionary`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/dictionary.svg'
+      )
+    );
   }
 }
