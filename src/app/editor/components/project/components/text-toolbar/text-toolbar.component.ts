@@ -9,6 +9,7 @@ import { ProjectService } from '../../services/project.service';
 import { IndexModel } from '../../../../models';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../../../enums';
+import { UiService } from '../../../../../services/ui.service';
 
 @Component({
   selector: 'app-text-toolbar',
@@ -17,21 +18,21 @@ import { Action } from '../../../../enums';
 })
 export class TextToolbarComponent implements OnInit {
 
-  @Output() onToggleIndex: EventEmitter<void> = new EventEmitter();
   toggleIcon: string = 'left_panel_open';
   toggleLabel: string = 'Interpretatio';
   index?: IndexModel;
   isChecked = false;
   isToggled = false;
-  constructor(private projectService: ProjectService, private actionService: ActionService) {
+  constructor(private projectService: ProjectService, private actionService: ActionService, private uiService:UiService) {
     this.projectService.$currentIndex.subscribe((item) => {
       this.index = item;
     });
   }
 
   Click() {
-    this.onToggleIndex.emit();
-    this.isToggled = !this.isToggled;
+    
+    this.uiService.$indexPanelOpened.next(!this.uiService.$indexPanelOpened.value);
+
     this.toggleIcon =
       this.toggleIcon == 'left_panel_open'
         ? 'left_panel_close'

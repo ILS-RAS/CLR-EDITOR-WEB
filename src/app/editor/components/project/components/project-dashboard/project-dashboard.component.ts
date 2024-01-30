@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ProjectModel } from '../../../../models/projectModel';
 import { Router } from '@angular/router';
 import { HeaderModel } from '../../../../models/headerModel';
+import { UiService } from '../../../../../services/ui.service';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -10,11 +11,16 @@ import { HeaderModel } from '../../../../models/headerModel';
   styleUrl: './project-dashboard.component.scss'
 })
 export class ProjectDashboardComponent implements OnInit {
+
+
   public project?: ProjectModel;
   public header?:HeaderModel;
+  public drawerOpened?: boolean;
+
   constructor(
     private projectService: ProjectService,
     private router: Router,
+    private uiService: UiService
   ) {}
   
   ngOnInit(): void {
@@ -23,6 +29,9 @@ export class ProjectDashboardComponent implements OnInit {
     });
     this.projectService.$currentHeader.subscribe(item=>{
       this.header = item;
+    });
+    this.uiService.$indexPanelOpened.subscribe(state=>{
+      this.drawerOpened = state;
     })
   }
 
