@@ -1,5 +1,5 @@
 <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Новое издание'>
-    <form class="form" [formGroup]="editorForm">
+    <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
           <mat-label>Код</mat-label>
           <input matInput formControlName="codeInput" required>

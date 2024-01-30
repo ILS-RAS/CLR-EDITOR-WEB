@@ -1,6 +1,6 @@
 <mat-toolbar *ngIf="project">
   <span>{{project.code}}</span>
-  <app-text-selector [project]="project"></app-text-selector>
+  <app-text-selector [project]="project" [header]="header"></app-text-selector>
   <span class="spacer"></span>
   <button mat-mini-fab color="secondary" (click)="AddTextHeader()">
     <mat-icon>add</mat-icon>

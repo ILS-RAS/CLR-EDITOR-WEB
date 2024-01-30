@@ -18,7 +18,7 @@ import { Helper } from '../../../../../utils';
 })
 export class TextHeaderEditorComponent implements OnInit {
   isDisabled: boolean = true;
-  editorForm: UntypedFormGroup;
+  form: UntypedFormGroup;
   languages?:TaxonomyViewModel[];
   editionTypes?: TaxonomyViewModel[];
   constructor(
@@ -28,7 +28,7 @@ export class TextHeaderEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public header: HeaderModel,
     private formBuilder: UntypedFormBuilder
   ) {
-    this.editorForm = this.formBuilder.group({
+    this.form = this.formBuilder.group({
       codeInput: new UntypedFormControl(''),
       langSelect: new UntypedFormControl(''),
       biblioInput: new UntypedFormControl(''),
@@ -41,21 +41,21 @@ export class TextHeaderEditorComponent implements OnInit {
     this.languages = this.metaService.GetByCategory(TaxonomyCategory.Lang);
     this.editionTypes = this.metaService.GetByCategory(TaxonomyCategory.EditionType);
   
-    this.editorForm.controls['codeInput'].setValue(this.header.code);
-    this.editorForm.controls['editionTypeSelect'].setValue(this.header.editionType);
-    this.editorForm.controls['langSelect'].setValue(this.header.lang);
-    this.editorForm.controls['biblioInput'].setValue(this.header.desc);
+    this.form.controls['codeInput'].setValue(this.header.code);
+    this.form.controls['editionTypeSelect'].setValue(this.header.editionType);
+    this.form.controls['langSelect'].setValue(this.header.lang);
+    this.form.controls['biblioInput'].setValue(this.header.desc);
 
-    this.editorForm.statusChanges.subscribe(val => this.isDisabled = !Helper.IsFormValid(val));
+    this.form.statusChanges.subscribe(val => this.isDisabled = !Helper.IsFormValid(val));
   }
 
   Save() {
 
     this.header.projectId = this.projectService.$currentProject.value?._id;
-    this.header.code = this.editorForm.controls['codeInput'].value;
-    this.header.editionType = this.editorForm.controls['editionTypeSelect'].value;
-    this.header.lang = this.editorForm.controls['langSelect'].value;
-    this.header.desc = this.editorForm.controls['biblioInput'].value;
+    this.header.code = this.form.controls['codeInput'].value;
+    this.header.editionType = this.form.controls['editionTypeSelect'].value;
+    this.header.lang = this.form.controls['langSelect'].value;
+    this.header.desc = this.form.controls['biblioInput'].value;
 
     this.projectService.SaveHeader(this.header).then(item=>{
       let savedHeader = item as HeaderModel;

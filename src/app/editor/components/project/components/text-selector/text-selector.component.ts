@@ -1,6 +1,6 @@
 import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-import { FormControl, Validators } from '@angular/forms';
+import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { HeaderModel } from '../../../../models/headerModel';
 import { ProjectModel } from '../../../../models/projectModel';
 
@@ -11,15 +11,19 @@ import { ProjectModel } from '../../../../models/projectModel';
 })
 export class TextSelectorComponent implements OnInit {
   
+  form: UntypedFormGroup;
+
   @Input() project?: ProjectModel;
+  @Input() header?: HeaderModel;
 
   label?: string = 'Textus';
 
-  selected = new FormControl([Validators.required]);
-
   headers: HeaderModel[] = [];
 
-  constructor(private projectService: ProjectService) {
+  constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder) {
+    this.form = this.formBuilder.group({
+      headerSelect: new UntypedFormControl()
+    });
     this.projectService.$projectHeaders.subscribe((headers)=>{
       if(headers){
         this.headers = headers;
@@ -28,13 +32,18 @@ export class TextSelectorComponent implements OnInit {
   }
   
   ngOnInit(): void {
+
     if(this.project && this.project._id){
       this.projectService.GetHeaders(this.project._id);
     }
+
+    this.form.controls['headerSelect'].setValue(this.header?.code);
   }
 
   Change() {
-    this.projectService.$currentHeader.next(this.selected.value as HeaderModel);
+
+    this.projectService.$currentHeader.next(this.headers.find(i=>i.code == this.form.controls['headerSelect'].value));
+
     this.projectService.$currentIndex.next(undefined);
     this.projectService.$currentChunk.next(undefined);
     this.projectService.$currentInterpChunks.next(undefined);
