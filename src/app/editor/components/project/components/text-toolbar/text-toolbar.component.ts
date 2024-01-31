@@ -81,10 +81,10 @@ export class TextToolbarComponent implements OnInit {
   Change() {
     this.projectService.$showVersion.next(this.isChecked);
     if (this.isChecked == false) {
-      this.projectService.$currentInterpChunks.next(undefined);
+      this.projectService.$currentVersionChunks.next(undefined);
     } else {
       if (this.projectService.$currentChunk.value) {
-        this.projectService.GetInterp(
+        this.projectService.GetVersionChunks(
           this.projectService.$currentChunk.value._id as string,
           this.projectService.$currentChunk.value.headerLang == 'lat'
         );

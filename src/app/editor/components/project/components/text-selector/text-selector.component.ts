@@ -46,6 +46,6 @@ export class TextSelectorComponent implements OnInit {
 
     this.projectService.$currentIndex.next(undefined);
     this.projectService.$currentChunk.next(undefined);
-    this.projectService.$currentInterpChunks.next(undefined);
+    this.projectService.$currentVersionChunks.next(undefined);
   }
 }

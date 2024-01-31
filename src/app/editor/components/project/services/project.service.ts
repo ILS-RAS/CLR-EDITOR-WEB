@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { BehaviorSubject } from 'rxjs';
-import { AppType } from '../../../enums';
-import { HeaderQuery } from '../../../queries';
+import { AppType, ProjectStatus } from '../../../enums';
+import { HeaderQuery, ProjectQuery } from '../../../queries';
 import {
   IndexModel,
   InterpModel,
@@ -43,7 +43,7 @@ export class ProjectService {
     undefined
   );
 
-  public $currentInterpChunks = new BehaviorSubject<
+  public $currentVersionChunks = new BehaviorSubject<
     ChunkViewModel[] | undefined
   >(undefined);
 
@@ -66,12 +66,15 @@ export class ProjectService {
     this.$currentIndex.next(undefined);
     this.$currentHeader.next(undefined);
     this.$currentChunk.next(undefined);
-    this.$currentInterpChunks.next(undefined);
+    this.$currentVersionChunks.next(undefined);
   }
-
+//#region Project
   public async GetProjects() {
     await this.projectApiService
-      .findAll(new ProjectModel({}), AppType.Project)
+      .findByQuery(
+        new ProjectModel({}), 
+        JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited })),
+        AppType.Project)
       .toPromise()
       .then((items: ProjectModel[]) => {
         this.$projects.next(items);
@@ -79,127 +82,134 @@ export class ProjectService {
       });
   }
 
-  public async GetHeaders(projectId: string) {
-    await this.headerApiService
-      .findByQuery(
-        new HeaderModel({}),
-        JSON.stringify(new HeaderQuery({ projectId: projectId })),
-        AppType.Header
-      )
-      .toPromise()
-      .then((items: HeaderModel[]) => {
-        this.$projectHeaders.next(items);
-        Promise.resolve();
-      });
-  }
-
-  public async GetIndeces(headerId: string): Promise<IndexModel[]> {
-    return await this.indexApiService
-      .findByQuery(
-        new IndexModel({}),
-        JSON.stringify({ headerId: headerId }),
-        AppType.Index
-      )
-      .toPromise()
-      .then((result) => {
-        this.$currentIndeces.next(result);
-        return Promise.resolve(result);
-      });
-  }
-
-  public async GetChunk(indexId: string) {
-    await this.chunkViewApiService
-      .findByQuery(
-        new ChunkViewModel({}),
-        JSON.stringify({ indexId: indexId }),
-        AppType.Chunk
-      )
-      .toPromise()
-      .then((result) => {
-        this.$currentChunk.next(result[0]);
-        if (this.$showVersion.value && result[0]) {
-          this.GetInterp(result[0]._id, result[0].headerLang == 'lat');
-        }
-        Promise.resolve();
-      });
-  }
-
-  public async SaveHeader(header: HeaderModel){
-    return await this.headerApiService
-    .save(header, AppType.Header)
-    .toPromise()
-    .then((item) => {
-      return Promise.resolve(item);
-    });
-  }
-
-  public async DeleteProject(project: ProjectModel) {
-    this.uiService.$progressBarIsOn.next(true);
-    let headers = this.$projectHeaders.value;
-    headers?.forEach(header=>{
-      this.DeleteHeader(header as HeaderModel);
-    });
-    await this.projectApiService.remove(project, AppType.Project).toPromise().then(()=>{
-      Promise.resolve();
-      this.uiService.$progressBarIsOn.next(false);
-    });
-  }
-  public async DeleteHeader(header: HeaderModel) {
-    //Need to remove all dependent items before this op;
-    await this.headerApiService.remove(header, AppType.Header).toPromise().then(()=>{
-      Promise.resolve();
-    });
-  }
-
-  public async DeleteChunk(chunk: ChunkModel) {
-    await this.chunkApiService.remove(chunk, AppType.Chunk).toPromise().then(()=>{
-      Promise.resolve();
-    });
-  }
-
-  public async SaveChunk(chunk: ChunkViewModel) {
-    return await this.chunkViewApiService
-    .save(chunk, AppType.Chunk)
-    .toPromise()
-    .then((item) => {
-      return Promise.resolve(item);
-    });
-  }
-
-  public async GetInterp(chunkId: string, interp: boolean = true) {
-    let query = interp ? { sourceId: chunkId } : { interpId: chunkId };
-
-    const interps = await this.interpApiService
-      .findByQuery(new InterpModel({}), JSON.stringify(query), AppType.Interp)
-      .toPromise();
-
-    if (interps.length == 0) {
-      Promise.resolve([]);
-    } else {
-      let chunkIds = interp
-        ? interps.map((i: { interpId: any }) => i.interpId)
-        : interps.map((i_1: { sourceId: any }) => i_1.sourceId);
-
-      await this.chunkViewApiService
-        .findByQuery(
-          new ChunkViewModel({}),
-          JSON.stringify({ _id: chunkIds }),
-          AppType.Chunk
-        )
-        .toPromise()
-        .then((result) => {
-          this.$currentInterpChunks.next(result);
-          Promise.resolve();
-        });
-    }
-  }
-
-  public async SaveProject(project: ProjectModel) {
+  public async SaveProject(project: ProjectModel): Promise<ProjectModel> {
     return await this.projectApiService
       .save(project, AppType.Project)
       .toPromise()
       .then((item) => {
-        return Promise.resolve(item);
+        return Promise.resolve(item as ProjectModel);
       });
   }
+
+
+  public async MarkProjectDeleted(project: ProjectModel): Promise<ProjectModel>{
+    project.status = ProjectStatus.Deleted;
+    project.code = `${project.code}_${project._id}`;
+    return await this.SaveProject(project);
+  }
+
+//#endregion
+
+//#region Header
+
+public async GetHeaders(projectId: string) {
+  await this.headerApiService
+    .findByQuery(
+      new HeaderModel({}),
+      JSON.stringify(new HeaderQuery({ projectId: projectId, status : ProjectStatus.Edited })),
+      AppType.Header
+    )
+    .toPromise()
+    .then((items: HeaderModel[]) => {
+      this.$projectHeaders.next(items);
+      Promise.resolve();
+    });
+}
+
+public async SaveHeader(header: HeaderModel): Promise<HeaderModel>{
+  return await this.headerApiService
+  .save(header, AppType.Header)
+  .toPromise()
+  .then((item) => {
+    return Promise.resolve(item as HeaderModel);
+  });
+}
+
+public async MarkHeaderAsDeleted(header: HeaderModel) {
+  header.status = ProjectStatus.Deleted;
+  header.code = `${header.code}_${header._id}`;
+  return await this.SaveHeader(header);
+}
+//#endregion
+
+//#region Index
+public async GetIndeces(headerId: string): Promise<IndexModel[]> {
+  return await this.indexApiService
+    .findByQuery(
+      new IndexModel({}),
+      JSON.stringify({ headerId: headerId }),
+      AppType.Index
+    )
+    .toPromise()
+    .then((result) => {
+      this.$currentIndeces.next(result);
+      return Promise.resolve(result);
+    });
+}
+//#endregion
+
+//#region Chunk
+public async GetChunk(indexId: string) {
+  await this.chunkViewApiService
+    .findByQuery(
+      new ChunkViewModel({}),
+      JSON.stringify({ indexId: indexId }),
+      AppType.Chunk
+    )
+    .toPromise()
+    .then((result) => {
+      this.$currentChunk.next(result[0]);
+      if (this.$showVersion.value && result[0]) {
+        this.GetVersionChunks(result[0]._id, result[0].headerLang == 'lat');
+      }
+      Promise.resolve();
+    });
+}
+
+public async DeleteChunk(chunk: ChunkModel) {
+  await this.chunkApiService.remove(chunk, AppType.Chunk).toPromise().then(()=>{
+    Promise.resolve();
+  });
+}
+
+public async SaveChunk(chunk: ChunkViewModel) {
+  return await this.chunkViewApiService
+  .save(chunk, AppType.Chunk)
+  .toPromise()
+  .then((item) => {
+    return Promise.resolve(item);
+  });
+}
+
+public async GetVersionChunks(chunkId: string, interp: boolean = true) {
+    
+  let query = interp ? { sourceId: chunkId } : { interpId: chunkId };
+
+  const interps = await this.interpApiService
+    .findByQuery(new InterpModel({}), JSON.stringify(query), AppType.Interp)
+    .toPromise();
+
+  if (interps.length == 0) {
+    Promise.resolve([]);
+  } else {
+    let chunkIds = interp
+      ? interps.map((i: { interpId: any }) => i.interpId)
+      : interps.map((i_1: { sourceId: any }) => i_1.sourceId);
+
+    await this.chunkViewApiService
+      .findByQuery(
+        new ChunkViewModel({}),
+        JSON.stringify({ _id: chunkIds }),
+        AppType.Chunk
+      )
+      .toPromise()
+      .then((result) => {
+        this.$currentVersionChunks.next(result);
+        Promise.resolve();
+      });
+  }
+}
+
+//#endregion
+
 }

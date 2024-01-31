@@ -32,7 +32,7 @@ export class ProjectToolbarComponent implements OnInit {
     .afterClosed()
     .subscribe((res)=>{
       if(res && this.project){
-        this.projectService.DeleteProject(this.project).then(()=>{
+        this.projectService.MarkProjectDeleted(this.project).then(()=>{
           this.Close();
         })
       }
@@ -45,7 +45,7 @@ export class ProjectToolbarComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res && this.header) {
-          this.projectService.DeleteHeader(this.header).then(() => {
+          this.projectService.MarkHeaderAsDeleted(this.header).then(() => {
             if (this.header?.projectId) {
               this.projectService.GetHeaders(this.header.projectId);
             }

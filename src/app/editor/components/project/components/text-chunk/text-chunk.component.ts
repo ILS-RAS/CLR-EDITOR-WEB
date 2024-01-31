@@ -40,7 +40,7 @@ export class TextChunkComponent implements OnInit {
       }
     });
 
-    this.projectService.$currentInterpChunks.subscribe(item=>{
+    this.projectService.$currentVersionChunks.subscribe(item=>{
       this.versions = item;
       if(this.versions){
         this.versions.forEach(version=>{
