@@ -3,13 +3,13 @@
     <mat-icon [svgIcon]="toggleIcon"></mat-icon>
   </button>
   <mat-divider [vertical]="true" class="mat-divider"></mat-divider>
-  <button mat-mini-fab color="secondary" aria-label="Edit chunk" (click)="EditChunk()" [disabled]="!index">
+  <button mat-mini-fab color="secondary" aria-label="Create chunk" (click)="CreateChunk()" *ngIf="index && !chunk">
+    <mat-icon>add</mat-icon>
+  </button>
+  <button mat-mini-fab color="secondary" aria-label="Edit chunk" (click)="EditChunk()" *ngIf="chunk">
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-mini-fab color="secondary" aria-label="Save chunk" (click)="SaveChunk()" [disabled]="!index">
-    <mat-icon>save</mat-icon>
-  </button>
-  <button mat-mini-fab color="warn" aria-label="Delete chunk" (click)="DeleteChunk()" [disabled]="!index">
+  <button mat-mini-fab color="warn" aria-label="Delete chunk" (click)="DeleteChunk()" *ngIf="chunk">
     <mat-icon>delete</mat-icon>
   </button>
   <div class="spacer"></div>

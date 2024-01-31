@@ -51,6 +51,7 @@ import { ConfirmComponent } from './widgets/confirm/confirm.component';
 import {MatBadgeModule} from '@angular/material/badge';
 import { DictionaryDashboardComponent } from './editor/components/dictionary/components/dictionary-dashboard/dictionary-dashboard.component';
 import { TaxonomyDashboardComponent } from './editor/components/taxonomy/components/taxonomy-dashboard/taxonomy-dashboard.component';
+import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,7 +76,8 @@ import { TaxonomyDashboardComponent } from './editor/components/taxonomy/compone
     TextIndexItemEditorComponent,
     ConfirmComponent,
     DictionaryDashboardComponent,
-    TaxonomyDashboardComponent
+    TaxonomyDashboardComponent,
+    TextChunkEditorComponent
   ],
   imports: [
     BrowserModule,

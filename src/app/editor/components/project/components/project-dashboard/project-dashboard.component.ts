@@ -37,6 +37,7 @@ export class ProjectDashboardComponent implements OnInit {
 
   Close() {
     this.projectService.$currentProject.next(undefined);
+    this.uiService.Reset();
     this.router.navigateByUrl('/');
     }
 }

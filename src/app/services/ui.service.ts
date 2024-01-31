@@ -7,6 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class UiService {
 
   public $indexPanelOpened = new BehaviorSubject<boolean>(false);
-  
+
   constructor() { }
+
+  Reset() {
+    this.$indexPanelOpened.next(false);
+  }
 }

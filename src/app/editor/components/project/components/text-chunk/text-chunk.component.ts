@@ -17,29 +17,15 @@ export class TextChunkComponent implements OnInit {
   chunk?: ChunkViewModel;
   versions?: ChunkViewModel[];
   index?: IndexModel;
-  action?: Action;
   chunkText = new FormControl([Validators.required]);
   editorForm: UntypedFormGroup;
-  constructor(private projectService: ProjectService, private actionService: ActionService, private formBuilder: UntypedFormBuilder) {
+  constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder) {
     this.editorForm = this.formBuilder.group({
       chunkText: new UntypedFormControl(''),
       chunkTextNew: new UntypedFormControl('')
     });
   }
   ngOnInit(): void {
-
-    this.actionService.$currentAction.subscribe((action) => {
-      if(action == Action.EditChunk){
-        this.action = action;
-        if(this.chunk){
-          this.editorForm.controls['chunkText'].setValue(this.chunk.value);
-        }
-      }
-      if(action == Action.SaveChunk){
-        //this.projectService.SaveChunk();
-        this.actionService.$currentAction.next(undefined);
-      }
-    });
 
     this.projectService.$currentIndex.subscribe(item=>{
       if(item){

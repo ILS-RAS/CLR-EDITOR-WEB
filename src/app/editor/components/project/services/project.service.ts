@@ -53,7 +53,8 @@ export class ProjectService {
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
     private indexApiService: ApiService<IndexModel>,
-    private chunkApiService: ApiService<ChunkViewModel>,
+    private chunkViewApiService: ApiService<ChunkViewModel>,
+    private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>
   ) {}
 
@@ -106,7 +107,7 @@ export class ProjectService {
   }
 
   public async GetChunk(indexId: string) {
-    await this.chunkApiService
+    await this.chunkViewApiService
       .findByQuery(
         new ChunkViewModel({}),
         JSON.stringify({ indexId: indexId }),
@@ -137,8 +138,20 @@ export class ProjectService {
       Promise.resolve();
     });
   }
-  public async SaveChunk(chunk: ChunkModel) {
-    
+
+  public async DeleteChunk(chunk: ChunkModel) {
+    await this.chunkApiService.remove(chunk, AppType.Chunk).toPromise().then(()=>{
+      Promise.resolve();
+    });
+  }
+
+  public async SaveChunk(chunk: ChunkViewModel) {
+    return await this.chunkViewApiService
+    .save(chunk, AppType.Chunk)
+    .toPromise()
+    .then((item) => {
+      return Promise.resolve(item);
+    });
   }
 
   public async GetInterp(chunkId: string, interp: boolean = true) {
@@ -155,7 +168,7 @@ export class ProjectService {
         ? interps.map((i: { interpId: any }) => i.interpId)
         : interps.map((i_1: { sourceId: any }) => i_1.sourceId);
 
-      await this.chunkApiService
+      await this.chunkViewApiService
         .findByQuery(
           new ChunkViewModel({}),
           JSON.stringify({ _id: chunkIds }),

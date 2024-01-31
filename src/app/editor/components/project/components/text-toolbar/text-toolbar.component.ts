@@ -1,15 +1,11 @@
-import {
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-  ViewEncapsulation,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
-import { IndexModel } from '../../../../models';
+import { ChunkModel, ChunkViewModel, IndexModel } from '../../../../models';
 import { ActionService } from '../../services/action.service';
-import { Action } from '../../../../enums';
 import { UiService } from '../../../../../services/ui.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
+import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
 
 @Component({
   selector: 'app-text-toolbar',
@@ -17,21 +13,27 @@ import { UiService } from '../../../../../services/ui.service';
   styleUrl: './text-toolbar.component.scss',
 })
 export class TextToolbarComponent implements OnInit {
-
   toggleIcon: string = 'left_panel_open';
   toggleLabel: string = 'Interpretatio';
   index?: IndexModel;
   isChecked = false;
   isToggled = false;
-  constructor(private projectService: ProjectService, private actionService: ActionService, private uiService:UiService) {
+  chunk?: ChunkModel;
+  constructor(
+    private projectService: ProjectService,
+    private actionService: ActionService,
+    private uiService: UiService,
+    public dialog: MatDialog
+  ) {
     this.projectService.$currentIndex.subscribe((item) => {
       this.index = item;
     });
   }
 
   Click() {
-    
-    this.uiService.$indexPanelOpened.next(!this.uiService.$indexPanelOpened.value);
+    this.uiService.$indexPanelOpened.next(
+      !this.uiService.$indexPanelOpened.value
+    );
 
     this.toggleIcon =
       this.toggleIcon == 'left_panel_open'
@@ -43,18 +45,37 @@ export class TextToolbarComponent implements OnInit {
     this.projectService.$showVersion.subscribe((item) => {
       this.isChecked = item;
     });
+    this.projectService.$currentChunk.subscribe((item) => {
+      this.chunk = item;
+    });
   }
 
   DeleteChunk() {
-    throw new Error('Method not implemented.');
+    let chunk = this.projectService.$currentChunk.value;
+    this.dialog
+      .open(ConfirmComponent, { data: chunk?.value })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res && chunk) {
+          this.projectService.DeleteChunk(chunk).then(() => {
+            this.projectService.$currentChunk.next(undefined);
+          });
+        }
+      });
   }
 
   EditChunk() {
-    this.actionService.$currentAction.next(Action.EditChunk);
+    this.dialog.open(TextChunkEditorComponent, {
+      width: '600px',
+      data: this.chunk,
+    });
   }
 
-  SaveChunk() {
-    this.actionService.$currentAction.next(Action.SaveChunk);
+  CreateChunk() {
+    this.dialog.open(TextChunkEditorComponent, {
+      width: '600px',
+      data: new ChunkViewModel({}),
+    });
   }
 
   Change() {

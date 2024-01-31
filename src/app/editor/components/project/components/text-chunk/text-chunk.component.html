@@ -1,28 +1,16 @@
-<div *ngIf="chunk && !action" class="text-chunk">
+<div *ngIf="chunk" class="text-chunk">
+    <span class="index-name">{{chunk.indexName}}.&nbsp;</span>
     <ng-container *ngFor="let element of chunk.elements">
         <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
     </ng-container>
 </div>
-<form class="form" [formGroup]="editorForm">
-    <div *ngIf="!chunk && !action && index" class="text-chunk">
-        <mat-form-field class="input-field-full-width">
-            <mat-label>Textus fragmenti</mat-label>
-            <textarea matInput formControlName="chunkTextNew" rows="10"></textarea>
-        </mat-form-field>
-    </div>
-
-    <div *ngIf="action" class="text-chunk">
-        <mat-form-field class="input-field-full-width">
-            <textarea matInput formControlName="chunkText" rows="10"></textarea>
-        </mat-form-field>
-    </div>
-</form>
-
 <div *ngIf="versions">
+    <mat-divider></mat-divider>
     <div *ngFor="let version of versions" class="text-version text-chunk">
-            <ng-container *ngFor="let element of version.elements">
-                <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
-            </ng-container>
-            <span class="header-code">{{version.headerCode}}</span>
+        <span class="index-name">{{version.indexName}}.&nbsp;</span>
+        <ng-container *ngFor="let element of version.elements">
+            <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+        </ng-container>
+        <span class="header-code">{{version.headerCode}}</span>
     </div>
 </div>
