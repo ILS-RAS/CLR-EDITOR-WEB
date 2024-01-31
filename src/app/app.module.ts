@@ -52,6 +52,7 @@ import { DictionaryDashboardComponent } from './editor/components/dictionary/com
 import { TaxonomyDashboardComponent } from './editor/components/taxonomy/components/taxonomy-dashboard/taxonomy-dashboard.component';
 import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
 import { ProjectEditorComponent } from './editor/components/project/components/project-editor/project-editor.component';
+import { BaseComponent } from './components/base/base/base.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -77,7 +78,8 @@ import { ProjectEditorComponent } from './editor/components/project/components/p
     DictionaryDashboardComponent,
     TaxonomyDashboardComponent,
     TextChunkEditorComponent,
-    ProjectEditorComponent
+    ProjectEditorComponent,
+    BaseComponent
   ],
   imports: [
     BrowserModule,

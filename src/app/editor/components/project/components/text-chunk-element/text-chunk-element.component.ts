@@ -1,13 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
 import { ChunkValueItemModel } from '../../../../models/chunkValueItemModel';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 @Component({
   selector: 'app-text-chunk-element',
   templateUrl: './text-chunk-element.component.html',
   styleUrl: './text-chunk-element.component.scss'
 })
-export class TextChunkElementComponent implements OnInit {
+export class TextChunkElementComponent extends BaseComponent implements OnInit {
 
   isMorphStyle: boolean = false;
   isNotMorphStyle: boolean = false;

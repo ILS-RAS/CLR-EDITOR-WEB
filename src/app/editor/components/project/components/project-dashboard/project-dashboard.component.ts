@@ -4,13 +4,15 @@ import { ProjectModel } from '../../../../models/projectModel';
 import { Router } from '@angular/router';
 import { HeaderModel } from '../../../../models/headerModel';
 import { UiService } from '../../../../../services/ui.service';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-project-dashboard',
   templateUrl: './project-dashboard.component.html',
   styleUrl: './project-dashboard.component.scss'
 })
-export class ProjectDashboardComponent implements OnInit {
+export class ProjectDashboardComponent extends BaseComponent implements OnInit {
 
 
   public project?: ProjectModel;
@@ -21,19 +23,21 @@ export class ProjectDashboardComponent implements OnInit {
     private projectService: ProjectService,
     private router: Router,
     private uiService: UiService
-  ) {}
+  ) {
+      super();
+  }
   
   ngOnInit(): void {
-    this.projectService.$currentProject.subscribe(item=>{
+    this.projectService.$currentProject.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.project = item;
     });
-    this.projectService.$currentHeader.subscribe(item=>{
+    this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.header = item;
     });
-    this.uiService.$indexPanelOpened.subscribe(state=>{
+    this.uiService.$indexPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.drawerOpened = state;
     });
-    this.uiService.$progressBarIsOn.subscribe(state=>{
+    this.uiService.$progressBarIsOn.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.progressBarIsOn = state;
     });
   }

@@ -6,13 +6,15 @@ import { UiService } from '../../../../../services/ui.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-text-toolbar',
   templateUrl: './text-toolbar.component.html',
   styleUrl: './text-toolbar.component.scss',
 })
-export class TextToolbarComponent implements OnInit {
+export class TextToolbarComponent extends BaseComponent implements OnInit {
   toggleIcon: string = 'left_panel_open';
   toggleLabel: string = 'Interpretatio';
   index?: IndexModel;
@@ -21,10 +23,10 @@ export class TextToolbarComponent implements OnInit {
   chunk?: ChunkModel;
   constructor(
     private projectService: ProjectService,
-    private actionService: ActionService,
     private uiService: UiService,
     public dialog: MatDialog
   ) {
+    super();
     this.projectService.$currentIndex.subscribe((item) => {
       this.index = item;
     });
@@ -42,10 +44,10 @@ export class TextToolbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.projectService.$showVersion.subscribe((item) => {
+    this.projectService.$showVersion.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.isChecked = item;
     });
-    this.projectService.$currentChunk.subscribe((item) => {
+    this.projectService.$currentChunk.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.chunk = item;
     });
   }

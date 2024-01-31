@@ -1,32 +1,31 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MenuItem } from './editor/models/menuItem';
 import { MenuService } from './editor/services/menu.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppConfig } from './constants/app-config';
+import { BaseComponent } from './components/base/base/base.component';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent extends BaseComponent implements OnInit {
   menuItems:MenuItem[] = [];
   sideBarOpen = false;
-  deviceInfo?:object = undefined;
   title: string;
 
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private readonly nemuService: MenuService, 
-    private deviceService: DeviceDetectorService
+    private readonly nemuService: MenuService
   ) {
+    super();
     this.RegisterIcons();
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    if(isMobile){
+
+    if(this.isMobile){
       this.title = AppConfig.AppShortTitle;
     }else{
       this.title = AppConfig.AppFullTitle;

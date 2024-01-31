@@ -10,13 +10,14 @@ import { MetaService } from '../../services/meta.service';
 import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
 import { ProjectService } from '../../services/project.service';
 import { Helper } from '../../../../../utils';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 @Component({
   selector: 'app-text-header-editor',
   templateUrl: './text-header-editor.component.html',
   styleUrl: './text-header-editor.component.scss',
 })
-export class TextHeaderEditorComponent implements OnInit {
+export class TextHeaderEditorComponent extends BaseComponent implements OnInit {
   isDisabled: boolean = true;
   form: UntypedFormGroup;
   languages?:TaxonomyViewModel[];
@@ -28,6 +29,7 @@ export class TextHeaderEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public header: HeaderModel,
     private formBuilder: UntypedFormBuilder
   ) {
+    super();
     this.form = this.formBuilder.group({
       codeInput: new UntypedFormControl(''),
       langSelect: new UntypedFormControl(''),

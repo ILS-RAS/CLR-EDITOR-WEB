@@ -3,13 +3,14 @@ import { ChunkModel, IndexModel } from '../../../../models';
 import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 @Component({
   selector: 'app-text-index-item-toolbar',
   templateUrl: './text-index-item-toolbar.component.html',
   styleUrl: './text-index-item-toolbar.component.scss',
 })
-export class TextIndexItemToolbarComponent implements OnChanges {
+export class TextIndexItemToolbarComponent extends BaseComponent implements OnChanges {
   @Input() indexId?: string;
 
   index?: IndexModel;
@@ -17,7 +18,9 @@ export class TextIndexItemToolbarComponent implements OnChanges {
   constructor(
     private projectService: ProjectService,
     public dialog: MatDialog
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if (this.indexId) {

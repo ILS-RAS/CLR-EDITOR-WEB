@@ -5,13 +5,13 @@
   </button>
   <app-text-selector [project]="project" [header]="header"></app-text-selector>
   <span class="spacer"></span>
-  <button mat-mini-fab color="secondary" (click)="AddTextHeader()">
+  <button mat-mini-fab color="secondary" (click)="AddHeader()">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-mini-fab color="secondary" (click)="EditTextHeader()" *ngIf="header">
+  <button mat-mini-fab color="secondary" (click)="EditHeader()" *ngIf="header">
     <mat-icon>edit</mat-icon>
   </button>
-  <button mat-mini-fab color="warn" (click)="DeleteText()" *ngIf="header">
+  <button mat-mini-fab color="warn" (click)="DeleteHeader()" *ngIf="header">
     <mat-icon>delete</mat-icon>
   </button>
   <mat-divider [vertical]="true"></mat-divider>

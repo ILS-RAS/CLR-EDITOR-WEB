@@ -10,13 +10,15 @@ import { ProjectModel, TaxonomyModel, TaxonomyViewModel } from '../../../../mode
 import { Helper } from '../../../../../utils';
 import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
 import { MetaService } from '../../services/meta.service';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-project-editor',
   templateUrl: './project-editor.component.html',
   styleUrl: './project-editor.component.scss',
 })
-export class ProjectEditorComponent implements OnInit {
+export class ProjectEditorComponent extends BaseComponent implements OnInit {
   isDisabled: boolean = true;
   form: UntypedFormGroup;
   projectCodes?: TaxonomyViewModel[];
@@ -29,6 +31,7 @@ export class ProjectEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public project: ProjectModel,
     private formBuilder: UntypedFormBuilder
   ) {
+    super();
     this.form = this.formBuilder.group({
       projectCodeSelect: new UntypedFormControl('')
     });
@@ -36,7 +39,7 @@ export class ProjectEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.projectService.GetProjects().then(()=>{
-      this.projectService.$projects.subscribe((projects)=>{
+      this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe((projects)=>{
         this.projects = projects;
       });
     });
@@ -45,7 +48,7 @@ export class ProjectEditorComponent implements OnInit {
 
     this.form.controls['projectCodeSelect'].setValue(this.project.code);
 
-    this.form.statusChanges.subscribe(
+    this.form.statusChanges.pipe(takeUntil(this.destroyed)).subscribe(
       (val) => (this.isDisabled = !Helper.IsFormValid(val))
     );
 

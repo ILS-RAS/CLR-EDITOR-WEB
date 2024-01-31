@@ -4,13 +4,15 @@ import { FormControl, Validators } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-project-selector',
   templateUrl: './project-selector.component.html',
   styleUrl: './project-selector.component.scss',
 })
-export class ProjectSelectorComponent implements OnInit {
+export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   
   projects: ProjectModel[] = [];
 
@@ -25,10 +27,13 @@ export class ProjectSelectorComponent implements OnInit {
     public dialogRef: MatDialogRef<ProjectSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
     private router: Router,
-  ) {}
+  ) {
+    super();
+
+  }
   ngOnInit(): void {
     this.projectService.GetProjects().then(() => {
-      this.projectService.$projects.subscribe((projects) => {
+      this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe((projects) => {
         this.projects = projects;
       });
     });

@@ -5,14 +5,15 @@ import { TextHeaderEditorComponent } from '../text-header-editor/text-header-edi
 import { ProjectService } from '../../services/project.service';
 import { HeaderModel } from '../../../../models';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
-import { ProjectEditorComponent } from '../project-editor/project-editor.component';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-project-toolbar',
   templateUrl: './project-toolbar.component.html',
   styleUrl: './project-toolbar.component.scss',
 })
-export class ProjectToolbarComponent implements OnInit {
+export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   @Input() project?: ProjectModel;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
   header?: HeaderModel;
@@ -20,9 +21,11 @@ export class ProjectToolbarComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private projectService: ProjectService
-  ) {}
+  ) {
+    super();
+  }
   ngOnInit(): void {
-    this.projectService.$currentHeader.subscribe((item) => {
+    this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.header = item;
     });
   }
@@ -39,7 +42,7 @@ export class ProjectToolbarComponent implements OnInit {
     })
   }
 
-  DeleteText() {
+  DeleteHeader() {
     this.dialog
       .open(ConfirmComponent, { width:'600px', data: this.header?.desc })
       .afterClosed()
@@ -53,13 +56,13 @@ export class ProjectToolbarComponent implements OnInit {
         }
       });
   }
-  EditTextHeader() {
+  EditHeader() {
     this.dialog.open(TextHeaderEditorComponent, {
       width: '600px',
       data: this.header,
     });
   }
-  AddTextHeader() {
+  AddHeader() {
     this.dialog.open(TextHeaderEditorComponent, {
       width: '600px',
       data: new HeaderModel({}),

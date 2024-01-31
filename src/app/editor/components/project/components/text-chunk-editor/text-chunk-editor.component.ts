@@ -9,13 +9,15 @@ import { ProjectService } from '../../services/project.service';
 import { ChunkModel, ChunkViewModel } from '../../../../models';
 import { Helper } from '../../../../../utils';
 import { ChunkParserService } from '../../services/chunk-parser.service';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-text-chunk-editor',
   templateUrl: './text-chunk-editor.component.html',
   styleUrl: './text-chunk-editor.component.scss',
 })
-export class TextChunkEditorComponent implements OnInit {
+export class TextChunkEditorComponent extends BaseComponent implements OnInit {
   form: UntypedFormGroup;
   isDisabled: boolean = true;
   constructor(
@@ -25,6 +27,7 @@ export class TextChunkEditorComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public chunk: ChunkViewModel,
     private formBuilder: UntypedFormBuilder
   ) {
+    super();
     this.form = this.formBuilder.group({
       chunkInput: new UntypedFormControl(''),
     });
@@ -32,14 +35,14 @@ export class TextChunkEditorComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.controls['chunkInput'].setValue(this.chunk.value);
-    this.form.statusChanges.subscribe(
+    this.form.statusChanges.pipe(takeUntil(this.destroyed)).subscribe(
       (val) => (this.isDisabled = !Helper.IsFormValid(val))
     );
   }
 
   Save() {
 
-    if(!this.chunk._id){
+    if (!this.chunk._id) {
       this.chunk.created = new Date().toISOString();
     }
 
@@ -51,22 +54,19 @@ export class TextChunkEditorComponent implements OnInit {
 
     this.chunk.value = this.form.controls['chunkInput'].value;
 
-    this.chunkParser.ParseTextToElements(this.chunk).then(items=>{
-
+    this.chunkParser.ParseTextToElements(this.chunk).then((items) => {
       this.chunk.valueObj = JSON.stringify(items);
+    });
 
-    })
     //TODO:Save chunk
-    // this.projectService.SaveChunk(this.chunk).then(item=>{
-    //   let savedChunk = item as ChunkViewModel;
-    //   if(savedChunk){
-    //     this.projectService.$currentChunk.next(savedChunk);
-    //   }
-    // })
-    
+
     this.dialogRef.close();
+
   }
+
   Cancel() {
+
     this.dialogRef.close();
+
   }
 }

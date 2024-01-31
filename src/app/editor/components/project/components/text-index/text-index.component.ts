@@ -1,11 +1,12 @@
 import {CollectionViewer, SelectionChange, DataSource} from '@angular/cdk/collections';
 import {FlatTreeControl} from '@angular/cdk/tree';
-import {Component, Injectable, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {BehaviorSubject, merge, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
+import {Component, Injectable, Input, OnChanges, OnDestroy, OnInit, SimpleChanges} from '@angular/core';
+import {BehaviorSubject, merge, Observable, Subject} from 'rxjs';
+import {map, takeUntil} from 'rxjs/operators';
 import { HeaderModel } from '../../../../models/headerModel';
 import { ProjectService } from '../../services/project.service';
 import { IndexModel } from '../../../../models';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 export class DynamicFlatNode {
   constructor(
@@ -18,9 +19,10 @@ export class DynamicFlatNode {
     public isLoading = false,
   ) {}
 }
-export class DynamicDataSource {
+@Injectable()
+export class DynamicDataSource implements OnDestroy {
   dataChange = new BehaviorSubject<DynamicFlatNode[]>([]);
-
+  destroyed = new Subject();
   get data(): DynamicFlatNode[] {
     return this.dataChange.value;
   }
@@ -33,9 +35,13 @@ export class DynamicDataSource {
     private _treeControl: FlatTreeControl<DynamicFlatNode>,
     private _projectService: ProjectService,
   ) {}
+  ngOnDestroy(): void {
+    this.destroyed.next(null);
+    this.destroyed.complete();
+  }
 
   connect(collectionViewer: CollectionViewer): Observable<DynamicFlatNode[]> {
-    this._treeControl.expansionModel.changed.subscribe(change => {
+    this._treeControl.expansionModel.changed.pipe(takeUntil(this.destroyed)).subscribe(change => {
       if (
         (change as SelectionChange<DynamicFlatNode>).added ||
         (change as SelectionChange<DynamicFlatNode>).removed
@@ -99,12 +105,13 @@ export class DynamicDataSource {
   templateUrl: './text-index.component.html',
   styleUrl: './text-index.component.scss'
 })
-export class TextIndexComponent implements OnInit, OnChanges {
+export class TextIndexComponent extends BaseComponent implements OnInit, OnChanges {
   
   @Input() header?: HeaderModel;
   public indeces: IndexModel[] = [];
 
   constructor(private projectService: ProjectService) {
+    super();
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, projectService);
   }

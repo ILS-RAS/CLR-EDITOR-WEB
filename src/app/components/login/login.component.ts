@@ -4,13 +4,14 @@ import { AuthService } from '../../services/auth.service';
 import { filter, Subject, take, takeUntil } from 'rxjs';
 import { UserModel } from '../../editor/models/userModel';
 import { AppConfig } from '../../constants/app-config';
+import { BaseComponent } from '../base/base/base.component';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit, OnDestroy {
+export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
   public title?: string;
   public loginValid = true;
   public username?: string;
@@ -18,7 +19,6 @@ export class LoginComponent implements OnInit, OnDestroy {
   public sum?: number;
   public firstRandom:number = 0;
   public secondRandom:number = 0;
-  private _destroySub$ = new Subject<void>();
   private readonly returnUrl: string;
 
   constructor(
@@ -26,6 +26,7 @@ export class LoginComponent implements OnInit, OnDestroy {
     private _router: Router,
     private _authService: AuthService
   ) {
+    super();
     this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
     this.firstRandom = _authService.GetRandomNumber(15);
     this.secondRandom = _authService.GetRandomNumber(15);
@@ -34,13 +35,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   public ngOnInit(): void {
     this.title = AppConfig.AppFullTitle;
     this._authService.isAuthenticated$.pipe(
-      filter((isAuthenticated: boolean) => isAuthenticated),
-      takeUntil(this._destroySub$)
-    ).subscribe( _ => this._router.navigateByUrl(this.returnUrl));
-  }
-
-  public ngOnDestroy(): void {
-    this._destroySub$.next();
+      filter((isAuthenticated: boolean) => isAuthenticated)
+    ).pipe(takeUntil(this.destroyed)).subscribe( _ => this._router.navigateByUrl(this.returnUrl));
   }
 
   public isCorrect():boolean{
@@ -55,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
 
     this._authService.Login(user).pipe(
       take(1)
-    ).subscribe({
+    ).pipe(takeUntil(this.destroyed)).subscribe({
       next: _ => {
         this.loginValid = true;
         this._router.navigateByUrl('/');

@@ -5,6 +5,8 @@ import { IndexModel } from '../../../../models';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../../../enums';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 
 @Component({
@@ -12,7 +14,7 @@ import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, 
   templateUrl: './text-chunk.component.html',
   styleUrl: './text-chunk.component.scss'
 })
-export class TextChunkComponent implements OnInit {
+export class TextChunkComponent extends BaseComponent implements OnInit {
 
   chunk?: ChunkViewModel;
   versions?: ChunkViewModel[];
@@ -20,6 +22,8 @@ export class TextChunkComponent implements OnInit {
   chunkText = new FormControl([Validators.required]);
   editorForm: UntypedFormGroup;
   constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder) {
+    super();
+    
     this.editorForm = this.formBuilder.group({
       chunkText: new UntypedFormControl(''),
       chunkTextNew: new UntypedFormControl('')
@@ -27,20 +31,20 @@ export class TextChunkComponent implements OnInit {
   }
   ngOnInit(): void {
 
-    this.projectService.$currentIndex.subscribe(item=>{
+    this.projectService.$currentIndex.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       if(item){
         this.index = item;
       }
     })
 
-    this.projectService.$currentChunk.subscribe(item=>{
+    this.projectService.$currentChunk.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.chunk = item;
       if(this.chunk){
         this.chunk.elements = JSON.parse(item?.valueObj as string);
       }
     });
 
-    this.projectService.$currentVersionChunks.subscribe(item=>{
+    this.projectService.$currentVersionChunks.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.versions = item;
       if(this.versions){
         this.versions.forEach(version=>{
