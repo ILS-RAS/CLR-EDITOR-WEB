@@ -12,12 +12,12 @@ import {
   ChunkModel,
 } from '../../../models';
 import { Helper } from '../../../../utils';
+import { UiService } from '../../../../services/ui.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProjectService {
-
 
   public $projects = new BehaviorSubject<ProjectModel[]>([]);
 
@@ -55,7 +55,8 @@ export class ProjectService {
     private indexApiService: ApiService<IndexModel>,
     private chunkViewApiService: ApiService<ChunkViewModel>,
     private chunkApiService: ApiService<ChunkModel>,
-    private interpApiService: ApiService<InterpModel>
+    private interpApiService: ApiService<InterpModel>,
+    private uiService: UiService
   ) {}
 
   public InitContext(project: ProjectModel) {
@@ -132,6 +133,17 @@ export class ProjectService {
     });
   }
 
+  public async DeleteProject(project: ProjectModel) {
+    this.uiService.$progressBarIsOn.next(true);
+    let headers = this.$projectHeaders.value;
+    headers?.forEach(header=>{
+      this.DeleteHeader(header as HeaderModel);
+    });
+    await this.projectApiService.remove(project, AppType.Project).toPromise().then(()=>{
+      Promise.resolve();
+      this.uiService.$progressBarIsOn.next(false);
+    });
+  }
   public async DeleteHeader(header: HeaderModel) {
     //Need to remove all dependent items before this op;
     await this.headerApiService.remove(header, AppType.Header).toPromise().then(()=>{

@@ -7,7 +7,7 @@ import { BehaviorSubject } from 'rxjs';
 export class UiService {
 
   public $indexPanelOpened = new BehaviorSubject<boolean>(false);
-
+  public $progressBarIsOn = new BehaviorSubject<boolean>(false);
   constructor() { }
 
   Reset() {

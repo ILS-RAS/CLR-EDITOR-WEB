@@ -1,4 +1,5 @@
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
+<mat-progress-bar mode="buffer" *ngIf="progressBarIsOn"></mat-progress-bar>
 <mat-drawer-container class="container">
   <mat-drawer #drawer class="sidenav" mode="side" [opened]="drawerOpened">
     <app-text-index-toolbar></app-text-index-toolbar>

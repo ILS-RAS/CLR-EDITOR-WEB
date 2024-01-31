@@ -5,6 +5,7 @@ import { TextHeaderEditorComponent } from '../text-header-editor/text-header-edi
 import { ProjectService } from '../../services/project.service';
 import { HeaderModel } from '../../../../models';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
+import { ProjectEditorComponent } from '../project-editor/project-editor.component';
 
 @Component({
   selector: 'app-project-toolbar',
@@ -14,31 +15,55 @@ import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.compone
 export class ProjectToolbarComponent implements OnInit {
   @Input() project?: ProjectModel;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
-  header?:HeaderModel;
+  header?: HeaderModel;
 
-  constructor(public dialog: MatDialog, private projectService: ProjectService) {}
+  constructor(
+    public dialog: MatDialog,
+    private projectService: ProjectService
+  ) {}
   ngOnInit(): void {
-    this.projectService.$currentHeader.subscribe(item=>{
+    this.projectService.$currentHeader.subscribe((item) => {
       this.header = item;
-    })
+    });
   }
-  
-  DeleteText() {
-    this.dialog.open(ConfirmComponent, {data:this.header?.desc}).afterClosed().subscribe(res=>{
-      if(res && this.header){
-        this.projectService.DeleteHeader(this.header).then(()=>{
-          if(this.header?.projectId){
-            this.projectService.GetHeaders(this.header.projectId);
-          }
+
+  DeleteProject() {
+    this.dialog.open(ConfirmComponent, { width:'600px', data: this.header?.code })
+    .afterClosed()
+    .subscribe((res)=>{
+      if(res && this.project){
+        this.projectService.DeleteProject(this.project).then(()=>{
+          this.Close();
         })
       }
-    })     
+    })
+  }
+
+  DeleteText() {
+    this.dialog
+      .open(ConfirmComponent, { width:'600px', data: this.header?.desc })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res && this.header) {
+          this.projectService.DeleteHeader(this.header).then(() => {
+            if (this.header?.projectId) {
+              this.projectService.GetHeaders(this.header.projectId);
+            }
+          });
+        }
+      });
   }
   EditTextHeader() {
-    this.dialog.open(TextHeaderEditorComponent, {width:'600px', data: this.header});
+    this.dialog.open(TextHeaderEditorComponent, {
+      width: '600px',
+      data: this.header,
+    });
   }
   AddTextHeader() {
-    this.dialog.open(TextHeaderEditorComponent, {width:'600px', data: new HeaderModel({})});
+    this.dialog.open(TextHeaderEditorComponent, {
+      width: '600px',
+      data: new HeaderModel({}),
+    });
   }
 
   Close() {

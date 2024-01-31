@@ -25,7 +25,6 @@ import { DefaultComponent } from './editor/components/default/default.component'
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
 import { SidebarComponent } from './editor/components/sidebar/sidebar.component';
-import { ProjectNewComponent } from './editor/components/project/components/project-new/project-new.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -52,6 +51,7 @@ import {MatBadgeModule} from '@angular/material/badge';
 import { DictionaryDashboardComponent } from './editor/components/dictionary/components/dictionary-dashboard/dictionary-dashboard.component';
 import { TaxonomyDashboardComponent } from './editor/components/taxonomy/components/taxonomy-dashboard/taxonomy-dashboard.component';
 import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
+import { ProjectEditorComponent } from './editor/components/project/components/project-editor/project-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +60,6 @@ import { TextChunkEditorComponent } from './editor/components/project/components
     FooterComponent,
     HeaderComponent,
     SidebarComponent,
-    ProjectNewComponent,
     ProjectSelectorComponent,
     ProjectDashboardComponent,
     TextSelectorComponent,
@@ -77,7 +76,8 @@ import { TextChunkEditorComponent } from './editor/components/project/components
     ConfirmComponent,
     DictionaryDashboardComponent,
     TaxonomyDashboardComponent,
-    TextChunkEditorComponent
+    TextChunkEditorComponent,
+    ProjectEditorComponent
   ],
   imports: [
     BrowserModule,
