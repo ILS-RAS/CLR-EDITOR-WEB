@@ -4,6 +4,8 @@ import { ProjectService } from '../../services/project.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { TextIndexBuilderComponent } from '../text-index-builder/text-index-builder.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-text-index-item-toolbar',
@@ -16,8 +18,8 @@ export class TextIndexItemToolbarComponent extends BaseComponent implements OnCh
   index?: IndexModel;
 
   constructor(
-    private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private projectService: ProjectService
   ) {
     super();
   }
@@ -38,7 +40,15 @@ export class TextIndexItemToolbarComponent extends BaseComponent implements OnCh
   EditNode() {
     this.dialog.open(TextIndexItemEditorComponent,  { width: `600px`, hasBackdrop: true, data: this.index  });
   }
-  AddSubnodes() {
-    throw new Error('Method not implemented.');
+
+  CreateChildIndex() {
+    if(this.index && this.index._id){
+      this.dialog
+      .open(TextIndexBuilderComponent, {
+        width: '600px',
+        data: new IndexModel({parentId: this.index._id, headerId: this.index.headerId, name: this.index.name })
+      });
+    }
+
   }
 }

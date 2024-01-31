@@ -53,6 +53,9 @@ import { TaxonomyDashboardComponent } from './editor/components/taxonomy/compone
 import { TextChunkEditorComponent } from './editor/components/project/components/text-chunk-editor/text-chunk-editor.component';
 import { ProjectEditorComponent } from './editor/components/project/components/project-editor/project-editor.component';
 import { BaseComponent } from './components/base/base/base.component';
+import { TextIndexBuilderComponent } from './editor/components/project/components/text-index-builder/text-index-builder.component';
+import {MatRadioModule } from '@angular/material/radio';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 @NgModule({
   declarations: [
     AppComponent,
@@ -79,7 +82,8 @@ import { BaseComponent } from './components/base/base/base.component';
     TaxonomyDashboardComponent,
     TextChunkEditorComponent,
     ProjectEditorComponent,
-    BaseComponent
+    BaseComponent,
+    TextIndexBuilderComponent
   ],
   imports: [
     BrowserModule,
@@ -114,7 +118,9 @@ import { BaseComponent } from './components/base/base/base.component';
     MatGridListModule,
     MatTreeModule,
     MatChipsModule,
-    MatBadgeModule
+    MatBadgeModule,
+    MatRadioModule,
+    MatCheckboxModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

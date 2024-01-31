@@ -14,4 +14,6 @@ export class Helper {
   public static IsFormValid(status: string): boolean {
     return status == 'VALID' ? true : false;
   }
-}
+
+} 
+

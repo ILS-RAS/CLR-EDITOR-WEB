@@ -44,11 +44,17 @@ export class TextSelectorComponent extends BaseComponent implements OnInit {
   }
 
   Change() {
+    
+    let selectedHeader = this.headers.find(i=>i.code == this.form.controls['headerSelect'].value);
 
-    this.projectService.$currentHeader.next(this.headers.find(i=>i.code == this.form.controls['headerSelect'].value));
+    if(selectedHeader && selectedHeader?._id){
+      this.projectService.$currentHeader.next(selectedHeader);
+      this.projectService.GetIndeces(selectedHeader?._id);
+  
+      this.projectService.$currentIndex.next(undefined);
+      this.projectService.$currentChunk.next(undefined);
+      this.projectService.$currentVersionChunks.next(undefined);
+    }
 
-    this.projectService.$currentIndex.next(undefined);
-    this.projectService.$currentChunk.next(undefined);
-    this.projectService.$currentVersionChunks.next(undefined);
   }
 }

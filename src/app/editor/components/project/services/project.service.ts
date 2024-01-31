@@ -146,6 +146,16 @@ public async GetIndeces(headerId: string): Promise<IndexModel[]> {
       return Promise.resolve(result);
     });
 }
+
+public async SaveIndex(index: IndexModel): Promise<IndexModel>{
+  return await this.indexApiService
+  .save(index, AppType.Index)
+  .toPromise()
+  .then((item) => {
+    return Promise.resolve(item as IndexModel);
+  });
+}
+
 //#endregion
 
 //#region Chunk
@@ -211,5 +221,6 @@ public async GetVersionChunks(chunkId: string, interp: boolean = true) {
 }
 
 //#endregion
+
 
 }

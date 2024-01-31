@@ -1,0 +1,14 @@
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Index'>
+    <form class="form" [formGroup]="form">
+        <div class="range">
+            <mat-form-field class="input-field-full-width">
+                <input matInput type="number" formControlName="startValueInput" required>
+            </mat-form-field>
+            <mat-form-field class="input-field-full-width bordered" *ngIf="isRange">
+                <input matInput type="number" formControlName="endValueInput">
+            </mat-form-field>
+        </div>
+        <mat-checkbox formControlName="checkControl" class="check-range" color="primary"
+            (change)="Change()">Диапазон</mat-checkbox>
+    </form>
+</app-dialog>
