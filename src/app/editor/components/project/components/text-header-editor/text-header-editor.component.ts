@@ -63,7 +63,6 @@ export class TextHeaderEditorComponent extends BaseComponent implements OnInit {
       let savedHeader = item as HeaderModel;
       if(savedHeader && savedHeader.projectId){
         this.projectService.GetHeaders(savedHeader.projectId).then(()=>{
-          this.projectService.$currentHeader.next(undefined);
           this.dialogRef.close();
         })
       }

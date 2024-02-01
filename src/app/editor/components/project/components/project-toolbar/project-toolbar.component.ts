@@ -7,6 +7,7 @@ import { HeaderModel } from '../../../../models';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { UiService } from '../../../../../services/ui.service';
 
 @Component({
   selector: 'app-project-toolbar',
@@ -20,7 +21,8 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    private projectService: ProjectService
+    private projectService: ProjectService,
+    private uiService: UiService
   ) {
     super();
   }
@@ -51,6 +53,9 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
           this.projectService.MarkHeaderAsDeleted(this.header).then(() => {
             if (this.header?.projectId) {
               this.projectService.GetHeaders(this.header.projectId);
+              this.projectService.$currentHeader.next(undefined);
+              this.projectService.$currentIndeces.next(undefined);
+              this.uiService.$indexPanelOpened.next(false);
             }
           });
         }
