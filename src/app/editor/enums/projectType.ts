@@ -1,4 +1,4 @@
 export enum ProjectType{
-    Text,
-    Dictionary
+    Text = 'text',
+    Dictionary = 'dict'
 }

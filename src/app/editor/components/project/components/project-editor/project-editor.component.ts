@@ -12,6 +12,7 @@ import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
 import { MetaService } from '../../services/meta.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { ProjectType } from '../../../../enums/projectType';
 
 @Component({
   selector: 'app-project-editor',
@@ -62,7 +63,7 @@ export class ProjectEditorComponent extends BaseComponent implements OnInit {
     this.project.status = ProjectStatus.Edited;
     this.project.creatorId = sessionStorage.getItem('_id')?.toString();
     this.project.desc = this.projectCodes?.find(i=>i.code == this.project.code)?.desc;
-
+    this.project.projectType = ProjectType.Text;
     this.projectService.SaveProject(this.project).then((item) => {
       let savedProject = item as ProjectModel;
       if (savedProject) {

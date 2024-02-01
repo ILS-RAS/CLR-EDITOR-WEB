@@ -13,6 +13,7 @@ import {
 } from '../../../models';
 import { Helper } from '../../../../utils';
 import { UiService } from '../../../../services/ui.service';
+import { ProjectType } from '../../../enums/projectType';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,7 @@ export class ProjectService {
     await this.projectApiService
       .findByQuery(
         new ProjectModel({}), 
-        JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited })),
+        JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text })),
         AppType.Project)
       .toPromise()
       .then((items: ProjectModel[]) => {

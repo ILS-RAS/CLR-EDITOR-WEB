@@ -1,6 +1,8 @@
 export class ProjectQuery
 {
-    status?:string;
+    status?: string;
+    projectType?: string;
+    
     public constructor(fields: Partial<ProjectQuery>) {
         Object.assign(this, fields);
      }

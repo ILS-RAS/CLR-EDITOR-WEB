@@ -2,10 +2,11 @@ import { BaseModel } from './baseModel';
 
 export class ProjectModel extends BaseModel {
   code?: string;
-  desc: string | undefined;
-  creatorId: string | undefined;
-  created: string | undefined;
-  status: string | undefined;
+  desc?: string;
+  creatorId?: string;
+  created?: string;
+  status?: string;
+  projectType?: string;
 
   public constructor(fields: Partial<ProjectModel>) {
     super();
