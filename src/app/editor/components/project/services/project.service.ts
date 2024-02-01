@@ -156,6 +156,12 @@ public async SaveIndex(index: IndexModel): Promise<IndexModel>{
   });
 }
 
+public async DeleteIndex(index: IndexModel) {
+  await this.indexApiService.remove(index, AppType.Index).toPromise().then(()=>{
+    Promise.resolve();
+  });
+}
+
 //#endregion
 
 //#region Chunk

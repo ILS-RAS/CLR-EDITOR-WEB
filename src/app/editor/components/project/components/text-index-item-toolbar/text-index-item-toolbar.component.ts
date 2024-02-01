@@ -6,6 +6,7 @@ import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-ind
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { TextIndexBuilderComponent } from '../text-index-builder/text-index-builder.component';
 import { takeUntil } from 'rxjs';
+import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 
 @Component({
   selector: 'app-text-index-item-toolbar',
@@ -34,10 +35,21 @@ export class TextIndexItemToolbarComponent extends BaseComponent implements OnCh
 
   ngOnInit(): void {}
 
-  DeleteNode() {
-    throw new Error('Method not implemented.');
+  DeleteIndex() {
+    this.dialog.open(ConfirmComponent, { width: `600px`, hasBackdrop: true, data: this.index })
+    .afterClosed()
+    .subscribe((res)=>{
+      if(res && this.index && this.index.headerId){
+        this.projectService.DeleteIndex(this.index).then(()=>{
+          if(this.index && this.index.headerId){
+            this.projectService.GetIndeces(this.index.headerId);
+          }
+        })
+      }
+    })
   }
-  EditNode() {
+
+  EditIndexName() {
     this.dialog.open(TextIndexItemEditorComponent,  { width: `600px`, hasBackdrop: true, data: this.index  });
   }
 

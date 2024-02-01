@@ -116,15 +116,7 @@ export class TextIndexComponent extends BaseComponent implements OnInit, OnChang
     this.dataSource = new DynamicDataSource(this.treeControl, projectService);
   }
   ngOnChanges(changes: SimpleChanges): void {
-    // if(this.header && this.header._id){
-    //   this.projectService.GetIndeces(this.header._id).then((indeces) => {
-    //     if(indeces){
-    //       this.dataSource.data = indeces
-    //       .filter(i=>!i.parentId).sort((a, b) => (a.order > b.order ? 1 : -1))
-    //       .map(name => new DynamicFlatNode(name._id as string, name.name as string, name.parentId as string, 0, name.order, this.dataSource.isExtendable(name._id as string)))
-    //     }
-    //   })
-    // }
+
   }
 
   ngOnInit(): void {
