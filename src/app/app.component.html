@@ -1,6 +1,6 @@
 <app-header (toggle)="sideBarToggler()" [title]="title"></app-header>
 <mat-drawer-container>
-    <mat-drawer mode="side" [opened]="sideBarOpen">
+    <mat-drawer mode="side" [opened]="sideBarOpen && isAuthenticated">
         <app-sidebar [menuItems]="menuItems" (menuItemSelected)="menuItemSelected($event)"></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>

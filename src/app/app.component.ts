@@ -6,6 +6,8 @@ import { MenuService } from './editor/services/menu.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppConfig } from './constants/app-config';
 import { BaseComponent } from './components/base/base/base.component';
+import { AuthService } from './services/auth.service';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,14 +15,15 @@ import { BaseComponent } from './components/base/base/base.component';
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent extends BaseComponent implements OnInit {
-  menuItems:MenuItem[] = [];
-  sideBarOpen = false;
-  title: string;
-
+  public menuItems:MenuItem[] = [];
+  public sideBarOpen = false;
+  public title: string;
+  public isAuthenticated = false;
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private readonly nemuService: MenuService
+    private readonly nemuService: MenuService,
+    private authService: AuthService, 
   ) {
     super();
     this.RegisterIcons();
@@ -43,6 +46,9 @@ export class AppComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.nemuService.menuItems$.pipe().subscribe(items => {
       this.menuItems = items;
+    });
+    this.authService.isAuthenticated$.pipe(takeUntil(this.destroyed)).subscribe((item)=>{
+      this.isAuthenticated = item;
     });
   }
   

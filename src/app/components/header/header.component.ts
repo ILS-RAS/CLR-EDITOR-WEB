@@ -1,7 +1,6 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { takeUntil } from 'rxjs';
-import { ProjectService } from '../../editor/components/project/services/project.service';
 import { BaseComponent } from '../base/base/base.component';
 
 @Component({
@@ -16,7 +15,7 @@ export class HeaderComponent  extends BaseComponent implements OnInit, OnDestroy
 
   public isAuthenticated = false;
 
-  constructor(private _authService: AuthService, private projectService: ProjectService) {
+  constructor(private _authService: AuthService) {
     super();
   }
 
