@@ -34,7 +34,7 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.GetProjects().then(() => {
       this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe((projects) => {
-        this.projects = projects;
+        this.projects = projects.sort((a, b) => a.code!.localeCompare(b.code!));
       });
     });
   }

@@ -45,7 +45,7 @@ export class ProjectEditorComponent extends BaseComponent implements OnInit {
       });
     });
     
-    this.projectCodes = this.metaService.GetByCategory(TaxonomyCategory.AuthWork);
+    this.projectCodes = this.metaService.GetByCategory(TaxonomyCategory.AuthWork).sort((a, b) => a.code!.localeCompare(b.code!));
 
     this.form.controls['projectCodeSelect'].setValue(this.project.code);
 
