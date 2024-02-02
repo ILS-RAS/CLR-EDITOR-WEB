@@ -13,4 +13,8 @@ export class ErrorService {
     this.snackBar.open(response.message, 'ERROR');
     return response;
   }
+
+  public errorMessage(message: string) {
+    this.snackBar.open(message, 'ERROR');
+  }
 }

@@ -15,7 +15,7 @@ export class ChunkParserService {
     if (chunkValue == undefined) return undefined;
 
     //TODO: Fix incorrect cyrillic string splitting
-    let tempArray = chunkValue.split(/(?=[.\s]|\b)/);
+    let tempArray = chunkValue.split(/(?=[\s,.!?—–])|(?<=[\s,.!?—–])/);
 
     return Promise.resolve(tempArray);
   }
@@ -33,50 +33,47 @@ export class ChunkParserService {
 
       if (this.punctuation(item)) {
         element.type = ElementType.Punctuation.toString();
-      }
-
-      if (this.letter(item)) {
+      }else if (this.letter(item)) {
         element.type = ElementType.Word.toString();
-      }
-
-      if (this.number(item)) {
+      }else if (this.number(item)) {
         element.type = ElementType.Digit.toString();
-      }
-
-      if (this.space(item)) {
+      }else if (this.space(item)) {
         if (this.newLine(item)) {
           element.type = ElementType.NewLine.toString();
         } else {
           element.type = ElementType.Space.toString();
         }
+      }else{
+        this.errorService.errorMessage(`Неизвестный символ: ${{item}}`);
       }
 
       elements.push(element);
 
       inx += 1;
+      
     });
 
     return Promise.resolve(elements);
   }
 
   private punctuation(str: string) {
-    return / /.test(str);
+    return /[,.!?—–]/.test(str);
   }
 
   private letter(str: string) {
-    return / /.test(str);
+    return /\p{L}/u.test(str);
   }
 
   private number(str: string) {
-    return / /.test(str);
+    return /\d+/.test(str);
   }
 
   private space(str: string) {
-    return / /.test(str);
+    return /\s/.test(str);
   }
 
   private newLine(str: string) {
-    return / /.test(str);
+    return /\n/.test(str);
   }
 
 }
