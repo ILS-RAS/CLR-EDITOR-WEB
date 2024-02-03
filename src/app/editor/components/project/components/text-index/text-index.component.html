@@ -1,4 +1,4 @@
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+<mat-tree class="index-tree" cdkscrollable [dataSource]="dataSource" [treeControl]="treeControl">
     <mat-chip-listbox [selectable]="true">
         <mat-tree-node *matTreeNodeDef="let node" matTreeNodePadding>
             <button mat-icon-button disabled></button>

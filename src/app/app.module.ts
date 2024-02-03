@@ -56,6 +56,7 @@ import { BaseComponent } from './components/base/base/base.component';
 import { TextIndexBuilderComponent } from './editor/components/project/components/text-index-builder/text-index-builder.component';
 import {MatRadioModule } from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {MatTabsModule} from '@angular/material/tabs';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +121,8 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
     MatChipsModule,
     MatBadgeModule,
     MatRadioModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatTabsModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

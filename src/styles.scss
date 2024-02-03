@@ -38,3 +38,12 @@ app-text-selector{
   margin-top: 14px;
   margin-left: 15px;
 }
+
+
+.mat-drawer-inner-container::-webkit-scrollbar {
+  display: none;
+}
+
+.mat-drawer-inner-container{
+  height: fit-content !important;
+}
