@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { AppType, ProjectStatus } from '../../../enums';
-import { ElementQuery, HeaderQuery, MorphQuery, ProjectQuery } from '../../../queries';
+import { ChunkQuery, ElementQuery, HeaderQuery, MorphQuery, ProjectQuery } from '../../../queries';
 import {
   IndexModel,
   InterpModel,
@@ -122,12 +122,9 @@ public async GetHeaders(projectId: string) {
 }
 
 public async SaveHeader(header: HeaderModel): Promise<HeaderModel>{
-  return await this.headerApiService
-  .save(header, AppType.Header)
-  .toPromise()
-  .then((item) => {
-    return Promise.resolve(item as HeaderModel);
-  });
+  let result = this.headerApiService
+  .save(header, AppType.Header);
+  return await lastValueFrom(result);
 }
 
 public async MarkHeaderAsDeleted(header: HeaderModel) {
@@ -187,6 +184,11 @@ public async GetChunk(indexId: string) {
     });
 }
 
+public async GetChunkByQuery(query: ChunkQuery){
+  let result = this.chunkApiService.findByQuery(new ChunkModel({}), JSON.stringify(query), AppType.Chunk);
+  return await lastValueFrom(result);
+}
+
 public async DeleteChunk(chunk: ChunkModel) {
   await this.chunkApiService.remove(chunk, AppType.Chunk).toPromise().then(()=>{
     Promise.resolve();
@@ -240,6 +242,11 @@ public async GetVersionChunks(chunkId: string, interp: boolean = true) {
   }
 }
 
+public async SaveInterpLink(InterpModel:InterpModel){
+  let result = this.interpApiService.save(InterpModel, AppType.Interp);
+  return await lastValueFrom(result);
+}
+
 //#endregion
 
 //#region Morph
@@ -249,7 +256,7 @@ public async GetMorphItems(lang: string): Promise<MorphModel[]> {
       new MorphModel({}),
       JSON.stringify(new MorphQuery({ isRule: 'true', lang: lang })),
       AppType.Morph
-    )
+    );
     return await lastValueFrom<MorphModel[]>(items); 
 }
 //#endregion

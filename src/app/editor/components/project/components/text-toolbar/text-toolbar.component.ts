@@ -21,6 +21,7 @@ export class TextToolbarComponent extends BaseComponent implements OnInit {
   isChecked = false;
   isToggled = false;
   chunk?: ChunkModel;
+  public progressBarIsOn?: boolean;
   constructor(
     private projectService: ProjectService,
     private uiService: UiService,
@@ -44,6 +45,9 @@ export class TextToolbarComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.uiService.$progressBarIsOn.pipe(takeUntil(this.destroyed)).subscribe(state=>{
+      this.progressBarIsOn = state;
+    });
     this.projectService.$showVersion.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.isChecked = item;
     });

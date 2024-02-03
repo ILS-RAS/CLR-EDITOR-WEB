@@ -18,7 +18,7 @@ export class ProjectDashboardComponent extends BaseComponent implements OnInit {
   public project?: ProjectModel;
   public header?:HeaderModel;
   public drawerOpened?: boolean;
-  public progressBarIsOn?: boolean;
+  
   constructor(
     private projectService: ProjectService,
     private router: Router,
@@ -36,9 +36,6 @@ export class ProjectDashboardComponent extends BaseComponent implements OnInit {
     });
     this.uiService.$indexPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.drawerOpened = state;
-    });
-    this.uiService.$progressBarIsOn.pipe(takeUntil(this.destroyed)).subscribe(state=>{
-      this.progressBarIsOn = state;
     });
   }
 

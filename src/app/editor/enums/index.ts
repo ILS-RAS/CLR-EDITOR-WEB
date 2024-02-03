@@ -7,3 +7,4 @@ export * from './projectStatus';
 export * from './taxonomyCategory';
 export * from './editionType';
 export * from './chunkStatus';
+export * from './language';

@@ -1,4 +1,4 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Новое издание'>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" [title]='title'>
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
           <mat-label>Код</mat-label>

@@ -1,13 +1,18 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
-import { HeaderModel, TaxonomyViewModel } from '../../../../models';
+import { HeaderModel, InterpModel, TaxonomyViewModel } from '../../../../models';
 import {
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
 import { MetaService } from '../../services/meta.service';
-import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
+import {
+  EditionType,
+  Language,
+  ProjectStatus,
+  TaxonomyCategory,
+} from '../../../../enums';
 import { ProjectService } from '../../services/project.service';
 import { Helper } from '../../../../../utils';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
@@ -20,8 +25,9 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 export class TextHeaderEditorComponent extends BaseComponent implements OnInit {
   isDisabled: boolean = true;
   form: UntypedFormGroup;
-  languages?:TaxonomyViewModel[];
+  languages?: TaxonomyViewModel[];
   editionTypes?: TaxonomyViewModel[];
+  title?:string;
   constructor(
     public dialogRef: MatDialogRef<TextHeaderEditorComponent>,
     private metaService: MetaService,
@@ -34,39 +40,80 @@ export class TextHeaderEditorComponent extends BaseComponent implements OnInit {
       codeInput: new UntypedFormControl(''),
       langSelect: new UntypedFormControl(''),
       biblioInput: new UntypedFormControl(''),
-      editionTypeSelect:new UntypedFormControl('')
+      editionTypeSelect: new UntypedFormControl(''),
     });
-    
   }
 
   ngOnInit(): void {
-    this.languages = this.metaService.GetByCategory(TaxonomyCategory.Lang);
-    this.editionTypes = this.metaService.GetByCategory(TaxonomyCategory.EditionType);
-  
+    if (!this.header._id) {
+      if (!this.projectService.$projectHeaders.value || this.projectService.$projectHeaders.value.length == 0) {
+        this.editionTypes = this.metaService
+          .GetByCategory(TaxonomyCategory.EditionType)
+          .filter((i) => i.code == EditionType.Original);
+        this.languages = this.metaService
+          .GetByCategory(TaxonomyCategory.Lang)
+          .filter((i) => i.code == Language.lat);
+
+          this.form.controls['editionTypeSelect'].setValue(EditionType.Original);
+          this.form.controls['langSelect'].setValue(Language.lat);
+          this.title = 'Editio originalis';
+      }
+      if (
+        this.projectService.$projectHeaders.value &&
+        this.projectService.$projectHeaders.value.length >= 1
+      ) {
+        this.editionTypes = this.metaService
+          .GetByCategory(TaxonomyCategory.EditionType)
+          .filter((i) => i.code == EditionType.Interpretation);
+        this.languages = this.metaService
+          .GetByCategory(TaxonomyCategory.Lang)
+          .filter((i) => i.code == Language.rus);
+          this.form.controls['editionTypeSelect'].setValue(EditionType.Interpretation);
+          this.form.controls['langSelect'].setValue(Language.rus);
+          this.title = 'Interpretatio';
+      }
+
+    } else {
+      this.editionTypes = this.metaService
+        .GetByCategory(TaxonomyCategory.EditionType)
+        .filter((i) => i.code == this.header.editionType);
+      this.languages = this.metaService
+        .GetByCategory(TaxonomyCategory.Lang)
+        .filter((i) => i.code == this.header.lang);
+
+
+        if(this.header.editionType == EditionType.Original){
+          this.title = 'Editio originalis';
+        }else{
+          this.title = 'Interpretatio';
+        }
+
     this.form.controls['codeInput'].setValue(this.header.code);
     this.form.controls['editionTypeSelect'].setValue(this.header.editionType);
     this.form.controls['langSelect'].setValue(this.header.lang);
     this.form.controls['biblioInput'].setValue(this.header.desc);
+    }
 
-    this.form.statusChanges.subscribe(val => this.isDisabled = !Helper.IsFormValid(val));
+    this.form.statusChanges.subscribe(
+      (val) => (this.isDisabled = !Helper.IsFormValid(val))
+    );
   }
 
   Save() {
-
     this.header.projectId = this.projectService.$currentProject.value?._id;
     this.header.code = this.form.controls['codeInput'].value;
     this.header.editionType = this.form.controls['editionTypeSelect'].value;
     this.header.lang = this.form.controls['langSelect'].value;
     this.header.desc = this.form.controls['biblioInput'].value;
 
-    this.projectService.SaveHeader(this.header).then(item=>{
+    this.projectService.SaveHeader(this.header).then((item) => {
       let savedHeader = item as HeaderModel;
-      if(savedHeader && savedHeader.projectId){
-        this.projectService.GetHeaders(savedHeader.projectId).then(()=>{
+      if (savedHeader && savedHeader.projectId) {
+        this.projectService.GetHeaders(savedHeader.projectId).then(() => {
           this.dialogRef.close();
-        })
+        });
       }
-    })
+    });
   }
   Cancel() {
     this.dialogRef.close();
