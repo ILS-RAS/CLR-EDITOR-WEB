@@ -6,11 +6,17 @@ import {
 } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { ProjectService } from '../../services/project.service';
-import { ChunkModel, ChunkViewModel } from '../../../../models';
+import {
+  ChunkModel,
+  ChunkValueItemModel,
+  ChunkViewModel,
+} from '../../../../models';
 import { Helper } from '../../../../../utils';
 import { ChunkParserService } from '../../services/chunk-parser.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { UiService } from '../../../../../services/ui.service';
+import { ChunkStatus } from '../../../../enums';
 
 @Component({
   selector: 'app-text-chunk-editor',
@@ -25,7 +31,8 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
     private projectService: ProjectService,
     private chunkParser: ChunkParserService,
     @Inject(MAT_DIALOG_DATA) public chunk: ChunkViewModel,
-    private formBuilder: UntypedFormBuilder
+    private formBuilder: UntypedFormBuilder,
+    private uiService: UiService
   ) {
     super();
     this.form = this.formBuilder.group({
@@ -35,12 +42,13 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.form.controls['chunkInput'].setValue(this.chunk.value);
-    this.form.statusChanges.pipe(takeUntil(this.destroyed)).subscribe(
-      (val) => (this.isDisabled = !Helper.IsFormValid(val))
-    );
+    this.form.statusChanges
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((val) => (this.isDisabled = !Helper.IsFormValid(val)));
   }
 
   Save() {
+    this.uiService.$progressBarIsOn.next(true);
 
     if (!this.chunk._id) {
       this.chunk.created = new Date().toISOString();
@@ -54,19 +62,92 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
 
     this.chunk.value = this.form.controls['chunkInput'].value;
 
+    this.chunk.status = ChunkStatus.Published;
+
     this.chunkParser.ParseTextToElements(this.chunk).then((items) => {
-      this.chunk.valueObj = JSON.stringify(items);
+      let elements = items;
+
+      let lang = this.projectService.$currentHeader.value?.lang;
+
+      let chunkValueItems: ChunkValueItemModel[] = [];
+      let clearChunk = new ChunkModel({
+        _id: this.chunk._id,
+              created: this.chunk.created,
+              headerId: this.chunk.headerId,
+              indexId: this.chunk.indexId,
+              status: this.chunk.status,
+              updated: this.chunk.created,
+              value: this.chunk.value
+      });
+      if (lang)
+        this.projectService
+          .GetMorphItems(lang)
+          .then((ruleItems) => {
+            elements.forEach((element) => {
+
+              let chunkValueItem = new ChunkValueItemModel({
+                value: element.value,
+                type: element.type,
+                order: element.order,
+              });
+
+              let rules = ruleItems.filter(i=>i.form?.toLocaleLowerCase() == element.value?.toLocaleLowerCase());
+
+              if (rules.length == 1) {
+                let morphRule = rules[0];
+                element.morphId = morphRule._id;
+                chunkValueItem.morphId = morphRule._id;
+                chunkValueItem.case = morphRule.case;
+                chunkValueItem.degree = morphRule.degree;
+                chunkValueItem.dialect = morphRule.dialect;
+                chunkValueItem.feature = morphRule.feature;
+                chunkValueItem.form = morphRule.form;
+                chunkValueItem.gender = morphRule.gender;
+                chunkValueItem.lang = morphRule.lang;
+                chunkValueItem.lemma = morphRule.lemma;
+                chunkValueItem.number = morphRule.number;
+                chunkValueItem.mood = morphRule.mood;
+                chunkValueItem.person = morphRule.person;
+                chunkValueItem.pos = morphRule.pos;
+                chunkValueItem.tense = morphRule.tense;
+                chunkValueItem.voice = morphRule.voice;
+              }
+              chunkValueItems.push(chunkValueItem);
+            });
+
+            clearChunk.valueObj = JSON.stringify(chunkValueItems);
+
+          })
+          .then(() => {
+            this.projectService.SaveChunk(clearChunk).then((savedChunk) => {
+              let sch = savedChunk as ChunkModel;
+              if (sch && sch._id) {
+                this.projectService.DeleteElementsByChunk(sch._id).then(() => {
+                  elements.forEach((el) => {
+                    el.chunkId = sch._id;
+                    el.headerId = sch.headerId;
+                    this.projectService.SaveElement(el);
+                  });
+                });
+              }
+              return sch
+            }).then(sch=>{
+              if(sch.indexId){
+                this.projectService.GetChunk(sch.indexId);
+              }
+            });
+          })
+          .finally(() => {
+            this.uiService.$progressBarIsOn.next(false);
+          });
     });
 
     //TODO:Save chunk
 
     this.dialogRef.close();
-
   }
 
   Cancel() {
-
     this.dialogRef.close();
-
   }
 }

@@ -16,5 +16,6 @@ export class ErrorService {
 
   public errorMessage(message: string) {
     this.snackBar.open(message, 'ERROR');
+    console.log(message);
   }
 }

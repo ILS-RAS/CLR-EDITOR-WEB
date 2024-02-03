@@ -107,6 +107,19 @@ export class ApiService<T extends BaseModel> implements OnInit {
       );
   }
 
+  removeByQuery(item: T, query: string,  path:string) {
+    return this.httpClient
+      .delete(`${environment.API}${path}/${0}?params=${query}`, {
+        headers: this.headers
+      })
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+      );
+  }
+
   save(item: T, path:string) {
     if (item._id !== undefined) {
       return this.httpClient

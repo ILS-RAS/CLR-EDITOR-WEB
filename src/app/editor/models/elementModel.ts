@@ -4,8 +4,8 @@ export class ElementModel extends BaseModel{
     
     chunkId?: string;
     value?:string;
-    type?:string;
-    order?:string;
+    type?:number;
+    order?:number;
     morphId?:string;
     headerId?:string;
 

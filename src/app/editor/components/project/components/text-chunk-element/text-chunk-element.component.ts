@@ -25,6 +25,7 @@ export class TextChunkElementComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     if (this.element) {
       this.isMorphStyle = this.element.morphId !== undefined;
+      this.isNotMorphStyle = this.element.morphId == undefined;
     }
   }
 }

@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { AppType, ProjectStatus } from '../../../enums';
-import { HeaderQuery, ProjectQuery } from '../../../queries';
+import { ElementQuery, HeaderQuery, MorphQuery, ProjectQuery } from '../../../queries';
 import {
   IndexModel,
   InterpModel,
@@ -14,6 +14,9 @@ import {
 import { Helper } from '../../../../utils';
 import { UiService } from '../../../../services/ui.service';
 import { ProjectType } from '../../../enums/projectType';
+import { MorphModel } from '../../../models/morphModel';
+import { ElementModel } from '../../../models/elementModel';
+import { query } from '@angular/animations';
 
 @Injectable({
   providedIn: 'root',
@@ -57,7 +60,8 @@ export class ProjectService {
     private chunkViewApiService: ApiService<ChunkViewModel>,
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
-    private uiService: UiService
+    private morphApiService: ApiService<MorphModel>,
+    private elementApiService:ApiService<ElementModel> 
   ) {}
 
   public InitContext(project: ProjectModel) {
@@ -189,13 +193,22 @@ public async DeleteChunk(chunk: ChunkModel) {
   });
 }
 
-public async SaveChunk(chunk: ChunkViewModel) {
-  return await this.chunkViewApiService
-  .save(chunk, AppType.Chunk)
-  .toPromise()
-  .then((item) => {
-    return Promise.resolve(item);
-  });
+public async SaveChunk(chunk: ChunkModel) {
+  let result = this.chunkApiService
+  .save(chunk, AppType.Chunk);
+  return await lastValueFrom<ChunkModel>(result);
+}
+
+public async SaveElement(element: ElementModel){
+  let result = this.elementApiService
+  .save(element, AppType.Element);
+  return await lastValueFrom<ElementModel>(result);
+}
+
+public async DeleteElementsByChunk(chunkId: string){
+  let result = this.elementApiService
+  .removeByQuery(new  ElementModel({}), JSON.stringify(new ElementQuery({chunkId: chunkId})), AppType.Element);
+  return await lastValueFrom<ElementModel>(result);
 }
 
 public async GetVersionChunks(chunkId: string, interp: boolean = true) {
@@ -229,5 +242,15 @@ public async GetVersionChunks(chunkId: string, interp: boolean = true) {
 
 //#endregion
 
-
+//#region Morph
+public async GetMorphItems(lang: string): Promise<MorphModel[]> {
+  let items = this.morphApiService
+    .findByQuery(
+      new MorphModel({}),
+      JSON.stringify(new MorphQuery({ isRule: 'true', lang: lang })),
+      AppType.Morph
+    )
+    return await lastValueFrom<MorphModel[]>(items); 
+}
+//#endregion
 }

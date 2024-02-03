@@ -10,12 +10,11 @@ import { ElementType } from '../../../enums/elementType';
 export class ChunkParserService {
   constructor(private errorService: ErrorService) {}
 
-  private async SplitPhrase(chunkValue?: string) {
+  private async SplitPhrase(chunkValue?: string): Promise<string[]> {
 
-    if (chunkValue == undefined) return undefined;
+    if (chunkValue == undefined) return [];
 
-    //TODO: Fix incorrect cyrillic string splitting
-    let tempArray = chunkValue.split(/(?=[\s,.!?—–])|(?<=[\s,.!?—–])/);
+    let tempArray = chunkValue.split(/(?=[\s,.!?—–\\/{}()\"'`~])|(?<=[\s,.!?—–\\/{}()\"'`~])/);
 
     return Promise.resolve(tempArray);
   }
@@ -25,26 +24,26 @@ export class ChunkParserService {
     let elements: ElementModel[] = [];
     let list = await this.SplitPhrase(chunk.value);
     let inx = 0;
-    list?.forEach((item) => {
+    await list?.forEach((item) => {
       let element: ElementModel = new ElementModel({});
       element.chunkId = chunk._id;
       element.value = item;
-      element.order = inx.toString();
+      element.order = inx;
 
       if (this.punctuation(item)) {
-        element.type = ElementType.Punctuation.toString();
-      }else if (this.letter(item)) {
-        element.type = ElementType.Word.toString();
+        element.type = ElementType.Punctuation;
+      }else if (this.letter(item) || (this.letter(item) && item.includes('-'))) {
+        element.type = ElementType.Word;
       }else if (this.number(item)) {
-        element.type = ElementType.Digit.toString();
+        element.type = ElementType.Digit;
       }else if (this.space(item)) {
         if (this.newLine(item)) {
-          element.type = ElementType.NewLine.toString();
+          element.type = ElementType.NewLine;
         } else {
-          element.type = ElementType.Space.toString();
+          element.type = ElementType.Space;
         }
       }else{
-        this.errorService.errorMessage(`Неизвестный символ: ${{item}}`);
+        this.errorService.errorMessage(`Неизвестный символ: ${ JSON.stringify(item) }`);
       }
 
       elements.push(element);
@@ -57,7 +56,7 @@ export class ChunkParserService {
   }
 
   private punctuation(str: string) {
-    return /[,.!?—–]/.test(str);
+    return /[,.!?—–\\/{}()\"'`~]/.test(str);
   }
 
   private letter(str: string) {

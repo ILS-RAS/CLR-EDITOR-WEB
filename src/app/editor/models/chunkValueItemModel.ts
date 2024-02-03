@@ -1,4 +1,6 @@
-export class ChunkValueItemModel
+import { BaseModel } from "./baseModel";
+
+export class ChunkValueItemModel extends BaseModel
 {
     id?: string;
     value?: string;
@@ -21,6 +23,7 @@ export class ChunkValueItemModel
     lang?: string;
 
     public constructor(fields: Partial<ChunkValueItemModel>) {
+        super();
         Object.assign(this, fields);
      }
 }
