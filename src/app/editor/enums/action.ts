@@ -1,9 +1,9 @@
 export enum Action {
   NewProject,
   OpenProject,
-  NewTaxonomy,
-  OpenTaxonomy,
+  ManageTaxonomy,
   EditChunk,
   SaveChunk,
-  OpenDictionary
+  OpenDictionary,
+  ManageUsers
 }

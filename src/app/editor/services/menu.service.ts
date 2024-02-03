@@ -20,13 +20,14 @@ export class MenuService {
   GetMenuItems() {
     this.menuData.next([
       new MenuItem({ title: 'Proiectus', action: Action.OpenProject, icon: 'works', link: '/', type: MenuItemType.Normal }),
-      new MenuItem({ title: 'Создать проект', action: Action.NewProject, icon: 'add', link: '/', type: MenuItemType.Normal  }),
+      new MenuItem({ title: 'Crea proiectum', action: Action.NewProject, icon: 'add', link: '/', type: MenuItemType.Normal  }),
       new MenuItem({ type: MenuItemType.Divider  }),
       new MenuItem({ title: 'Lexicon', action: Action.OpenDictionary, icon: 'dictionary', link: '/lexicon', type: MenuItemType.Normal  }),
-      new MenuItem({ title: 'Создать словарь', action: Action.OpenDictionary, icon: 'add', link: '/', type: MenuItemType.Normal  }),
+      new MenuItem({ title: 'Condi lexicon', action: Action.OpenDictionary, icon: 'add', link: '/', type: MenuItemType.Normal  }),
       new MenuItem({ type: MenuItemType.Divider  }),
-      new MenuItem({ title: 'Meta', action: Action.OpenTaxonomy, icon: 'toc', link: '/meta', type: MenuItemType.Normal  }),
-      new MenuItem({ title: 'Создать справочник', action: Action.NewTaxonomy, icon: 'add', link: '/', type: MenuItemType.Normal  }),
+      new MenuItem({ title: 'Sodales', action: Action.ManageUsers, icon: 'sodales', link: '/sodales', type: MenuItemType.Normal  }),
+      new MenuItem({ type: MenuItemType.Divider  }),
+      new MenuItem({ title: 'Meta', action: Action.ManageTaxonomy, icon: 'toc', link: '/meta', type: MenuItemType.Normal  }),
     ]);
   }
 }

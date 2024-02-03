@@ -6,6 +6,7 @@ import { DefaultComponent } from './editor/components/default/default.component'
 import { ProjectDashboardComponent } from './editor/components/project/components/project-dashboard/project-dashboard.component';
 import { DictionaryDashboardComponent } from './editor/components/dictionary/components/dictionary-dashboard/dictionary-dashboard.component';
 import { TaxonomyDashboardComponent } from './editor/components/taxonomy/components/taxonomy-dashboard/taxonomy-dashboard.component';
+import { UserDashboardComponent } from './editor/components/user/components/user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'meta',
     component: TaxonomyDashboardComponent,
+    canActivate: [ AuthGuard ]
+  },
+  {
+    path: 'sodales',
+    component: UserDashboardComponent,
     canActivate: [ AuthGuard ]
   }
 ];

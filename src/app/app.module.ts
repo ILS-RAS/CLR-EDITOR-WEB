@@ -57,6 +57,10 @@ import { TextIndexBuilderComponent } from './editor/components/project/component
 import {MatRadioModule } from '@angular/material/radio';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
+import { UserDashboardComponent } from './editor/components/user/components/user-dashboard/user-dashboard.component';
+import { UserListComponent } from './editor/components/user/components/user-list/user-list.component';
+import { TaxomomyIndexComponent } from './editor/components/taxonomy/components/taxomomy-index/taxomomy-index.component';
+import { UserToolbarComponent } from './editor/components/user/components/user-toolbar/user-toolbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -84,7 +88,11 @@ import {MatTabsModule} from '@angular/material/tabs';
     TextChunkEditorComponent,
     ProjectEditorComponent,
     BaseComponent,
-    TextIndexBuilderComponent
+    TextIndexBuilderComponent,
+    UserDashboardComponent,
+    UserListComponent,
+    TaxomomyIndexComponent,
+    UserToolbarComponent
   ],
   imports: [
     BrowserModule,
@@ -122,7 +130,8 @@ import {MatTabsModule} from '@angular/material/tabs';
     MatBadgeModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatTabsModule
+    MatTabsModule,
+    MatTableModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

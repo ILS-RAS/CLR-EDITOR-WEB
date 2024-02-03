@@ -45,7 +45,7 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
 
   public onSubmit(): void {
     this.loginValid = true;
-    var user: UserModel = new UserModel();
+    var user: UserModel = new UserModel({});
     user.email = this.username;
     user.password = this.password;
 

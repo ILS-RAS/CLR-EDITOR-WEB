@@ -75,16 +75,8 @@ export class ProjectService {
   }
 //#region Project
   public async GetProjects() {
-    await this.projectApiService
-      .findByQuery(
-        new ProjectModel({}), 
-        JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text })),
-        AppType.Project)
-      .toPromise()
-      .then((items: ProjectModel[]) => {
-        this.$projects.next(items);
-        Promise.resolve();
-      });
+    let result = this.projectApiService.findByQuery(new ProjectModel({}), JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text })), AppType.Project);
+    this.$projects.next(await lastValueFrom(result));
   }
 
   public async SaveProject(project: ProjectModel): Promise<ProjectModel> {

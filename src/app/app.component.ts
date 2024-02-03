@@ -140,5 +140,12 @@ export class AppComponent extends BaseComponent implements OnInit {
         '../assets/icons/dictionary.svg'
       )
     );
+
+    this.matIconRegistry.addSvgIcon(
+      `sodales`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/sodales.svg'
+      )
+    );
   }
 }

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angu
 import { AuthService } from '../../services/auth.service';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../base/base/base.component';
+import { ProjectService } from '../../editor/components/project/services/project.service';
 
 @Component({
   selector: 'app-header',
@@ -15,8 +16,9 @@ export class HeaderComponent  extends BaseComponent implements OnInit, OnDestroy
 
   public isAuthenticated = false;
 
-  constructor(private _authService: AuthService) {
+  constructor(private _authService: AuthService, private projectService: ProjectService) {
     super();
+    projectService.GetProjects();
   }
 
   public ngOnInit(): void {  
