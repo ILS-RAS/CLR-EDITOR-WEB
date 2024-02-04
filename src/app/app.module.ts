@@ -61,6 +61,8 @@ import { UserDashboardComponent } from './editor/components/user/components/user
 import { UserListComponent } from './editor/components/user/components/user-list/user-list.component';
 import { TaxomomyIndexComponent } from './editor/components/taxonomy/components/taxomomy-index/taxomomy-index.component';
 import { UserToolbarComponent } from './editor/components/user/components/user-toolbar/user-toolbar.component';
+import { UserListToolbarComponent } from './editor/components/user/components/user-list-toolbar/user-list-toolbar.component';
+import { UserComponent } from './editor/components/user/components/user/user.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +94,9 @@ import { UserToolbarComponent } from './editor/components/user/components/user-t
     UserDashboardComponent,
     UserListComponent,
     TaxomomyIndexComponent,
-    UserToolbarComponent
+    UserToolbarComponent,
+    UserListToolbarComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

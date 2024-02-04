@@ -1,30 +1,7 @@
-<table mat-table [dataSource]="dataSource">
-    <ng-container matColumnDef="ratio">
-        <th mat-header-cell *matHeaderCellDef>Email</th>
-        <td mat-cell *matCellDef="let user"> {{user.email}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="proiectus">
-        <th mat-header-cell *matHeaderCellDef>Proiectus</th>
-        <td mat-cell *matCellDef="let user">
-            <mat-chip-set #proj *ngIf="projects">
-                @for (project of getUserProjects(user._id); track project) {
-                  <mat-chip (removed)="RejectProject(project._id, user._id)">
-                    {{project.code}}
-                    <button matChipRemove>
-                      <mat-icon>cancel</mat-icon>
-                    </button>
-                  </mat-chip>
-                }
-              </mat-chip-set>
-        </td>
-    </ng-container>
-    <ng-container matColumnDef="mutatio">
-        <th mat-header-cell *matHeaderCellDef></th>
-        <td mat-cell *matCellDef="let user">
-            <app-user-toolbar (AssignProject)="AssignProject(user._id)" (EditUser)="EditUser(user)"></app-user-toolbar>
-        </td>
-    </ng-container>
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<mat-action-list *ngIf="users">
+  @for (user of users; track user) {
+    <button mat-list-item (click)="Select(user)">
+      {{user.name}} [{{user.role}}]
+    </button>
+  }
+</mat-action-list>

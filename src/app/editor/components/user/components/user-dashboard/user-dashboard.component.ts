@@ -8,6 +8,9 @@ import { BaseModel } from '../../../../models/baseModel';
   styleUrl: './user-dashboard.component.scss'
 })
 export class UserDashboardComponent extends BaseModel implements OnInit {
+CreateUser() {
+throw new Error('Method not implemented.');
+}
   constructor(private userService: UserService){
     super();
   }

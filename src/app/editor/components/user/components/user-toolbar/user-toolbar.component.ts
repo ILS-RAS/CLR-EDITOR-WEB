@@ -7,6 +7,9 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
   styleUrl: './user-toolbar.component.scss',
 })
 export class UserToolbarComponent extends BaseComponent {
+CreateUser() {
+throw new Error('Method not implemented.');
+}
   
   @Output() AssignProject: EventEmitter<void> = new EventEmitter<void>();
   @Output() EditUser: EventEmitter<void> = new EventEmitter<void>();

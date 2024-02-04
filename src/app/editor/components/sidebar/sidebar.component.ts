@@ -9,13 +9,15 @@ import { ProjectEditorComponent } from '../project/components/project-editor/pro
 import { ProjectModel } from '../../models';
 import { UiService } from '../../../services/ui.service';
 import { MenuService } from '../../services/menu.service';
+import { BaseComponent } from '../../../components/base/base/base.component';
+import { takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
-export class SidebarComponent implements OnInit {
+export class SidebarComponent extends BaseComponent implements OnInit {
   @Input() menuItems: MenuItem[] = [];
   @Output() menuItemSelected: EventEmitter<any> = new EventEmitter<any>();
 
@@ -25,18 +27,20 @@ export class SidebarComponent implements OnInit {
     private router: Router,
     private uiService: UiService,
     private menuService:MenuService
-  ) {}
+  ) {
+    super();
+  }
 
   ngOnInit(): void {
     
-    this.menuService.menuItems$.pipe().subscribe(items => {
+    this.menuService.menuItems$.pipe(takeUntil(this.destroyed)).subscribe(items => {
       this.menuItems = items;
     });
   }
 
   click(item: MenuItem) {
     if (item.action == Action.NewProject) {
-      this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().subscribe(()=>{
+      this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
         this.projectService.InitContext(this.projectService.$currentProject.value as ProjectModel);
         this.uiService.Reset();
         this.router.navigateByUrl('/proiectus');

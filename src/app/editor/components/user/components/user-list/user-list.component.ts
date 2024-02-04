@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { BaseModel } from '../../../../models/baseModel';
-import { ProjectModel, UserModel } from '../../../../models';
-import { ProjectService } from '../../../project/services/project.service';
+import { UserModel } from '../../../../models';
+import { UserRole } from '../../../../enums';
 
 @Component({
   selector: 'app-user-list',
@@ -10,39 +10,24 @@ import { ProjectService } from '../../../project/services/project.service';
   styleUrl: './user-list.component.scss',
 })
 export class UserListComponent extends BaseModel implements OnInit {
-  displayedColumns: string[] = ['ratio', 'proiectus', 'mutatio'];
-  dataSource?: any;
-  projects?: ProjectModel[];
+  users?: UserModel[];
   constructor(
-    private userService: UserService,
-    private projectService: ProjectService
+    private userService: UserService
   ) {
     super();
   }
 
   ngOnInit(): void {
     this.userService.$users.subscribe((users) => {
-      this.dataSource = users;
-    });
-    this.projectService.$projects.subscribe((projects) => {
-      this.projects = projects.sort((a, b) => a.code!.localeCompare(b.code!));
+      this.users = users.sort((a, b) => a.name!.localeCompare(b.name!));
     });
   }
 
-  public getUserProjects(id: string): ProjectModel[] {
-    let selected = this.projects?.filter((i) => i.creatorId == id);
-    return selected ?? [];
-  }
-
-  EditUser(user: UserModel) {
-    //Call modal editor
-  }
-
-  AssignProject(userId: string) {
+  Select(user: UserModel) {
     
   }
 
-  RejectProject(projectId?: string, userId?: string) {
-    
+  ResolveRoleName(role:number){
+    return role as UserRole;
   }
 }
