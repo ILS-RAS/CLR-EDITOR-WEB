@@ -22,7 +22,6 @@ export class AppComponent extends BaseComponent implements OnInit {
   constructor(
     private matIconRegistry: MatIconRegistry,
     private domSanitizer: DomSanitizer,
-    private readonly nemuService: MenuService,
     private authService: AuthService, 
   ) {
     super();
@@ -35,18 +34,11 @@ export class AppComponent extends BaseComponent implements OnInit {
     }
   }
   
-  menuItemSelected(menuItem: MenuItem) {
-    //this.sideBarOpen = false;
-  }
-
   sideBarToggler() {
     this.sideBarOpen = !this.sideBarOpen;
   }
   
   ngOnInit(): void {
-    this.nemuService.menuItems$.pipe().subscribe(items => {
-      this.menuItems = items;
-    });
     this.authService.isAuthenticated$.pipe(takeUntil(this.destroyed)).subscribe((item)=>{
       this.isAuthenticated = item;
     });

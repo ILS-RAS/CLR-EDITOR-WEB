@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { ProjectEditorComponent } from '../project/components/project-editor/project-editor.component';
 import { ProjectModel } from '../../models';
 import { UiService } from '../../../services/ui.service';
+import { MenuService } from '../../services/menu.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,10 +23,16 @@ export class SidebarComponent implements OnInit {
     public dialog: MatDialog,
     private projectService: ProjectService,
     private router: Router,
-    private uiService: UiService
+    private uiService: UiService,
+    private menuService:MenuService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    
+    this.menuService.menuItems$.pipe().subscribe(items => {
+      this.menuItems = items;
+    });
+  }
 
   click(item: MenuItem) {
     if (item.action == Action.NewProject) {

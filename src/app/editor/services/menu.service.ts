@@ -25,9 +25,9 @@ export class MenuService {
       new MenuItem({ title: 'Lexicon', action: Action.OpenDictionary, icon: 'dictionary', link: '/lexicon', type: MenuItemType.Normal  }),
       new MenuItem({ title: 'Condi lexicon', action: Action.OpenDictionary, icon: 'add', link: '/', type: MenuItemType.Normal  }),
       new MenuItem({ type: MenuItemType.Divider  }),
-      new MenuItem({ title: 'Sodales', action: Action.ManageUsers, icon: 'sodales', link: '/sodales', type: MenuItemType.Normal  }),
-      new MenuItem({ type: MenuItemType.Divider  }),
       new MenuItem({ title: 'Meta', action: Action.ManageTaxonomy, icon: 'toc', link: '/meta', type: MenuItemType.Normal  }),
+      new MenuItem({ type: MenuItemType.Divider  }),
+      new MenuItem({ title: 'Sodales', action: Action.ManageUsers, icon: 'sodales', link: '/sodales', type: MenuItemType.Normal  })
     ]);
   }
 }
