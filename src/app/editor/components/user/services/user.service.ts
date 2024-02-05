@@ -10,6 +10,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 export class UserService {
 
   public $users = new BehaviorSubject<UserModel[]>([]);
+  public $user = new BehaviorSubject<UserModel | undefined>(undefined);
 
   constructor(private userApiService: ApiService<UserModel>) { }
 

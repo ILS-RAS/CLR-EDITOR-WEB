@@ -61,8 +61,11 @@ import { UserDashboardComponent } from './editor/components/user/components/user
 import { UserListComponent } from './editor/components/user/components/user-list/user-list.component';
 import { TaxomomyIndexComponent } from './editor/components/taxonomy/components/taxomomy-index/taxomomy-index.component';
 import { UserToolbarComponent } from './editor/components/user/components/user-toolbar/user-toolbar.component';
-import { UserListToolbarComponent } from './editor/components/user/components/user-list-toolbar/user-list-toolbar.component';
 import { UserComponent } from './editor/components/user/components/user/user.component';
+import {MatExpansionModule} from '@angular/material/expansion';
+import { UserProjectListComponent } from './editor/components/user/components/user-project-list/user-project-list.component';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { UserEditorComponent } from './editor/components/user/components/user-editor/user-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -95,8 +98,9 @@ import { UserComponent } from './editor/components/user/components/user/user.com
     UserListComponent,
     TaxomomyIndexComponent,
     UserToolbarComponent,
-    UserListToolbarComponent,
-    UserComponent
+    UserComponent,
+    UserProjectListComponent,
+    UserEditorComponent
   ],
   imports: [
     BrowserModule,
@@ -135,7 +139,9 @@ import { UserComponent } from './editor/components/user/components/user/user.com
     MatRadioModule,
     MatCheckboxModule,
     MatTabsModule,
-    MatTableModule
+    MatTableModule,
+    MatExpansionModule,
+    MatPaginatorModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

@@ -1,8 +1,5 @@
 <mat-toolbar *ngIf="project">
   <span>{{project.code}}</span>
-  <button mat-mini-fab color="warn" (click)="DeleteProject()">
-    <mat-icon>delete</mat-icon>
-  </button>
   <app-text-selector [project]="project" [header]="header"></app-text-selector>
   <span class="spacer"></span>
   <button mat-mini-fab color="secondary" (click)="AddHeader()">

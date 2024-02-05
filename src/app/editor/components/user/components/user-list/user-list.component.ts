@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, input } from '@angular/core';
 import { UserService } from '../../services/user.service';
 import { BaseModel } from '../../../../models/baseModel';
 import { UserModel } from '../../../../models';
@@ -8,6 +8,7 @@ import { UserRole } from '../../../../enums';
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.scss',
+  encapsulation:ViewEncapsulation.Emulated
 })
 export class UserListComponent extends BaseModel implements OnInit {
   users?: UserModel[];
@@ -24,10 +25,15 @@ export class UserListComponent extends BaseModel implements OnInit {
   }
 
   Select(user: UserModel) {
-    
+    this.userService.$user.next(user);
   }
 
   ResolveRoleName(role:number){
-    return role as UserRole;
+    if(role == UserRole.Admitistrator){
+      return "Admitistrator";
+    }else{
+      return "Editor";
+    }
   }
+
 }

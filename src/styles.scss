@@ -47,3 +47,7 @@ app-text-selector{
 .mat-drawer-inner-container{
   height: fit-content !important;
 }
+
+.mat-expansion-panel-body{
+  overflow: auto;
+}
