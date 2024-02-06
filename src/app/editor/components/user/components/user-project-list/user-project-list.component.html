@@ -1,19 +1,29 @@
 <table *ngIf="user && projects && projects.length > 0" mat-table [dataSource]="projects" class="mat-elevation-z0">
-    <ng-container matColumnDef="code">
-      <th mat-header-cell *matHeaderCellDef> INDEX </th>
-      <td mat-cell *matCellDef="let project"> {{project.code}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="desc">
-      <th mat-header-cell *matHeaderCellDef> DESCRIPTIO </th>
-      <td mat-cell *matCellDef="let project"> {{project.desc}} </td>
-    </ng-container>
-    
-    <ng-container matColumnDef="type">
-        <th mat-header-cell *matHeaderCellDef> TYPUS </th>
-        <td mat-cell *matCellDef="let project"> {{project.projectType}} </td>
-      </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <ng-container matColumnDef="code">
+    <th mat-header-cell *matHeaderCellDef class="index-col"> INDEX </th>
+    <td mat-cell *matCellDef="let project"> {{project.code | slice: 0 : 20}}{{GetDotEllipsis(project.desc, 20)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="desc">
+    <th mat-header-cell *matHeaderCellDef class="desc-col"> DESCRIPTIO </th>
+    <td mat-cell *matCellDef="let project"> {{project.desc | slice: 0 : 200}}{{GetDotEllipsis(project.desc, 200)}}</td>
+  </ng-container>
+  <ng-container matColumnDef="type">
+    <th mat-header-cell *matHeaderCellDef class="type-col"> TYPUS </th>
+    <td mat-cell *matCellDef="let project"> {{project.projectType}} </td>
+  </ng-container>
+  <ng-container matColumnDef="action">
+    <th mat-header-cell *matHeaderCellDef class="actions-col"> ACTIONES </th>
+    <td mat-cell *matCellDef="let project">
+      <div class="actions">
+        <button mat-icon-button color="primary" matTooltip="Reassign Project" (click)="ReassignProject(project)">
+          <mat-icon>switch_access_shortcut_add</mat-icon>
+        </button>
+        <button mat-icon-button color="warn" (click)="DeleteProject(project)">
+          <mat-icon>delete</mat-icon>
+        </button>
+      </div>
+    </td>
+  </ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+</table>

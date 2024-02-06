@@ -8,5 +8,14 @@
                 }
             </mat-select>
         </mat-form-field>
+
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Пользователь</mat-label>
+            <mat-select formControlName="userSelect" required>
+                @for (user of users; track user) {
+                <mat-option [value]="user._id">{{user.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
       </form>
   </app-dialog>

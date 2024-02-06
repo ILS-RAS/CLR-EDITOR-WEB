@@ -36,4 +36,8 @@ export class UserListComponent extends BaseModel implements OnInit {
     }
   }
 
+  EditUser(user: UserModel) {
+    
+  }
+
 }

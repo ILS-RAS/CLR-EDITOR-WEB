@@ -39,13 +39,6 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   }
 
   click(item: MenuItem) {
-    if (item.action == Action.NewProject) {
-      this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
-        this.projectService.InitContext(this.projectService.$currentProject.value as ProjectModel);
-        this.uiService.Reset();
-        this.router.navigateByUrl('/proiectus');
-      });
-    }
     if (item.action == Action.OpenProject) {
       if (this.projectService.$currentProject.value) {
         this.router.navigateByUrl('/proiectus');

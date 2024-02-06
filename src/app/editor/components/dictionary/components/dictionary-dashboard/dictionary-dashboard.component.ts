@@ -7,5 +7,8 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
   styleUrl: './dictionary-dashboard.component.scss'
 })
 export class DictionaryDashboardComponent extends BaseComponent {
+CreateDictionary() {
+throw new Error('Method not implemented.');
+}
 
 }

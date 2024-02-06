@@ -32,18 +32,6 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     });
   }
 
-  DeleteProject() {
-    this.dialog.open(ConfirmComponent, { width:'600px', data: this.header?.code })
-    .afterClosed()
-    .subscribe((res)=>{
-      if(res && this.project){
-        this.projectService.MarkProjectDeleted(this.project).then(()=>{
-          this.Close();
-        })
-      }
-    })
-  }
-
   DeleteHeader() {
     this.dialog
       .open(ConfirmComponent, { width:'600px', data: this.header?.desc })

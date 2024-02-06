@@ -1,5 +1,5 @@
 <mat-tab-group *ngIf="user" mat-stretch-tabs="true" mat-align-tabs="start">
-    <mat-tab label="Proiectus">
+    <mat-tab label="Proiectus" cdkScrollable>
         <app-user-project-list [user]="user"></app-user-project-list>
     </mat-tab>
   </mat-tab-group>
