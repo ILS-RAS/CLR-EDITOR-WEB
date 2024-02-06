@@ -6,7 +6,7 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { MetaService } from '../../../taxonomy/services/meta.service';
+import { MetaService } from '../../services/meta.service';
 import {
   EditionType,
   Language,

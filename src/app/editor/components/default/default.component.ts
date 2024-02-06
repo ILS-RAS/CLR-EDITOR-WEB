@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MetaService } from '../taxonomy/services/meta.service';
+import { MetaService } from '../project/services/meta.service';
 import { BaseComponent } from '../../../components/base/base/base.component';
 
 @Component({

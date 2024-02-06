@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
-import { MetaService } from '../../services/meta.service';
+import { MetaService } from '../../../project/services/meta.service';
 import { TaxonomyViewModel } from '../../../../models';
 import { takeUntil } from 'rxjs';
 

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { TaxonomyViewModel } from '../../../../models';
-import { MetaService } from '../../services/meta.service';
+import { MetaService } from '../../../project/services/meta.service';
 import { takeUntil } from 'rxjs';
 import { TaxonomyCategory } from '../../../../enums';
 

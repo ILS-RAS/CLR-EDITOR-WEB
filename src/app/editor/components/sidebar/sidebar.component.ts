@@ -53,6 +53,17 @@ export class SidebarComponent extends BaseComponent implements OnInit {
         this.dialog.open(ProjectSelectorComponent, { width: '600px' });
       }
     }
+    if(item.action == Action.ManageTaxonomy){
+      this.router.navigateByUrl('/meta');
+    }
+
+    if(item.action == Action.ManageUsers){
+      this.router.navigateByUrl('/sodales');
+    }
+    
+    if(item.action == Action.OpenDictionary){
+      this.router.navigateByUrl('/lexicon');
+    }
     this.menuItemSelected.emit(item);
   }
 }

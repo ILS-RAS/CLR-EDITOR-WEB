@@ -9,7 +9,7 @@ import { ProjectService } from '../../services/project.service';
 import { ProjectModel, TaxonomyModel, TaxonomyViewModel } from '../../../../models';
 import { Helper } from '../../../../../utils';
 import { ProjectStatus, TaxonomyCategory } from '../../../../enums';
-import { MetaService } from '../../../taxonomy/services/meta.service';
+import { MetaService } from '../../services/meta.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
 import { ProjectType } from '../../../../enums/projectType';

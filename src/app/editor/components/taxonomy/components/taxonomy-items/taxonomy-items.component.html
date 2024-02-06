@@ -1,4 +1,4 @@
-<mat-tab-group *ngIf="index" backgroundColor="primary" mat-stretch-tabs="true" mat-align-tabs="start">
+<mat-tab-group *ngIf="index" mat-stretch-tabs="true" mat-align-tabs="start">
     <mat-tab label="{{index.categoryDesc}}">
         <table *ngIf="list && list.length > 0" mat-table [dataSource]="list" class="mat-elevation-z0">
             <ng-container matColumnDef="code">

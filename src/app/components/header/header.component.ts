@@ -3,7 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../base/base/base.component';
 import { ProjectService } from '../../editor/components/project/services/project.service';
-import { MetaService } from '../../editor/components/taxonomy/services/meta.service';
+import { MetaService } from '../../editor/components/project/services/meta.service';
 
 @Component({
   selector: 'app-header',
