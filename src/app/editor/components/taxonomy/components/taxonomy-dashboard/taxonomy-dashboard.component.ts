@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { TaxonomyViewModel } from '../../../../models';
 
 @Component({
   selector: 'app-taxonomy-dashboard',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrl: './taxonomy-dashboard.component.scss'
 })
 export class TaxonomyDashboardComponent {
+index?:TaxonomyViewModel;
+CreateTaxonomy() {
+throw new Error('Method not implemented.');
+}
+
+indexSelected(index: TaxonomyViewModel) {
+  this.index = index;
+}
 
 }

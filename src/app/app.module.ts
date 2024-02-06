@@ -59,13 +59,14 @@ import {MatCheckboxModule} from '@angular/material/checkbox';
 import {MatTabsModule} from '@angular/material/tabs';
 import { UserDashboardComponent } from './editor/components/user/components/user-dashboard/user-dashboard.component';
 import { UserListComponent } from './editor/components/user/components/user-list/user-list.component';
-import { TaxomomyIndexComponent } from './editor/components/taxonomy/components/taxomomy-index/taxomomy-index.component';
 import { UserToolbarComponent } from './editor/components/user/components/user-toolbar/user-toolbar.component';
 import { UserComponent } from './editor/components/user/components/user/user.component';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { UserProjectListComponent } from './editor/components/user/components/user-project-list/user-project-list.component';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import { UserEditorComponent } from './editor/components/user/components/user-editor/user-editor.component';
+import { TaxonomyIndexComponent } from './editor/components/taxonomy/components/taxonomy-index/taxonomy-index.component';
+import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/taxonomy-items/taxonomy-items.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,11 +97,12 @@ import { UserEditorComponent } from './editor/components/user/components/user-ed
     TextIndexBuilderComponent,
     UserDashboardComponent,
     UserListComponent,
-    TaxomomyIndexComponent,
     UserToolbarComponent,
     UserComponent,
     UserProjectListComponent,
-    UserEditorComponent
+    UserEditorComponent,
+    TaxonomyIndexComponent,
+    TaxonomyItemsComponent
   ],
   imports: [
     BrowserModule,

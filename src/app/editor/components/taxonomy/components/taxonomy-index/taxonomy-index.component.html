@@ -1,0 +1,5 @@
+<mat-action-list *ngIf="indeces" class="taxonomy-index">
+    @for (index of indeces; track index) {
+      <button mat-list-item (click)="Select(index)">{{index.categoryCode}}</button>
+    }
+  </mat-action-list>

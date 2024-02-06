@@ -13,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class MetaService {
   public $taxonomy = new BehaviorSubject<TaxonomyViewModel[]>([]);
-
+  public $currentCategory = new BehaviorSubject<TaxonomyViewModel | undefined>(undefined);
   constructor(private taxonomyApiService: ApiService<TaxonomyViewModel>) {
     
   }

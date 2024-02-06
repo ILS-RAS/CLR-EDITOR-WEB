@@ -1,3 +1,10 @@
 <mat-toolbar>
     <span>Meta</span>
+    <button mat-mini-fab color="secondary" (click)="CreateTaxonomy()">
+      <mat-icon>add</mat-icon>
+    </button>
   </mat-toolbar>
+  <div class="container">
+  <app-taxonomy-index></app-taxonomy-index>
+   <app-taxonomy-items></app-taxonomy-items>
+  </div>

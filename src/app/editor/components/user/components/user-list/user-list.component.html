@@ -1,4 +1,4 @@
-<mat-action-list *ngIf="users">
+<mat-action-list *ngIf="users" class="user-list">
   @for (user of users; track user) {
     <button mat-list-item (click)="Select(user)" [ngClass]="{admin: user.role == 0, editor: user.role == 1}">{{user.name}}</button>
   }

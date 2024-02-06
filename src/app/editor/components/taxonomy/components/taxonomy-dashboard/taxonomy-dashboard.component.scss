@@ -1,0 +1,13 @@
+.container{
+    display: flex;
+}
+
+app-taxonomy-index{
+    width: 20%;
+    border-right-color: grey;
+    border-right-style: solid;
+    border-right-width: 1px;
+}
+app-taxonomy-items{
+    width: 80%;
+}

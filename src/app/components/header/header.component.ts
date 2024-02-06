@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth.service';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../base/base/base.component';
 import { ProjectService } from '../../editor/components/project/services/project.service';
+import { MetaService } from '../../editor/components/taxonomy/services/meta.service';
 
 @Component({
   selector: 'app-header',
@@ -16,9 +17,10 @@ export class HeaderComponent  extends BaseComponent implements OnInit, OnDestroy
 
   public isAuthenticated = false;
 
-  constructor(private _authService: AuthService, private projectService: ProjectService) {
+  constructor(private _authService: AuthService, private projectService: ProjectService, private metaService: MetaService) {
     super();
     projectService.GetProjects();
+    metaService.GetTaxonomy();
   }
 
   public ngOnInit(): void {  

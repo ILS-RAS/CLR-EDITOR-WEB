@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MetaService } from '../project/services/meta.service';
+import { MetaService } from '../taxonomy/services/meta.service';
 import { BaseComponent } from '../../../components/base/base/base.component';
 
 @Component({
@@ -9,9 +9,8 @@ import { BaseComponent } from '../../../components/base/base/base.component';
 })
 export class DefaultComponent extends BaseComponent {
 
-  constructor(private metaService: MetaService){
+  constructor(){
     super();
-    this.metaService.GetTaxonomy();
   }
 
 }
