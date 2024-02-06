@@ -51,3 +51,7 @@ app-text-selector{
 .mat-expansion-panel-body{
   overflow: auto;
 }
+
+.mat-mdc-tab-body-content{
+  overflow: hidden !important;
+}

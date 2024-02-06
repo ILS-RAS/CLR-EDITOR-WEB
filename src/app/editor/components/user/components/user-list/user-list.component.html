@@ -1,5 +1,5 @@
-<mat-list *ngIf="users">
+<mat-action-list *ngIf="users">
   @for (user of users; track user) {
-    <a mat-list-item role="listitem" (click)="Select(user)" [ngClass]="{admin: user.role == 0, editor: user.role == 1}">{{user.name}}</a>
+    <button mat-list-item (click)="Select(user)" [ngClass]="{admin: user.role == 0, editor: user.role == 1}">{{user.name}}</button>
   }
-</mat-list>
+</mat-action-list>
