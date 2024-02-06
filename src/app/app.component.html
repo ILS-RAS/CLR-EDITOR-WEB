@@ -1,6 +1,6 @@
 <app-header (toggle)="sideBarToggler()" [title]="title"></app-header>
 <mat-drawer-container>
-    <mat-drawer color="primary" mode="side" [opened]="sideBarOpen && isAuthenticated">
+    <mat-drawer mode="side" [opened]="sideBarOpen && isAuthenticated">
         <app-sidebar></app-sidebar>
     </mat-drawer>
     <mat-drawer-content>

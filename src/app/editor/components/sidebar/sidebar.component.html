@@ -1,4 +1,4 @@
-<mat-nav-list color="primary">
+<mat-nav-list>
     <div *ngFor="let item of menuItems" [ngSwitch]="item.type">
             <button *ngSwitchCase="0" mat-mini-fab color="primary" (click)="click(item)">
                 <mat-icon matTooltip="{{item.title}}" [routerLink]="item.link" svgIcon="{{item.icon}}"></mat-icon>

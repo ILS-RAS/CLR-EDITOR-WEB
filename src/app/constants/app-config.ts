@@ -7,7 +7,7 @@ export const AppConfig = {
     AppFullTitle: 'CORPUS LATINO-ROSSICUM',
     AppShortTitle: 'CLR',
     Copyright: 'ILS RAS',
-    AppVersion: '0.0.1',
+    AppVersion: '3.0.0.0',
     DefaultPageLimit: 5,
     DefaultSearchLemma: false,
     DefaultShowCommentPane: false
