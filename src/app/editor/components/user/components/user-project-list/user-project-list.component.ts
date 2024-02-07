@@ -38,6 +38,9 @@ export class UserProjectListComponent extends BaseComponent implements OnInit, O
       if(resp){
         this.projectService.MarkProjectDeleted(project).then(()=>{
           this.projectService.GetProjects();
+          if(this.projectService.$currentProject.value?.code == project?.code){
+            this.projectService.$currentProject.next(undefined);
+          }
         })
       }
     });

@@ -73,15 +73,8 @@ export class ProjectEditorComponent extends BaseComponent implements OnInit {
     this.project.creatorId = this.form.controls['userSelect'].value;
     this.project.desc = this.projectCodes?.find(i=>i.code == this.project.code)?.desc;
     this.project.projectType = ProjectType.Text;
-    this.projectService.SaveProject(this.project).then((item) => {
-      let savedProject = item as ProjectModel;
-      if (savedProject) {
-        this.projectService.$currentProject.next(savedProject);
-        if(!this.project._id){
-
-        }
-        this.dialogRef.close();
-      }
+    this.projectService.SaveProject(this.project).then(() => {
+      this.dialogRef.close();
     });
   }
 
