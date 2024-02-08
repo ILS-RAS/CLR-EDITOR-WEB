@@ -1,7 +1,7 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Проект'>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Proiectus'>
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
-            <mat-label>Код проекта</mat-label>
+            <mat-label>Index</mat-label>
             <mat-select formControlName="projectCodeSelect" required>
                 @for (projectCode of projectCodes; track projectCode) {
                 <mat-option [value]="projectCode.code"  [disabled]="ProjectExists(projectCode.code)">{{projectCode.code}}</mat-option>
@@ -10,7 +10,7 @@
         </mat-form-field>
 
         <mat-form-field class="input-field-full-width">
-            <mat-label>Пользователь</mat-label>
+            <mat-label>Editor</mat-label>
             <mat-select formControlName="userSelect" required>
                 @for (user of users; track user) {
                 <mat-option [value]="user._id">{{user.name}}</mat-option>

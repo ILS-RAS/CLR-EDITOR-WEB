@@ -10,11 +10,11 @@ import { MetaService } from '../../editor/components/project/services/meta.servi
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
-export class HeaderComponent  extends BaseComponent implements OnInit, OnDestroy {
+export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy {
 
   @Input() title?: string;
   @Output() toggle: EventEmitter<any> = new EventEmitter();
-
+  user?:any;
   public isAuthenticated = false;
 
   constructor(private _authService: AuthService, private projectService: ProjectService, private metaService: MetaService) {
@@ -26,6 +26,7 @@ export class HeaderComponent  extends BaseComponent implements OnInit, OnDestroy
   public ngOnInit(): void {  
     this._authService.isAuthenticated$.pipe(takeUntil(this.destroyed)).subscribe((item)=>{
       this.isAuthenticated = item;
+      this.user = this._authService.getLoggedName();
     });
   }
 

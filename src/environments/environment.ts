@@ -5,7 +5,8 @@
 export const environment = {
   production: false,
   API: 'http://localhost:3000/v1/',
-  Login: 'http://localhost:3000/auth/login'
+  Login: 'http://localhost:3000/auth/login',
+  Signup: 'http://localhost:3000/auth/signup/'
 };
 
 /*

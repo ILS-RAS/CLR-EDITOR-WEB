@@ -3,6 +3,10 @@ import { UserService } from '../../services/user.service';
 import { BaseModel } from '../../../../models/baseModel';
 import { UserModel } from '../../../../models';
 import { UserRole } from '../../../../enums';
+import { MatDialog } from '@angular/material/dialog';
+import { UserEditorComponent } from '../user-editor/user-editor.component';
+import { takeUntil } from 'rxjs';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 @Component({
   selector: 'app-user-list',
@@ -10,10 +14,11 @@ import { UserRole } from '../../../../enums';
   styleUrl: './user-list.component.scss',
   encapsulation:ViewEncapsulation.Emulated
 })
-export class UserListComponent extends BaseModel implements OnInit {
+export class UserListComponent extends BaseComponent implements OnInit {
   users?: UserModel[];
   constructor(
-    private userService: UserService
+    private userService: UserService,
+    private dialog: MatDialog
   ) {
     super();
   }
@@ -37,7 +42,7 @@ export class UserListComponent extends BaseModel implements OnInit {
   }
 
   EditUser(user: UserModel) {
-    
+    this.dialog.open(UserEditorComponent, {width:'600px', data: user});
   }
 
 }

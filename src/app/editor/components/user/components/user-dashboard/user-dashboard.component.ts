@@ -7,6 +7,7 @@ import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectEditorComponent } from '../../../project/components/project-editor/project-editor.component';
+import { UserEditorComponent } from '../user-editor/user-editor.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -17,8 +18,8 @@ export class UserDashboardComponent extends BaseComponent implements OnInit {
   user?: UserModel;
 
   constructor(
-    private userService: UserService,
     private projectService: ProjectService,
+    private userService: UserService,
     private dialog:MatDialog
   ) {
     super();
@@ -31,11 +32,13 @@ export class UserDashboardComponent extends BaseComponent implements OnInit {
   }
 
   CreateUser() {
-    throw new Error('Method not implemented.');
+    this.dialog.open(UserEditorComponent, { width: '600px', data: new UserModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe((res)=>{
+      this.userService.GetUsers();
+    });
   }
 
   CreateAndAssignProject() {
-    this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
+    this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe((res)=>{
       this.projectService.GetProjects();
     });
   }

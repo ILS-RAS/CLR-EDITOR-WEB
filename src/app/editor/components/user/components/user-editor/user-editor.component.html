@@ -1,1 +1,24 @@
-<p>user-editor works!</p>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" [title]='title'>
+    <form class="form" [formGroup]="form">
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Email</mat-label>
+            <input type="email" matInput formControlName="emailInput" required>
+        </mat-form-field>
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Password</mat-label>
+            <input type="password" matInput formControlName="passwordInput" required>
+        </mat-form-field>
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Nomen</mat-label>
+            <input matInput formControlName="nameInput" required>
+        </mat-form-field>
+        <mat-form-field class="input-field-full-width">
+            <mat-label>In Persona</mat-label>
+            <mat-select formControlName="roleSelect" required>
+                @for (role of roles; track role) {
+                <mat-option [value]="role.code">{{role.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </form>
+</app-dialog>

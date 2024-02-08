@@ -1,11 +1,11 @@
 <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" [title]='title'>
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
-          <mat-label>Код</mat-label>
+          <mat-label>Index</mat-label>
           <input matInput formControlName="codeInput" required>
         </mat-form-field>
         <mat-form-field class="input-field-full-width">
-            <mat-label>Тип издания</mat-label>
+            <mat-label>Typus</mat-label>
             <mat-select formControlName="editionTypeSelect" required>
                 @for (editionType of editionTypes; track editionType) {
                 <mat-option [value]="editionType.code">{{editionType.code}}</mat-option>
@@ -13,7 +13,7 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field class="input-field-full-width">
-            <mat-label>Язык</mat-label>
+            <mat-label>Lingua</mat-label>
             <mat-select formControlName="langSelect" required>
                 @for (language of languages; track language) {
                 <mat-option [value]="language.code">{{language.code}}</mat-option>
@@ -21,7 +21,7 @@
             </mat-select>
         </mat-form-field>
         <mat-form-field class="input-field-full-width">
-          <mat-label>Библиография</mat-label>
+          <mat-label>Bibliographia</mat-label>
           <textarea rows="10" matInput formControlName="biblioInput" required></textarea>
         </mat-form-field>
       </form>

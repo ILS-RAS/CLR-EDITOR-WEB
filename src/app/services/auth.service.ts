@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { UserModel } from '../editor/models/userModel';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, lastValueFrom, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -47,9 +47,23 @@ export class AuthService implements OnDestroy, OnInit {
     );;
   }
 
+  public Signup(user: UserModel){
+    return this.httpClient
+    .post(`${environment.Signup}`, user, {
+      headers: this.headers,
+    }).pipe(map(res=> {
+      return res;
+    }));
+}
+
+  public getLoggedName(){
+    return sessionStorage.getItem('name');
+  }
+
   public logout(redirect: string){
     sessionStorage.removeItem('token');
-    sessionStorage.removeItem('user')
+    sessionStorage.removeItem('user');
+    sessionStorage.removeItem('name');
     sessionStorage.removeItem('_id');
     this._isAuthenticated$.next(false);
     this.router.navigateByUrl(redirect);
@@ -58,6 +72,7 @@ export class AuthService implements OnDestroy, OnInit {
   private handleSignInResponse(resp: any): void {
     sessionStorage.setItem('token', resp.token);
     sessionStorage.setItem('user', resp.user.email);
+    sessionStorage.setItem('name', resp.user.name);
     sessionStorage.setItem('_id', resp.user._id);
     this._isAuthenticated$.next(true);
   }
