@@ -25,7 +25,6 @@ export class UserDashboardComponent extends BaseComponent implements OnInit {
     super();
   }
   ngOnInit(): void {
-    this.userService.GetUsers();
     this.userService.$user.pipe(takeUntil(this.destroyed)).subscribe((user) => {
       this.user = user;
     });

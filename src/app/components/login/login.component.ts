@@ -5,6 +5,9 @@ import { filter, Subject, take, takeUntil } from 'rxjs';
 import { UserModel } from '../../editor/models/userModel';
 import { AppConfig } from '../../constants/app-config';
 import { BaseComponent } from '../base/base/base.component';
+import { ProjectService } from '../../editor/components/project/services/project.service';
+import { MetaService } from '../../editor/components/project/services/meta.service';
+import { UserService } from '../../editor/components/user/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -44,6 +47,7 @@ export class LoginComponent extends BaseComponent implements OnInit, OnDestroy {
   }
 
   public onSubmit(): void {
+
     this.loginValid = true;
     var user: UserModel = new UserModel({});
     user.email = this.username;

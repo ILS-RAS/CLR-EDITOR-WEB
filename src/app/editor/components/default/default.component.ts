@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { MetaService } from '../project/services/meta.service';
 import { BaseComponent } from '../../../components/base/base/base.component';
+import { UserService } from '../user/services/user.service';
+import { MetaService } from '../project/services/meta.service';
+import { ProjectService } from '../project/services/project.service';
 
 @Component({
   selector: 'app-default',
@@ -9,8 +11,11 @@ import { BaseComponent } from '../../../components/base/base/base.component';
 })
 export class DefaultComponent extends BaseComponent {
 
-  constructor(){
+  constructor(private userService: UserService, private metaService: MetaService, private projectService: ProjectService){
     super();
+    this.userService.GetUsers();
+    this.metaService.GetTaxonomy();
+    this.projectService.GetProjects();
   }
 
 }

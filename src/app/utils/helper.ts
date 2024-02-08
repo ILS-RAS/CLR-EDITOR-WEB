@@ -1,3 +1,5 @@
+import { UserRole } from "../editor/enums";
+
 export class Helper {
   public static CompareStrings(a: string, b: string) {
     if (a < b) {
@@ -15,5 +17,12 @@ export class Helper {
     return status == 'VALID' ? true : false;
   }
 
+  public static ResolveRoleName(role:number){
+    if(role == UserRole.Admitistrator){
+      return "Admitistrator";
+    }else{
+      return "Editor";
+    }
+  }
 } 
 

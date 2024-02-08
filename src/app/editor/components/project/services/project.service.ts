@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from '../../../services/api.service';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
-import { AppType, ProjectStatus } from '../../../enums';
+import { AppType, ProjectStatus, UserRole } from '../../../enums';
 import { ChunkQuery, ElementQuery, HeaderQuery, MorphQuery, ProjectQuery } from '../../../queries';
 import {
   IndexModel,
@@ -17,6 +17,7 @@ import { ProjectType } from '../../../enums/projectType';
 import { MorphModel } from '../../../models/morphModel';
 import { ElementModel } from '../../../models/elementModel';
 import { query } from '@angular/animations';
+import { UserService } from '../../user/services/user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -61,7 +62,8 @@ export class ProjectService {
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
     private morphApiService: ApiService<MorphModel>,
-    private elementApiService:ApiService<ElementModel> 
+    private elementApiService:ApiService<ElementModel> ,
+    private userService:UserService
   ) {}
 
   public InitContext(project: ProjectModel) {
@@ -75,7 +77,8 @@ export class ProjectService {
   }
 //#region Project
   public async GetProjects() {
-    let result = this.projectApiService.findByQuery(new ProjectModel({}), JSON.stringify(new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text })), AppType.Project);
+    let query = new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text });
+    let result = this.projectApiService.findByQuery(new ProjectModel({}), JSON.stringify(query), AppType.Project);
     this.$projects.next(await lastValueFrom(result));
   }
 

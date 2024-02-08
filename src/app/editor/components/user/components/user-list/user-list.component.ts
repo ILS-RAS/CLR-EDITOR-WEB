@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { UserEditorComponent } from '../user-editor/user-editor.component';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { Helper } from '../../../../../utils';
 
 @Component({
   selector: 'app-user-list',
@@ -33,16 +34,11 @@ export class UserListComponent extends BaseComponent implements OnInit {
     this.userService.$user.next(user);
   }
 
-  ResolveRoleName(role:number){
-    if(role == UserRole.Admitistrator){
-      return "Admitistrator";
-    }else{
-      return "Editor";
-    }
-  }
-
   EditUser(user: UserModel) {
     this.dialog.open(UserEditorComponent, {width:'600px', data: user});
   }
 
+  ResolveRoleName(role:number){
+    return Helper.ResolveRoleName(role);
+  }
 }
