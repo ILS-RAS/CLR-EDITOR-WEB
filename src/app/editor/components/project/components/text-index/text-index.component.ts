@@ -105,20 +105,16 @@ export class DynamicDataSource implements OnDestroy {
   templateUrl: './text-index.component.html',
   styleUrl: './text-index.component.scss'
 })
-export class TextIndexComponent extends BaseComponent implements OnInit, OnChanges {
+export class TextIndexComponent extends BaseComponent implements OnInit {
   
   @Input() header?: HeaderModel;
   public indeces: IndexModel[] = [];
-
   constructor(private projectService: ProjectService) {
     super();
     this.treeControl = new FlatTreeControl<DynamicFlatNode>(this.getLevel, this.isExpandable);
     this.dataSource = new DynamicDataSource(this.treeControl, projectService);
   }
-  ngOnChanges(changes: SimpleChanges): void {
-
-  }
-
+  
   ngOnInit(): void {
     this.projectService.$currentIndeces.pipe(takeUntil(this.destroyed)).subscribe(indeces =>{
       if(indeces){
