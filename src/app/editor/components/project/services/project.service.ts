@@ -66,7 +66,7 @@ export class ProjectService {
     private userService:UserService
   ) {}
 
-  public InitContext(project: ProjectModel) {
+  public InitContext(project: ProjectModel | undefined) {
     this.$currentProject.next(project);
     this.$projectHeaders.next(undefined);
     this.$currentIndeces.next(undefined);

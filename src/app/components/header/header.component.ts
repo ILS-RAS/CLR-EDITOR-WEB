@@ -35,8 +35,9 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
   }
 
   public logout(): void {
-    this.authService.logout('/accipe');
     this.userService.$loggedUser.next(undefined);
+    this.projectService.InitContext(undefined)
+    this.authService.logout('/accipe');
   }
 
   ResolveRoleName(role:number){
