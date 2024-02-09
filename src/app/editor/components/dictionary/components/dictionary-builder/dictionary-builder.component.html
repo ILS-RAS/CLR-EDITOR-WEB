@@ -1,0 +1,67 @@
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Lexicon'>
+    <mat-stepper linear #stepper>
+        <mat-step [stepControl]="langFormGroup" [editable]="isEditable">
+            <form [formGroup]="langFormGroup">
+                <ng-template matStepLabel>Lingua</ng-template>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Lingua</mat-label>
+                    <mat-select formControlName="langSelect" required (valueChange)="LangChanged($event)">
+                        @for (language of languages; track language) {
+                        <mat-option [value]="language.code">{{language.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="centuryFormGroup" [editable]="isEditable">
+            <form [formGroup]="centuryFormGroup">
+                <ng-template matStepLabel>Centuries</ng-template>
+                <mat-form-field>
+                    <mat-label>Century</mat-label>
+                    <input matInput formControlName="centurySelect" placeholder="...">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="authorFormGroup" [editable]="isEditable">
+            <form [formGroup]="authorFormGroup">
+                <ng-template matStepLabel>Auctores</ng-template>
+                <mat-form-field>
+                    <mat-label>Auctores</mat-label>
+                    <input matInput formControlName="auctorSelect" placeholder="...">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step [stepControl]="workFormGroup" [editable]="isEditable">
+            <form [formGroup]="workFormGroup">
+                <ng-template matStepLabel>Opera</ng-template>
+                <mat-form-field>
+                    <mat-label>Opera</mat-label>
+                    <input matInput formControlName="workSelect" placeholder="...">
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Back</button>
+                    <button mat-button matStepperNext>Next</button>
+                </div>
+            </form>
+        </mat-step>
+        <mat-step>
+            <ng-template matStepLabel>Create</ng-template>
+            <p>You are now done.</p>
+            <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+    </mat-stepper>
+</app-dialog>

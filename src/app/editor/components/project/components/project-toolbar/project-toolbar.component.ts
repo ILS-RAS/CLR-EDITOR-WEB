@@ -8,6 +8,7 @@ import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.compone
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
+import { HeaderQuery } from '../../../../queries';
 
 @Component({
   selector: 'app-project-toolbar',
@@ -40,7 +41,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
         if (res && this.header) {
           this.projectService.MarkHeaderAsDeleted(this.header).then(() => {
             if (this.header?.projectId) {
-              this.projectService.GetHeaders(this.header.projectId);
+              this.projectService.GetHeadersByProjectId(this.header.projectId);
               this.projectService.$currentHeader.next(undefined);
               this.projectService.$currentIndeces.next(undefined);
               this.uiService.$indexPanelOpened.next(false);

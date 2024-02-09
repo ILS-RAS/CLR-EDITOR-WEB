@@ -67,6 +67,11 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { UserEditorComponent } from './editor/components/user/components/user-editor/user-editor.component';
 import { TaxonomyIndexComponent } from './editor/components/taxonomy/components/taxonomy-index/taxonomy-index.component';
 import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/taxonomy-items/taxonomy-items.component';
+import { DictionaryBuilderComponent } from './editor/components/dictionary/components/dictionary-builder/dictionary-builder.component';
+import { WordListComponent } from './editor/components/dictionary/components/word-list/word-list.component';
+import { WordSelectorComponent } from './editor/components/dictionary/components/word-selector/word-selector.component';
+import { MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatStepperModule} from '@angular/material/stepper';
 @NgModule({
   declarations: [
     AppComponent,
@@ -102,7 +107,10 @@ import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/
     UserProjectListComponent,
     UserEditorComponent,
     TaxonomyIndexComponent,
-    TaxonomyItemsComponent
+    TaxonomyItemsComponent,
+    DictionaryBuilderComponent,
+    WordListComponent,
+    WordSelectorComponent
   ],
   imports: [
     BrowserModule,
@@ -143,7 +151,9 @@ import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/
     MatTabsModule,
     MatTableModule,
     MatExpansionModule,
-    MatPaginatorModule
+    MatPaginatorModule,
+    MatAutocompleteModule,
+    MatStepperModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

@@ -16,6 +16,7 @@ import {
 import { ProjectService } from '../../services/project.service';
 import { Helper } from '../../../../../utils';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { HeaderQuery } from '../../../../queries';
 
 @Component({
   selector: 'app-text-header-editor',
@@ -109,7 +110,7 @@ export class TextHeaderEditorComponent extends BaseComponent implements OnInit {
     this.projectService.SaveHeader(this.header).then((item) => {
       let savedHeader = item as HeaderModel;
       if (savedHeader && savedHeader.projectId) {
-        this.projectService.GetHeaders(savedHeader.projectId).then(() => {
+        this.projectService.GetHeadersByProjectId(savedHeader.projectId).then(() => {
           this.dialogRef.close();
         });
       }

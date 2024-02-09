@@ -5,6 +5,7 @@ import { HeaderModel } from '../../../../models/headerModel';
 import { ProjectModel } from '../../../../models/projectModel';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { take, takeUntil } from 'rxjs';
+import { HeaderQuery } from '../../../../queries';
 
 @Component({
   selector: 'app-text-selector',
@@ -37,7 +38,7 @@ export class TextSelectorComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
 
     if(this.project && this.project._id){
-      this.projectService.GetHeaders(this.project._id);
+      this.projectService.GetHeadersByProjectId(this.project._id);
     }
 
     this.form.controls['headerSelect'].setValue(this.header?.code);

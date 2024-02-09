@@ -102,18 +102,24 @@ export class ProjectService {
 
 //#region Header
 
-public async GetHeaders(projectId: string) {
-  await this.headerApiService
+public async GetHeadersByProjectId(projectId: string) {
+  let result = this.headerApiService
     .findByQuery(
       new HeaderModel({}),
-      JSON.stringify(new HeaderQuery({ projectId: projectId, status : ProjectStatus.Edited })),
+      JSON.stringify(new HeaderQuery({projectId: projectId})),
       AppType.Header
-    )
-    .toPromise()
-    .then((items: HeaderModel[]) => {
-      this.$projectHeaders.next(items);
-      Promise.resolve();
-    });
+    );
+    this.$projectHeaders.next(await lastValueFrom(result));
+}
+
+public async GetHeadersByLang(langCode: string) {
+  let result = this.headerApiService
+    .findByQuery(
+      new HeaderModel({}),
+      JSON.stringify(new HeaderQuery({lang: langCode})),
+      AppType.Header
+    );
+    return await lastValueFrom(result);
 }
 
 public async SaveHeader(header: HeaderModel): Promise<HeaderModel>{
