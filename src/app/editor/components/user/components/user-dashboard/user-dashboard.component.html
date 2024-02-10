@@ -1,8 +1,11 @@
 <mat-toolbar color="primary">
     <span class="section-header">Sodales et Proiectus</span>
     <span class="spacer"></span>
-    <button mat-mini-fab color="secondary" matTooltip="Create & Assign Project" (click)="CreateAndAssignProject()">
-      <mat-icon>add</mat-icon>
+    <button mat-mini-fab color="secondary" class="btn-text-project" matTooltip="Create Text Project" (click)="CreateAndAssignProject()">
+      <mat-icon svgIcon="add_text"></mat-icon>
+    </button>
+    <button mat-mini-fab color="secondary" class="btn-dict-project" matTooltip="Create Dictionary Project" (click)="CreateAndAssignDictionary()">
+      <mat-icon svgIcon="add_dict"></mat-icon>
     </button>
     <button mat-mini-fab color="secondary" matTooltip="Create Account" (click)="CreateUser()">
       <mat-icon>person_add</mat-icon>

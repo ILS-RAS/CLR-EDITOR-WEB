@@ -8,6 +8,7 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectEditorComponent } from '../../../project/components/project-editor/project-editor.component';
 import { UserEditorComponent } from '../user-editor/user-editor.component';
+import { DictionaryEditorComponent } from '../../../dictionary/components/dictionary-editor/dictionary-editor.component';
 
 @Component({
   selector: 'app-user-dashboard',
@@ -38,6 +39,12 @@ export class UserDashboardComponent extends BaseComponent implements OnInit {
 
   CreateAndAssignProject() {
     this.dialog.open(ProjectEditorComponent, { width: '600px', data: new ProjectModel({}) }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe((res)=>{
+      this.projectService.GetProjects();
+    });
+  }
+
+  CreateAndAssignDictionary(){
+    this.dialog.open(DictionaryEditorComponent, {width: '600px', data: new ProjectModel({})}).afterClosed().pipe(takeUntil(this.destroyed)).subscribe((res)=>{
       this.projectService.GetProjects();
     });
   }

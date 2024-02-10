@@ -41,7 +41,7 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
   }
 
   ResolveRoleName(role:number){
-    return Helper.ResolveRoleName(role);
+    return `[${Helper.ResolveRoleName(role)}]`;
   }
   
   toggleSideBar() {

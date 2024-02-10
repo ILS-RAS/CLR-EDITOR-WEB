@@ -1,9 +1,8 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { UserService } from '../../services/user.service';
 import { UserModel } from '../../../../models';
-import { takeUntil } from 'rxjs';
-import { UserRole } from '../../../../enums';
+import { ProjectType } from '../../../../enums/projectType';
 
 @Component({
   selector: 'app-user',
@@ -13,6 +12,8 @@ import { UserRole } from '../../../../enums';
 export class UserComponent extends BaseComponent {
   panelOpenState = false;
   @Input() user?: UserModel;
+  text = ProjectType.Text;
+  dict = ProjectType.Dictionary;
   constructor(private userService: UserService){
     super();
   }

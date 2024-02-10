@@ -1,0 +1,20 @@
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Lexicon'>
+    <form class="form" [formGroup]="form">
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Index</mat-label>
+            <input matInput formControlName="projectCodeInput" required>
+        </mat-form-field>
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Descriptio</mat-label>
+            <textarea rows="10" matInput formControlName="descInput" required></textarea>
+        </mat-form-field>
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Editor</mat-label>
+            <mat-select formControlName="userSelect" required>
+                @for (user of users; track user) {
+                <mat-option [value]="user._id">{{user.name}}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+    </form>
+</app-dialog>

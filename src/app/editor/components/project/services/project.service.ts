@@ -77,7 +77,7 @@ export class ProjectService {
   }
 //#region Project
   public async GetProjects() {
-    let query = new ProjectQuery({ status: ProjectStatus.Edited, projectType: ProjectType.Text });
+    let query = new ProjectQuery({ status: ProjectStatus.Edited });
     let result = this.projectApiService.findByQuery(new ProjectModel({}), JSON.stringify(query), AppType.Project);
     this.$projects.next(await lastValueFrom(result));
   }

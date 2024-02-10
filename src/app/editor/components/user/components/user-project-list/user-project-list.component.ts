@@ -6,6 +6,8 @@ import { ProjectService } from '../../../project/services/project.service';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { MatDialog } from '@angular/material/dialog';
 import { ProjectEditorComponent } from '../../../project/components/project-editor/project-editor.component';
+import { ProjectType } from '../../../../enums/projectType';
+import { DictionaryEditorComponent } from '../../../dictionary/components/dictionary-editor/dictionary-editor.component';
 
 @Component({
   selector: 'app-user-project-list',
@@ -15,14 +17,16 @@ import { ProjectEditorComponent } from '../../../project/components/project-edit
 export class UserProjectListComponent extends BaseComponent implements OnInit, OnChanges {
 
   @Input() user?: UserModel;
+  @Input() projectType?:ProjectType;
   projects?: any;
   displayedColumns: string[] = ['code', 'desc', 'type', 'action'];
+  
   constructor(private projectService: ProjectService, private dialog: MatDialog){
     super();
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe(projects=>{
-      this.projects = projects.filter(i=>i.creatorId == this.user?._id).sort((a, b) => a.code!.localeCompare(b.code!)).slice(0, 10);
+      this.projects = projects.filter(i=>i.creatorId == this.user?._id && i.projectType == this.projectType).sort((a, b) => a.code!.localeCompare(b.code!)).slice(0, 10);
     });
   }
   
@@ -51,8 +55,15 @@ export class UserProjectListComponent extends BaseComponent implements OnInit, O
   }
 
   ReassignProject(project: ProjectModel) {
-    this.dialog.open(ProjectEditorComponent, { width: '600px', data: project }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
-      this.projectService.GetProjects();
-    });
+    if(project.projectType == ProjectType.Text){
+      this.dialog.open(ProjectEditorComponent, { width: '600px', data: project }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
+        this.projectService.GetProjects();
+      });
+    }else{
+      this.dialog.open(DictionaryEditorComponent, { width: '600px', data: project }).afterClosed().pipe(takeUntil(this.destroyed)).subscribe(()=>{
+        this.projectService.GetProjects();
+      });
+    }
+
   }
 }

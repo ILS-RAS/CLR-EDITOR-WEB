@@ -6,6 +6,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { ProjectType } from '../../../../enums/projectType';
 
 @Component({
   selector: 'app-project-selector',
@@ -33,7 +34,7 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   }
   ngOnInit(): void {
     this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe(items=>{
-      this.projects = items.sort((a, b) => a.code!.localeCompare(b.code!));
+      this.projects = items.filter(i=>i.projectType == ProjectType.Text).sort((a, b) => a.code!.localeCompare(b.code!));
     });
   }
 
