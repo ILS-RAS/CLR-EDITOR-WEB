@@ -36,7 +36,7 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
 
   public logout(): void {
     this.userService.$loggedUser.next(undefined);
-    this.projectService.InitContext(undefined)
+    this.projectService.InitProjectContext(undefined)
     this.authService.logout('/accipe');
   }
 

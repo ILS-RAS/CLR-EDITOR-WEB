@@ -1,7 +1,18 @@
 <mat-toolbar color="primary">
-    <span class="section-header">Lexicon</span>
+    <span class="section-header">{{dictionary?.desc}}</span>
     <span class="spacer"></span>
     <button mat-mini-fab color="secondary" (click)="BuildDictionary()">
       <mat-icon>tune</mat-icon>
     </button>
+    <button class="btn-close" mat-mini-fab color="primary" (click)="Close()">
+      <mat-icon>close</mat-icon>
+    </button>
   </mat-toolbar>
+  <mat-drawer-container class="container">
+    <mat-drawer #drawer class="sidenav" mode="side" [opened]="drawerOpened">
+      <app-word-list></app-word-list>
+    </mat-drawer>
+    <div class="sidenav-content">
+     
+    </div>
+  </mat-drawer-container>

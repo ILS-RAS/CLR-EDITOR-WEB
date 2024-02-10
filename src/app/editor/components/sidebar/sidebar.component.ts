@@ -11,6 +11,8 @@ import { UiService } from '../../../services/ui.service';
 import { MenuService } from '../../services/menu.service';
 import { BaseComponent } from '../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { DictionaryService } from '../dictionary/services/dictionary.service';
+import { DictionarySelectorComponent } from '../dictionary/components/dictionary-selector/dictionary-selector.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -24,6 +26,7 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     private projectService: ProjectService,
+    private dictionaryService: DictionaryService,
     private router: Router,
     private uiService: UiService,
     private menuService:MenuService
@@ -55,7 +58,11 @@ export class SidebarComponent extends BaseComponent implements OnInit {
     }
     
     if(item.action == Action.OpenDictionary){
-      this.router.navigateByUrl('/lexicon');
+      if(this.dictionaryService.$currentDictionary.value){
+        this.router.navigateByUrl('/lexicon');
+      }else{
+        this.dialog.open(DictionarySelectorComponent, { width: '600px' });
+      }
     }
     this.menuItemSelected.emit(item);
   }

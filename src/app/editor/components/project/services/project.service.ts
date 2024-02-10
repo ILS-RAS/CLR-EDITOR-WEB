@@ -62,11 +62,10 @@ export class ProjectService {
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
     private morphApiService: ApiService<MorphModel>,
-    private elementApiService:ApiService<ElementModel> ,
-    private userService:UserService
+    private elementApiService:ApiService<ElementModel>
   ) {}
 
-  public InitContext(project: ProjectModel | undefined) {
+  public InitProjectContext(project: ProjectModel | undefined) {
     this.$currentProject.next(project);
     this.$projectHeaders.next(undefined);
     this.$currentIndeces.next(undefined);

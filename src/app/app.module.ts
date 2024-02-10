@@ -73,6 +73,7 @@ import { WordSelectorComponent } from './editor/components/dictionary/components
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
 import { DictionaryEditorComponent } from './editor/components/dictionary/components/dictionary-editor/dictionary-editor.component';
+import { DictionarySelectorComponent } from './editor/components/dictionary/components/dictionary-selector/dictionary-selector.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -112,7 +113,8 @@ import { DictionaryEditorComponent } from './editor/components/dictionary/compon
     DictionaryBuilderComponent,
     WordListComponent,
     WordSelectorComponent,
-    DictionaryEditorComponent
+    DictionaryEditorComponent,
+    DictionarySelectorComponent
   ],
   imports: [
     BrowserModule,
