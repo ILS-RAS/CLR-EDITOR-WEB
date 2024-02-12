@@ -5,5 +5,6 @@ export enum Action {
   EditChunk,
   SaveChunk,
   OpenDictionary,
-  ManageUsers
+  ManageUsers,
+  Search
 }

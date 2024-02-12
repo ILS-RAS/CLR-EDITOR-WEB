@@ -153,5 +153,12 @@ export class AppComponent extends BaseComponent implements OnInit {
         '../assets/icons/add_text.svg'
       )
     );
+
+    this.matIconRegistry.addSvgIcon(
+      `search`,
+      this.domSanitizer.bypassSecurityTrustResourceUrl(
+        '../assets/icons/search.svg'
+      )
+    );
   }
 }

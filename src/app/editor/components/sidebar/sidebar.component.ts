@@ -42,6 +42,9 @@ export class SidebarComponent extends BaseComponent implements OnInit {
   }
 
   click(item: MenuItem) {
+    if(item.action == Action.Search){
+      this.router.navigateByUrl('/');
+    }
     if (item.action == Action.OpenProject) {
       if (this.projectService.$currentProject.value) {
         this.router.navigateByUrl('/proiectus');
