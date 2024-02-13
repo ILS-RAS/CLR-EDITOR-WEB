@@ -1,1 +1,8 @@
-<p>word-selector works!</p>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Lemmata'>
+  <form class="form" [formGroup]="form">
+      <mat-form-field class="input-field-full-width">
+          <mat-label>Lemma</mat-label>
+          <input matInput formControlName="lemmaInput" required>
+      </mat-form-field>
+  </form>
+</app-dialog>

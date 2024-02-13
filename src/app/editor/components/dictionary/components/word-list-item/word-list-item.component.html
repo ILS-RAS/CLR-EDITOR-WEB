@@ -1,0 +1,17 @@
+<mat-expansion-panel *ngIf="lemma" hideToggle class="mat-elevation-z0" (opened)="Opened()" >
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{lemma.form}}
+      </mat-panel-title>
+      <mat-panel-description>
+        {{lemma.pos}}
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-template matExpansionPanelContent>
+        <mat-nav-list>
+            @for (item of items; track item) {
+              <mat-list-item>{{ item.form }}</mat-list-item>
+            }
+          </mat-nav-list>
+    </ng-template>
+  </mat-expansion-panel>
