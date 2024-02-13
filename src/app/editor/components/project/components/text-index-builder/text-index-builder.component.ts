@@ -49,16 +49,22 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
   }
 
   Save() {
-    if(this.index && !this.isRange){
-      this.index.name = this.index.name ? `${this.index.name}.${this.form.controls["startValueInput"].value.toString()}` : this.form.controls["startValueInput"].value.toString();
-      this.index.order = this.form.controls["startValueInput"].value;
-      this.projectService.SaveIndex(this.index).then((item)=>{
-        let savedIndex = item as IndexModel;
-        if(savedIndex && savedIndex.headerId){
-          this.projectService.GetIndeces(savedIndex.headerId);
-          this.dialogRef.close();
+      if (this.index) {
+        let startValue = this.form.controls["startValueInput"].value;
+        let endValue = this.isRange ? this.form.controls["endValueInput"].value : startValue;
+        let tempIndex = new IndexModel(this.index);
+        
+        for (let i = startValue; i <= endValue; i++) {
+          tempIndex.name = this.index.name ? `${this.index.name}.${i.toString()}` : i.toString();
+          tempIndex.order = i;
+          this.projectService.SaveIndex(tempIndex).then((item) => {
+            let savedIndex = item as IndexModel;
+            if (savedIndex && savedIndex.headerId) {
+              this.projectService.GetIndeces(savedIndex.headerId);
+            }
+          });
         }
-      })
-    }
+        this.dialogRef.close();
+      }
   }
 }

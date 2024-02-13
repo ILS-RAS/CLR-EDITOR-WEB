@@ -50,7 +50,9 @@ export class TextIndexItemToolbarComponent extends BaseComponent implements OnCh
   }
 
   EditIndexName() {
-    this.dialog.open(TextIndexItemEditorComponent,  { width: `600px`, hasBackdrop: true, data: this.index  });
+    if (this.index) {
+      this.dialog.open(TextIndexItemEditorComponent,  { width: `600px`, hasBackdrop: true, data: new IndexModel({_id: this.index._id, parentId: this.index.parentId, headerId: this.index.headerId, name: this.index.name, order: this.index.order, bookmarked: this.index.bookmarked })  });
+    }
   }
 
   CreateChildIndex() {
