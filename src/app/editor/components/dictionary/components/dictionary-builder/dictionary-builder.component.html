@@ -56,12 +56,10 @@
             </form>
         </mat-step>
         <mat-step>
-            <ng-template matStepLabel>Create</ng-template>
-            <p>You are now done.</p>
-            <div>
-                <button mat-button matStepperPrevious>Back</button>
-                <button mat-button (click)="stepper.reset()">Reset</button>
-            </div>
+            <ng-template matStepLabel>Build Index</ng-template>
+            @if (isLoading) {
+            <mat-progress-bar mode="indeterminate" class="tree-progress-bar"></mat-progress-bar>
+            }
         </mat-step>
     </mat-stepper>
 </app-dialog>

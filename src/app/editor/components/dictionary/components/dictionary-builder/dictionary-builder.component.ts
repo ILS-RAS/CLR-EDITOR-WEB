@@ -43,6 +43,7 @@ export class DictionaryBuilderComponent
     workSelect: [''],
   });
   isEditable = true;
+  isLoading: boolean = true;
   constructor(
     public dialogRef: MatDialogRef<DictionaryBuilderComponent>,
     @Inject(MAT_DIALOG_DATA) public project: ProjectModel,

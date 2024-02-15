@@ -4,8 +4,8 @@
                 <mat-icon svgIcon="menu"></mat-icon>
             </button>
             <span class="title">{{title}}</span>
-            <span class="name" *ngIf="loggedUser">{{loggedUser.name}}, {{ResolveRoleName(loggedUser.role)}}</span>
             <span class="spacer"></span>
+            <span class="name" *ngIf="loggedUser">{{loggedUser.name}}&nbsp;{{ResolveRoleName(loggedUser.role)}}</span>
             <button color="primary" mat-mini-fab *ngIf="isAuthenticated" (click)="logout()">
                 <mat-icon svgIcon="exit"></mat-icon>
             </button>
