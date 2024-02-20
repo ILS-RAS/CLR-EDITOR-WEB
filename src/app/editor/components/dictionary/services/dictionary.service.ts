@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { ElementViewModel, ProjectModel } from '../../../models';
+import { DictionaryIndexModel, DictionaryIndexViewModel, ProjectModel } from '../../../models';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { MorphModel } from '../../../models/morphModel';
@@ -12,9 +12,9 @@ import { AppType } from '../../../enums';
 export class DictionaryService {
   
   public $currentDictionary = new BehaviorSubject<ProjectModel | undefined>(undefined);
-  public $index = new BehaviorSubject<MorphModel[] | undefined>(undefined);
+  public $dictionaryIndex = new BehaviorSubject<DictionaryIndexViewModel[] | undefined>(undefined);
 
-  constructor(private morphApiService: ApiService<MorphModel>, private elementViewService: ApiService<ElementViewModel>){
+  constructor(private morphApiService: ApiService<MorphModel>, private dictionaryIndexService: ApiService<DictionaryIndexModel>){
 
   }
 
@@ -23,16 +23,30 @@ export class DictionaryService {
   }
 
   public async GetLemma(lemma: string) {
-    let query = new MorphQuery({ lemma: lemma, form: lemma, lang:'lat' });
-    let result = this.elementViewService.findByQuery(new MorphModel({}), JSON.stringify(query), AppType.Morph);
+    let query = new MorphQuery({ lemma: lemma, form: lemma });
+    let result = this.morphApiService.findByQuery(new MorphModel({}), JSON.stringify(query), AppType.Morph);
     return await lastValueFrom(result);
   }
 
   public async GetLemmaItems(lemma: string) {
-    let query = new MorphQuery({ lemma: lemma, form: lemma });
-    let result = this.elementViewService.findByQuery(new MorphModel({}), JSON.stringify(query), AppType.ElementView);
+    let query = new MorphQuery({ lemma: lemma });
+    let result = this.morphApiService.findByQuery(new MorphModel({}), JSON.stringify(query), AppType.Morph);
     return await lastValueFrom(result);
   }
 
+  public async SaveDictionaryIndex(dictionaryIndex: DictionaryIndexModel): Promise<DictionaryIndexModel> {
 
+    let result = this.dictionaryIndexService
+      .save(dictionaryIndex, AppType.DictionaryIndex);
+    
+    return await lastValueFrom(result);
+
+  }
+
+  public async GetDictionaryIndeces(projectId: string | undefined){
+
+    let result = this.dictionaryIndexService.findByQuery(new DictionaryIndexModel({}), JSON.stringify({projectId: projectId}), AppType.DictionaryIndex);
+
+    this.$dictionaryIndex.next(await lastValueFrom(result));
+  }
 }

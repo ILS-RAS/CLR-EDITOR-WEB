@@ -1,17 +1,33 @@
-<mat-expansion-panel *ngIf="lemma" hideToggle class="mat-elevation-z0" (opened)="Opened()" >
+<mat-accordion>
+  <mat-expansion-panel *ngIf="lemma" class="mat-elevation-z0" (opened)="Opened()">
     <mat-expansion-panel-header>
       <mat-panel-title>
-        {{lemma.form}}
+        {{lemma.lemma}}
       </mat-panel-title>
       <mat-panel-description>
         {{lemma.pos}}
       </mat-panel-description>
     </mat-expansion-panel-header>
     <ng-template matExpansionPanelContent>
-        <mat-nav-list>
-            @for (item of items; track item) {
-              <mat-list-item>{{ item.form }}</mat-list-item>
-            }
-          </mat-nav-list>
+      <mat-nav-list>
+        @for (item of items; track item) {
+        <mat-list-item>
+          <span matListItemTitle>{{ item.form }}</span>
+          <span matListItemLine>
+          <span>{{item.pos}}, </span>
+          <span *ngIf="item.person">{{item.person}}, </span>
+          <span *ngIf="item.number">{{item.number}}, </span>
+          <span *ngIf="item.tense">{{item.tense}}, </span>
+          <span *ngIf="item.mood">{{item.mood}}, </span>
+          <span *ngIf="item.voice">{{item.voice}}, </span>
+          <span *ngIf="item.gender">{{item.gender}}, </span>
+          <span *ngIf="item.case">{{item.case}}, </span>
+          <span *ngIf="item.dialect">{{item.dialect}}, </span>
+          <span *ngIf="item.feature">{{item.feature}}</span>
+          </span>
+        </mat-list-item>
+        }
+      </mat-nav-list>
     </ng-template>
   </mat-expansion-panel>
+</mat-accordion>

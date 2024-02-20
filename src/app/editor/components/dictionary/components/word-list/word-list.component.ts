@@ -19,9 +19,9 @@ throw new Error('Method not implemented.');
     super();
   }
   ngOnInit(): void {
-    this.dictionaruService.$index.subscribe(items=>{
+    this.dictionaruService.$dictionaryIndex.subscribe(items=>{
       if(items){
-        this.lemmata = items;
+        this.lemmata = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
       }
     })
   }
