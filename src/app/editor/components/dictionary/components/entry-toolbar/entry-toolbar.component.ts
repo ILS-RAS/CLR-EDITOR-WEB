@@ -8,6 +8,9 @@ import { UiService } from '../../../../../services/ui.service';
   styleUrl: './entry-toolbar.component.scss'
 })
 export class EntryToolbarComponent extends BaseComponent {
+AddHeader() {
+throw new Error('Method not implemented.');
+}
 toggleIcon: string = 'left_panel_open';
 constructor(private uiService: UiService){
   super();
