@@ -1,7 +1,7 @@
-<div class="lemmata">
-    <mat-accordion *ngIf="lemmata">
-        @for (lemma of lemmata; track lemma) {
-            <app-word-list-item [lemma]="lemma"></app-word-list-item>
-        }
-    </mat-accordion>
-</div>
+<mat-action-list *ngIf="lemmata" class="lemmata">
+    @for (lemma of lemmata; track lemma) {
+    <button mat-list-item (click)="Select(lemma)">
+        {{lemma.lemma}} <span matListItemMeta>{{lemma.pos}}</span>
+    </button>
+    }
+</mat-action-list>

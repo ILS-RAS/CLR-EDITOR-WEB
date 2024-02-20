@@ -9,9 +9,6 @@ import { MorphModel } from '../../../../models/morphModel';
   styleUrl: './word-list.component.scss'
 })
 export class WordListComponent extends BaseComponent implements OnInit {
-Select(_t5: MorphModel) {
-throw new Error('Method not implemented.');
-}
 
   lemmata: MorphModel[] = [];
 
@@ -24,6 +21,10 @@ throw new Error('Method not implemented.');
         this.lemmata = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
       }
     })
+  }
+
+  Select(lemma: MorphModel) {
+    this.dictionaruService.$currentLemma.next(lemma);
   }
 
 }

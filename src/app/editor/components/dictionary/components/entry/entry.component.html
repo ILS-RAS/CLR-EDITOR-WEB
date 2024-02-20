@@ -1,1 +1,8 @@
-<p>entry works!</p>
+<mat-tab-group *ngIf="lemma" mat-stretch-tabs="true" mat-align-tabs="start">
+    <mat-tab label="Definitiones" cdkScrollable>
+        
+    </mat-tab>
+    <mat-tab label="Flexiones" cdkScrollable>
+        <app-word-list-item [lemma]="lemma"></app-word-list-item>
+    </mat-tab>
+  </mat-tab-group>

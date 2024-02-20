@@ -13,7 +13,8 @@ export class DictionaryService {
   
   public $currentDictionary = new BehaviorSubject<ProjectModel | undefined>(undefined);
   public $dictionaryIndex = new BehaviorSubject<DictionaryIndexViewModel[] | undefined>(undefined);
-
+  public $currentLemma = new BehaviorSubject<MorphModel | undefined>(undefined);
+  
   constructor(private morphApiService: ApiService<MorphModel>, private dictionaryIndexService: ApiService<DictionaryIndexModel>){
 
   }

@@ -1,10 +1,22 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { MorphModel } from '../../../../models/morphModel';
+import { DictionaryService } from '../../services/dictionary.service';
 
 @Component({
   selector: 'app-entry',
   templateUrl: './entry.component.html',
-  styleUrl: './entry.component.scss'
+  styleUrl: './entry.component.scss',
 })
-export class EntryComponent {
+export class EntryComponent extends BaseComponent implements OnInit {
+  lemma?: MorphModel;
+  constructor(private dictionaryService: DictionaryService) {
+    super();
+  }
 
+  ngOnInit(): void {
+    this.dictionaryService.$currentLemma.subscribe(lemma=>{
+      this.lemma = lemma;
+    })
+  }
 }
