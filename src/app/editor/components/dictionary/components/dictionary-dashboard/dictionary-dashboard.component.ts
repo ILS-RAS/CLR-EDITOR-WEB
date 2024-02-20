@@ -6,6 +6,7 @@ import { ProjectModel } from '../../../../models';
 import { DictionaryService } from '../../services/dictionary.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
+import { UiService } from '../../../../../services/ui.service';
 
 @Component({
   selector: 'app-dictionary-dashboard',
@@ -13,14 +14,17 @@ import { Router } from '@angular/router';
   styleUrl: './dictionary-dashboard.component.scss',
 })
 export class DictionaryDashboardComponent extends BaseComponent implements OnInit{
-  public drawerOpened: boolean = true;
+  public drawerOpened?: boolean;
   public dictionary?: ProjectModel;
-  constructor(private dialog: MatDialog, private dictionaryService: DictionaryService, private router: Router) {
+  constructor(private dialog: MatDialog, private dictionaryService: DictionaryService, private uiService: UiService, private router: Router) {
     super();
   }
   ngOnInit(): void {
     this.dictionaryService.$currentDictionary.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.dictionary = item;
+    });
+    this.uiService.$wordPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
+      this.drawerOpened = state;
     });
   }
 

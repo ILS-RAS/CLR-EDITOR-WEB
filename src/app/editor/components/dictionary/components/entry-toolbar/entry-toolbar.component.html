@@ -1,4 +1,7 @@
 <mat-toolbar class="entry-toolbar">
+    <button mat-mini-fab color="secondary" aria-label="Open word panel" (click)="Click()">
+        <mat-icon [svgIcon]="toggleIcon"></mat-icon>
+      </button>
     <div class="spacer"></div>
     <button mat-mini-fab color="secondary" (click)="AddDefinition()">
       <mat-icon>add</mat-icon>
