@@ -3,11 +3,11 @@ import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angul
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 
 @Component({
-  selector: 'app-word-filter',
-  templateUrl: './word-filter.component.html',
-  styleUrl: './word-filter.component.scss'
+  selector: 'app-text-index-filter',
+  templateUrl: './text-index-filter.component.html',
+  styleUrl: './text-index-filter.component.scss'
 })
-export class WordFilterComponent extends BaseComponent {
+export class TextIndexFilterComponent extends BaseComponent {
   label: string = 'Quaesitio...';
   form: UntypedFormGroup;
   isDisabled: boolean = true;

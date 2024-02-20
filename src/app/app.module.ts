@@ -77,6 +77,9 @@ import { DictionarySelectorComponent } from './editor/components/dictionary/comp
 import { WordListToolbarComponent } from './editor/components/dictionary/components/word-list-toolbar/word-list-toolbar.component';
 import { WordFilterComponent } from './editor/components/dictionary/components/word-filter/word-filter.component';
 import { WordListItemComponent } from './editor/components/dictionary/components/word-list-item/word-list-item.component';
+import { TextIndexFilterComponent } from './editor/components/project/components/text-index-filter/text-index-filter.component';
+import { EntryComponent } from './editor/components/dictionary/components/entry/entry.component';
+import { EntryToolbarComponent } from './editor/components/dictionary/components/entry-toolbar/entry-toolbar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -120,7 +123,10 @@ import { WordListItemComponent } from './editor/components/dictionary/components
     DictionarySelectorComponent,
     WordListToolbarComponent,
     WordFilterComponent,
-    WordListItemComponent
+    WordListItemComponent,
+    TextIndexFilterComponent,
+    EntryComponent,
+    EntryToolbarComponent
   ],
   imports: [
     BrowserModule,

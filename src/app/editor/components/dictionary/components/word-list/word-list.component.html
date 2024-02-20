@@ -1,5 +1,7 @@
-<div *ngIf="lemmata" class="lemmata">
-    @for (lemma of lemmata; track lemma) {
-        <app-word-list-item [lemma]="lemma"></app-word-list-item>
-    }
+<div class="lemmata">
+    <mat-accordion *ngIf="lemmata">
+        @for (lemma of lemmata; track lemma) {
+            <app-word-list-item [lemma]="lemma"></app-word-list-item>
+        }
+    </mat-accordion>
 </div>
