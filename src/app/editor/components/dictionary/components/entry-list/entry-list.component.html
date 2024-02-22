@@ -1,0 +1,7 @@
+<mat-action-list *ngIf="entries" class="lemmata">
+    @for (entry of entries; track entry) {
+    <button mat-list-item (click)="Select(entry)">
+        {{entry.lemma}} <span matListItemMeta>{{entry.pos}}</span>
+    </button>
+    }
+</mat-action-list>

@@ -68,18 +68,18 @@ import { UserEditorComponent } from './editor/components/user/components/user-ed
 import { TaxonomyIndexComponent } from './editor/components/taxonomy/components/taxonomy-index/taxonomy-index.component';
 import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/taxonomy-items/taxonomy-items.component';
 import { DictionaryBuilderComponent } from './editor/components/dictionary/components/dictionary-builder/dictionary-builder.component';
-import { WordListComponent } from './editor/components/dictionary/components/word-list/word-list.component';
-import { WordSelectorComponent } from './editor/components/dictionary/components/word-selector/word-selector.component';
+import { EntryListComponent } from './editor/components/dictionary/components/entry-list/entry-list.component';
+import { LemmaSelectorComponent } from './editor/components/dictionary/components/lemma-selector/lemma-selector.component';
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
 import { DictionaryEditorComponent } from './editor/components/dictionary/components/dictionary-editor/dictionary-editor.component';
 import { DictionarySelectorComponent } from './editor/components/dictionary/components/dictionary-selector/dictionary-selector.component';
-import { WordListToolbarComponent } from './editor/components/dictionary/components/word-list-toolbar/word-list-toolbar.component';
-import { WordFilterComponent } from './editor/components/dictionary/components/word-filter/word-filter.component';
-import { WordListItemComponent } from './editor/components/dictionary/components/word-list-item/word-list-item.component';
+import { EntryListToolbarComponent } from './editor/components/dictionary/components/entry-list-toolbar/entry-list-toolbar.component';
+import { EntryListItemComponent } from './editor/components/dictionary/components/entry-list-item/entry-list-item.component';
 import { TextIndexFilterComponent } from './editor/components/project/components/text-index-filter/text-index-filter.component';
 import { EntryComponent } from './editor/components/dictionary/components/entry/entry.component';
 import { EntryToolbarComponent } from './editor/components/dictionary/components/entry-toolbar/entry-toolbar.component';
+import { EntryFilterComponent } from './editor/components/dictionary/components/entry-filter/entry-filter.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -117,13 +117,13 @@ import { EntryToolbarComponent } from './editor/components/dictionary/components
     TaxonomyIndexComponent,
     TaxonomyItemsComponent,
     DictionaryBuilderComponent,
-    WordListComponent,
-    WordSelectorComponent,
+    EntryListComponent,
+    LemmaSelectorComponent,
     DictionaryEditorComponent,
     DictionarySelectorComponent,
-    WordListToolbarComponent,
-    WordFilterComponent,
-    WordListItemComponent,
+    EntryListToolbarComponent,
+    EntryFilterComponent,
+    EntryListItemComponent,
     TextIndexFilterComponent,
     EntryComponent,
     EntryToolbarComponent

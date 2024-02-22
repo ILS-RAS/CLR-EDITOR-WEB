@@ -23,7 +23,7 @@ export class DictionaryDashboardComponent extends BaseComponent implements OnIni
     this.dictionaryService.$currentDictionary.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.dictionary = item;
     });
-    this.uiService.$wordPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
+    this.uiService.$entryPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.drawerOpened = state;
     });
   }

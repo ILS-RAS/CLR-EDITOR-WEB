@@ -21,8 +21,8 @@ export class EntryToolbarComponent extends BaseComponent implements OnInit {
     })
   }
   Click() {
-    this.uiService.$wordPanelOpened.next(
-      !this.uiService.$wordPanelOpened.value
+    this.uiService.$entryPanelOpened.next(
+      !this.uiService.$entryPanelOpened.value
     );
 
     this.toggleIcon =

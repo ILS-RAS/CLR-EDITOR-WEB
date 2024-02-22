@@ -4,11 +4,11 @@ import { MorphModel } from '../../../../models/morphModel';
 import { DictionaryService } from '../../services/dictionary.service';
 
 @Component({
-  selector: 'app-word-list-item',
-  templateUrl: './word-list-item.component.html',
-  styleUrl: './word-list-item.component.scss'
+  selector: 'app-entry-list-item',
+  templateUrl: './entry-list-item.component.html',
+  styleUrl: './entry-list-item.component.scss'
 })
-export class WordListItemComponent extends BaseComponent implements OnChanges {
+export class EntryListItemComponent extends BaseComponent implements OnChanges {
 
   @Input() lemma?: MorphModel;
   items?: MorphModel[];

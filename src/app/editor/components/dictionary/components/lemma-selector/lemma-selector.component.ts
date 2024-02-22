@@ -15,11 +15,11 @@ import { Helper } from '../../../../../utils';
 import { EntryModel } from '../../../../models';
 
 @Component({
-  selector: 'app-word-selector',
-  templateUrl: './word-selector.component.html',
-  styleUrl: './word-selector.component.scss',
+  selector: 'app-lemma-selector',
+  templateUrl: './lemma-selector.component.html',
+  styleUrl: './lemma-selector.component.scss',
 })
-export class WordSelectorComponent extends BaseComponent {
+export class LemmaSelectorComponent extends BaseComponent {
 
   label: string = 'Выбрать лемму ...';
   form: UntypedFormGroup;
@@ -28,7 +28,7 @@ export class WordSelectorComponent extends BaseComponent {
   constructor(
     private dictionaryService: DictionaryService,
     private formBuilder: UntypedFormBuilder,
-    public dialogRef: MatDialogRef<WordSelectorComponent>,
+    public dialogRef: MatDialogRef<LemmaSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     super();

@@ -4,13 +4,13 @@ import { DictionaryService } from '../../services/dictionary.service';
 import { MorphModel } from '../../../../models/morphModel';
 
 @Component({
-  selector: 'app-word-list',
-  templateUrl: './word-list.component.html',
-  styleUrl: './word-list.component.scss'
+  selector: 'app-entry-list',
+  templateUrl: './entry-list.component.html',
+  styleUrl: './entry-list.component.scss'
 })
-export class WordListComponent extends BaseComponent implements OnInit {
+export class EntryListComponent extends BaseComponent implements OnInit {
 
-  lemmata: MorphModel[] = [];
+  entries: MorphModel[] = [];
 
   constructor(private dictionaruService: DictionaryService){
     super();
@@ -18,7 +18,7 @@ export class WordListComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.dictionaruService.$entries.subscribe(items=>{
       if(items){
-        this.lemmata = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
+        this.entries = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
       }
     })
   }
