@@ -15,7 +15,7 @@ export class EntryComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.dictionaryService.$currentLemma.subscribe(lemma=>{
+    this.dictionaryService.$currentEntry.subscribe(lemma=>{
       this.lemma = lemma;
     })
   }

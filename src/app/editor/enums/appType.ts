@@ -4,7 +4,7 @@ export enum AppType {
     Role = 'roles',
     Project = 'projects',
     Index = 'indeces',
-    DictionaryIndex = 'dictionary-indeces',
+    Entry = 'entries',
     IndexView = 'indeces',
     Header = 'headers',
     HeaderView = 'headers',
@@ -17,5 +17,6 @@ export enum AppType {
     Interp = 'interps',
     Taxonomy = 'taxonomy-items',
     Note = 'notes',
-    NoteLink = 'note-links'
+    NoteLink = 'note-links',
+    EntryElement = 'entry-elements'
   };

@@ -2,10 +2,7 @@
   <button mat-mini-fab color="secondary" aria-label="Open word panel" (click)="Click()">
     <mat-icon [svgIcon]="toggleIcon"></mat-icon>
   </button>
-  <button mat-mini-fab color="secondary" (click)="AddHeader()">
-    <mat-icon>new_label</mat-icon>
-  </button>
-  <button mat-mini-fab color="secondary" (click)="AddDefinition()">
-    <mat-icon>variable_add</mat-icon>
-  </button>
+  <div class="spacer"></div>
+  {{entry?.lemma}}
+  <div class="spacer"></div>
 </mat-toolbar>

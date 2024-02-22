@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DictionaryIndexModel, DictionaryIndexViewModel, ProjectModel } from '../../../models';
+import { EntryModel, EntryViewModel, ProjectModel } from '../../../models';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { MorphModel } from '../../../models/morphModel';
@@ -12,10 +12,10 @@ import { AppType } from '../../../enums';
 export class DictionaryService {
   
   public $currentDictionary = new BehaviorSubject<ProjectModel | undefined>(undefined);
-  public $dictionaryIndex = new BehaviorSubject<DictionaryIndexViewModel[] | undefined>(undefined);
-  public $currentLemma = new BehaviorSubject<MorphModel | undefined>(undefined);
+  public $entries = new BehaviorSubject<EntryViewModel[] | undefined>(undefined);
+  public $currentEntry = new BehaviorSubject<MorphModel | undefined>(undefined);
   
-  constructor(private morphApiService: ApiService<MorphModel>, private dictionaryIndexService: ApiService<DictionaryIndexModel>){
+  constructor(private morphApiService: ApiService<MorphModel>, private entryService: ApiService<EntryModel>){
 
   }
 
@@ -35,19 +35,19 @@ export class DictionaryService {
     return await lastValueFrom(result);
   }
 
-  public async SaveDictionaryIndex(dictionaryIndex: DictionaryIndexModel): Promise<DictionaryIndexModel> {
+  public async SaveEntry(entry: EntryModel): Promise<EntryModel> {
 
-    let result = this.dictionaryIndexService
-      .save(dictionaryIndex, AppType.DictionaryIndex);
+    let result = this.entryService
+      .save(entry, AppType.Entry);
     
     return await lastValueFrom(result);
 
   }
 
-  public async GetDictionaryIndeces(projectId: string | undefined){
+  public async GetEntries(projectId: string | undefined){
 
-    let result = this.dictionaryIndexService.findByQuery(new DictionaryIndexModel({}), JSON.stringify({projectId: projectId}), AppType.DictionaryIndex);
+    let result = this.entryService.findByQuery(new EntryModel({}), JSON.stringify({projectId: projectId}), AppType.Entry);
 
-    this.$dictionaryIndex.next(await lastValueFrom(result));
+    this.$entries.next(await lastValueFrom(result));
   }
 }

@@ -16,7 +16,7 @@ export class WordListComponent extends BaseComponent implements OnInit {
     super();
   }
   ngOnInit(): void {
-    this.dictionaruService.$dictionaryIndex.subscribe(items=>{
+    this.dictionaruService.$entries.subscribe(items=>{
       if(items){
         this.lemmata = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
       }
@@ -24,7 +24,7 @@ export class WordListComponent extends BaseComponent implements OnInit {
   }
 
   Select(lemma: MorphModel) {
-    this.dictionaruService.$currentLemma.next(lemma);
+    this.dictionaruService.$currentEntry.next(lemma);
   }
 
 }

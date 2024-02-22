@@ -1,7 +1,7 @@
 import { BaseModel } from './baseModel';
-import { DictionaryIndexModel } from './dictionaryIndexModel';
+import { EntryModel } from './entryModel';
 
-export class DictionaryIndexViewModel extends DictionaryIndexModel {
+export class EntryViewModel extends EntryModel {
     lemma?: string;
     form?: string;
     pos?: string;
@@ -16,7 +16,7 @@ export class DictionaryIndexViewModel extends DictionaryIndexModel {
     voice?: string;
     degree?: string;
     
-    public constructor(fields: Partial<DictionaryIndexViewModel>) {
+    public constructor(fields: Partial<EntryViewModel>) {
         super(fields);
         Object.assign(this, fields);
      }

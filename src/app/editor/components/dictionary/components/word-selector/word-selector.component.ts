@@ -12,7 +12,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { DictionaryService } from '../../services/dictionary.service';
 import { MorphModel } from '../../../../models/morphModel';
 import { Helper } from '../../../../../utils';
-import { DictionaryIndexModel } from '../../../../models';
+import { EntryModel } from '../../../../models';
 
 @Component({
   selector: 'app-word-selector',
@@ -53,11 +53,11 @@ export class WordSelectorComponent extends BaseComponent {
   }
   Save() {
     if(this.result){
-      this.dictionaryService.SaveDictionaryIndex(new DictionaryIndexModel({
+      this.dictionaryService.SaveEntry(new EntryModel({
         morphId: this.result._id,
         projectId: this.dictionaryService.$currentDictionary.value?._id
       })).then(()=>{
-        this.dictionaryService.GetDictionaryIndeces(this.dictionaryService.$currentDictionary.value?._id)
+        this.dictionaryService.GetEntries(this.dictionaryService.$currentDictionary.value?._id)
       });
     }
     this.dialogRef.close();

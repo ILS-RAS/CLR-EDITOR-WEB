@@ -1,11 +1,11 @@
 import { BaseModel } from './baseModel';
 
-export class DictionaryIndexModel extends BaseModel {
+export class EntryModel extends BaseModel {
     projectId?: string;
     morphId?: string;
     parentId?: string;
-    
-    public constructor(fields: Partial<DictionaryIndexModel>) {
+    entyObj?:string;
+    public constructor(fields: Partial<EntryModel>) {
         super();
         Object.assign(this, fields);
      }
