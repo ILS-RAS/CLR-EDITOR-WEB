@@ -1,5 +1,6 @@
-export enum EntryElementType{
-    header = 'header',
-    body = 'body',
-    footer = 'footer'
+export enum EntryElementType {
+  header = 'header',
+  body = 'body',
+  footer = 'footer',
+  lemma = "lemma"
 }

@@ -5,6 +5,9 @@
             <button mat-icon-button color="accent" (click)="createEntryCard()" *ngIf="elements?.length == 0">
                 <mat-icon>add</mat-icon>
               </button>
+              <button mat-icon-button color="accent" (click)="deleteEntryCard()" *ngIf="elements && elements.length > 0">
+                <mat-icon>delete</mat-icon>
+              </button>
           </ng-template>
           <app-entry-card></app-entry-card>
     </mat-tab>

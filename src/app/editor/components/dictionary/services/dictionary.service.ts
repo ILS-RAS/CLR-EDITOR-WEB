@@ -15,7 +15,7 @@ export class DictionaryService {
   public $currentDictionary = new BehaviorSubject<ProjectModel | undefined>(undefined);
   public $entries = new BehaviorSubject<EntryViewModel[] | undefined>(undefined);
   public $entryElements = new BehaviorSubject<EntryElementModel[] | undefined>(undefined);
-  public $currentEntry = new BehaviorSubject<EntryModel | undefined>(undefined);
+  public $currentEntry = new BehaviorSubject<EntryViewModel | undefined>(undefined);
   
   constructor(private morphApiService: ApiService<MorphModel>, private entryService: ApiService<EntryModel>, private entryElementService: ApiService<EntryElementModel>){
 
@@ -68,4 +68,11 @@ export class DictionaryService {
 
     this.$entries.next(await lastValueFrom(result));
   }
+
+  public async DeleteEntryElements(entryId: string | undefined){
+    let result = this.entryElementService.removeByQuery(new EntryElementModel({}), JSON.stringify({entryId: entryId}), AppType.EntryElement);
+
+    await lastValueFrom(result);
+  }
+
 }

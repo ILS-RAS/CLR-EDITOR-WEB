@@ -64,9 +64,25 @@ export class EntryComponent extends BaseComponent implements OnInit {
           });
           this.dictionaryService.SaveEntry(e).finally(()=>{
             this.dictionaryService.GetEntryElements(e._id);
-          })
+            this.dictionaryService.$currentEntry.next(e);
+          });
         })
       })
+    })
+  }
+
+  deleteEntryCard() {
+    this.dictionaryService.DeleteEntryElements(this.entry?._id).finally(()=>{
+      let e = new EntryModel({
+        _id : this.entry?._id,
+        entryObj: " ",
+        morphId: this.entry?.morphId,
+        projectId: this.entry?.projectId
+      });
+      this.dictionaryService.SaveEntry(e).finally(()=>{
+        this.dictionaryService.GetEntryElements(e._id);
+        this.dictionaryService.$currentEntry.next(e);
+      });
     })
   }
 }

@@ -1,8 +1,16 @@
 <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Entry element'>
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
-            <mat-label>Value</mat-label>
-            <input matInput formControlName="velueInput" required>
+            <mat-label>Editor</mat-label>
+            <mat-select formControlName="typeSelect" required>
+                @for (type of types; track type) {
+                <mat-option [value]="type.code">{{type.code}}</mat-option>
+                }
+            </mat-select>
         </mat-form-field>
+        <!-- <mat-form-field class="input-field-full-width">
+            <mat-label>Value</mat-label>
+            <input matInput formControlName="valueInput" required>
+        </mat-form-field> -->
     </form>
   </app-dialog>
