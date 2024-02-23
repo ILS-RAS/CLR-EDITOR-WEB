@@ -1,0 +1,8 @@
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Entry element'>
+    <form class="form" [formGroup]="form">
+        <mat-form-field class="input-field-full-width">
+            <mat-label>Value</mat-label>
+            <input matInput formControlName="velueInput" required>
+        </mat-form-field>
+    </form>
+  </app-dialog>

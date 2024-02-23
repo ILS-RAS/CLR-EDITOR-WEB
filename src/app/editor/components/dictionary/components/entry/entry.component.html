@@ -1,8 +1,18 @@
-<mat-tab-group *ngIf="lemma" mat-stretch-tabs="true" mat-align-tabs="start">
-    <mat-tab label="Definitiones" cdkScrollable>
-        
+<mat-tab-group *ngIf="entry" mat-stretch-tabs="true" mat-align-tabs="start">
+    <mat-tab>
+        <ng-template mat-tab-label>
+            Definitiones
+            <button mat-icon-button color="accent" (click)="createEntryCard()" *ngIf="elements?.length == 0">
+                <mat-icon>add</mat-icon>
+              </button>
+          </ng-template>
+          <app-entry-card></app-entry-card>
     </mat-tab>
-    <mat-tab label="Flexiones" cdkScrollable>
-        <app-entry-list-item [lemma]="lemma"></app-entry-list-item>
+    <mat-tab>
+        <ng-template mat-tab-label>
+            <mat-icon>add</mat-icon>
+            Flexiones
+          </ng-template>
+        <app-entry-list-item [lemma]="entry"></app-entry-list-item>
     </mat-tab>
   </mat-tab-group>

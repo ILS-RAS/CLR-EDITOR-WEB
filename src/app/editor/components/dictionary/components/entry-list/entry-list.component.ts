@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { DictionaryService } from '../../services/dictionary.service';
 import { MorphModel } from '../../../../models/morphModel';
+import { EntryModel } from '../../../../models';
 
 @Component({
   selector: 'app-entry-list',
@@ -23,8 +24,8 @@ export class EntryListComponent extends BaseComponent implements OnInit {
     })
   }
 
-  Select(lemma: MorphModel) {
-    this.dictionaruService.$currentEntry.next(lemma);
+  Select(entry: EntryModel) {
+    this.dictionaruService.$currentEntry.next(entry);
+    this.dictionaruService.GetEntryElements(entry._id);
   }
-
 }

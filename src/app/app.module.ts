@@ -80,6 +80,8 @@ import { TextIndexFilterComponent } from './editor/components/project/components
 import { EntryComponent } from './editor/components/dictionary/components/entry/entry.component';
 import { EntryToolbarComponent } from './editor/components/dictionary/components/entry-toolbar/entry-toolbar.component';
 import { EntryFilterComponent } from './editor/components/dictionary/components/entry-filter/entry-filter.component';
+import { EntryElementEditorComponent } from './editor/components/dictionary/components/entry-element-editor/entry-element-editor.component';
+import { EntryCardComponent } from './editor/components/dictionary/components/entry-card/entry-card.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -126,7 +128,9 @@ import { EntryFilterComponent } from './editor/components/dictionary/components/
     EntryListItemComponent,
     TextIndexFilterComponent,
     EntryComponent,
-    EntryToolbarComponent
+    EntryToolbarComponent,
+    EntryElementEditorComponent,
+    EntryCardComponent
   ],
   imports: [
     BrowserModule,

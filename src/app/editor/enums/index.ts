@@ -7,3 +7,4 @@ export * from './editionType';
 export * from './chunkStatus';
 export * from './language';
 export * from './userRole';
+export * from './entryElementType';

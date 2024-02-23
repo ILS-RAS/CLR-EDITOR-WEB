@@ -1,11 +1,11 @@
 import { BaseModel } from "./baseModel";
 
-export class EntryElement extends BaseModel{
+export class EntryElementModel extends BaseModel{
     value?: string;
     type?: string;
     parentId?: string;
     entryId?: string;
-    public constructor(fields: Partial<EntryElement>) {
+    public constructor(fields: Partial<EntryElementModel>) {
       super();
       Object.assign(this, fields);
     }

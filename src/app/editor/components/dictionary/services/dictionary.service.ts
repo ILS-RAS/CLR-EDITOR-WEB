@@ -5,6 +5,7 @@ import { ApiService } from '../../../services/api.service';
 import { MorphModel } from '../../../models/morphModel';
 import { MorphQuery } from '../../../queries';
 import { AppType } from '../../../enums';
+import { EntryElementModel } from '../../../models/entryElementModel';
 
 @Injectable({
   providedIn: 'root'
@@ -13,9 +14,10 @@ export class DictionaryService {
   
   public $currentDictionary = new BehaviorSubject<ProjectModel | undefined>(undefined);
   public $entries = new BehaviorSubject<EntryViewModel[] | undefined>(undefined);
-  public $currentEntry = new BehaviorSubject<MorphModel | undefined>(undefined);
+  public $entryElements = new BehaviorSubject<EntryElementModel[] | undefined>(undefined);
+  public $currentEntry = new BehaviorSubject<EntryModel | undefined>(undefined);
   
-  constructor(private morphApiService: ApiService<MorphModel>, private entryService: ApiService<EntryModel>){
+  constructor(private morphApiService: ApiService<MorphModel>, private entryService: ApiService<EntryModel>, private entryElementService: ApiService<EntryElementModel>){
 
   }
 
@@ -42,6 +44,22 @@ export class DictionaryService {
     
     return await lastValueFrom(result);
 
+  }
+
+  public async SaveEntryElement(entryElement: EntryElementModel): Promise<EntryElementModel> {
+
+    let result = this.entryElementService
+      .save(entryElement, AppType.EntryElement);
+    
+    return await lastValueFrom(result);
+
+  }
+
+  public async GetEntryElements(entryId: string | undefined){
+
+    let result = this.entryElementService.findByQuery(new EntryElementModel({}), JSON.stringify({entryId: entryId}), AppType.EntryElement);
+
+    this.$entryElements.next(await lastValueFrom(result));
   }
 
   public async GetEntries(projectId: string | undefined){
