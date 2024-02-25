@@ -4,7 +4,7 @@ import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { MorphModel } from '../../../models/morphModel';
 import { MorphQuery } from '../../../queries';
-import { AppType } from '../../../enums';
+import { AppType, EntryElementType } from '../../../enums';
 import { EntryElementModel } from '../../../models/entryElementModel';
 
 @Injectable({
@@ -67,6 +67,18 @@ export class DictionaryService {
     let result = this.entryService.findByQuery(new EntryModel({}), JSON.stringify({projectId: projectId}), AppType.Entry);
 
     this.$entries.next(await lastValueFrom(result));
+  }
+
+  public async DeleteEntry(entry: EntryModel){
+
+    let result = this.entryService.remove(entry, AppType.Entry);
+
+    await lastValueFrom(result);
+
+    if(this.$currentEntry.value && entry._id == this.$currentEntry.value._id){
+      this.$currentEntry.next(undefined);
+    }
+
   }
 
   public async DeleteEntryElements(entryId: string | undefined){

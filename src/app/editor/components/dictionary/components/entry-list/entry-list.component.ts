@@ -3,6 +3,8 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { DictionaryService } from '../../services/dictionary.service';
 import { MorphModel } from '../../../../models/morphModel';
 import { EntryModel } from '../../../../models';
+import { MatDialog } from '@angular/material/dialog';
+import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 
 @Component({
   selector: 'app-entry-list',
@@ -13,11 +15,11 @@ export class EntryListComponent extends BaseComponent implements OnInit {
 
   entries: MorphModel[] = [];
 
-  constructor(private dictionaruService: DictionaryService){
+  constructor(private dictionaryService: DictionaryService, private dialog: MatDialog){
     super();
   }
   ngOnInit(): void {
-    this.dictionaruService.$entries.subscribe(items=>{
+    this.dictionaryService.$entries.subscribe(items=>{
       if(items){
         this.entries = items.sort((a, b) => a.lemma!.localeCompare(b.lemma!));
       }
@@ -25,7 +27,17 @@ export class EntryListComponent extends BaseComponent implements OnInit {
   }
 
   Select(entry: EntryModel) {
-    this.dictionaruService.$currentEntry.next(entry);
-    this.dictionaruService.GetEntryElements(entry._id);
+    this.dictionaryService.$currentEntry.next(entry);
+    this.dictionaryService.GetEntryElements(entry._id);
+  }
+
+  deleteEntry(entry: EntryModel) {
+    this.dialog.open(ConfirmComponent).afterClosed().subscribe(result=>{
+      if(result){
+        this.dictionaryService.DeleteEntry(entry).then(()=>{
+          this.dictionaryService.GetEntries(this.dictionaryService.$currentDictionary.value?._id);
+        });
+      }
+    })
   }
 }

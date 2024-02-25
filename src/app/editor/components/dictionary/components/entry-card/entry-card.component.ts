@@ -29,6 +29,7 @@ export class EntryCardComponent extends BaseComponent implements OnInit {
         this.header = elems.find((i) => i.type == EntryElementType.header);
         this.body = elems.find((i) => i.type == EntryElementType.body);
         this.footer = elems.find((i) => i.type == EntryElementType.footer);
+        this.elements?.push(... elems);
       }else{
         this.header = this.footer = this.body = undefined;
       }
