@@ -6,6 +6,7 @@ import { MorphModel } from '../../../models/morphModel';
 import { MorphQuery } from '../../../queries';
 import { AppType, EntryElementType } from '../../../enums';
 import { EntryElementModel } from '../../../models/entryElementModel';
+import { Helper } from '../../../../utils';
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +24,7 @@ export class DictionaryService {
 
   public InitContext(project: ProjectModel | undefined) {
     this.$currentDictionary.next(project);
+    this.$currentEntry.next(undefined);
   }
 
   public async GetLemma(lemma: string) {
@@ -55,14 +57,7 @@ export class DictionaryService {
 
   }
 
-  public async GetEntryElements(entryId: string | undefined){
-
-    let result = this.entryElementService.findByQuery(new EntryElementModel({}), JSON.stringify({entryId: entryId}), AppType.EntryElement);
-
-    this.$entryElements.next(await lastValueFrom(result));
-  }
-
-  public async GetEntries(projectId: string | undefined){
+  public async getEntries(projectId: string | undefined){
 
     let result = this.entryService.findByQuery(new EntryModel({}), JSON.stringify({projectId: projectId}), AppType.Entry);
 
@@ -87,4 +82,53 @@ export class DictionaryService {
     await lastValueFrom(result);
   }
 
+  public createEntryCard(entry: EntryModel) {
+
+    let header = new EntryElementModel({
+      _id: Helper.newGuid(),
+      entryId:  entry._id,
+      type: EntryElementType.header,
+      order: 1
+    });
+
+    let lemma = new EntryElementModel({
+      _id: Helper.newGuid(),
+      parentId: header._id,
+      entryId:  entry._id,
+      type: EntryElementType.lemma,
+      value: entry._id,
+      order: 1
+    })
+
+    let body = new EntryElementModel({
+      _id: Helper.newGuid(),
+      entryId:  entry._id,
+      type: EntryElementType.body,
+      order: 2
+    });
+
+    let footer = new EntryElementModel({
+      _id: Helper.newGuid(),
+      entryId:  entry._id,
+      type: EntryElementType.footer,
+      order: 3
+    });
+
+    let savedElements: EntryElementModel[] = [];
+
+    savedElements.push(header);
+    savedElements.push(lemma);
+    savedElements.push(body);
+    savedElements.push(footer);
+
+    let e = new EntryModel({
+      _id : entry._id,
+      entryObj: JSON.stringify(savedElements),
+      morphId: entry.morphId,
+      projectId: entry.projectId
+    });
+
+    this.SaveEntry(e);
+    
+  }
 }

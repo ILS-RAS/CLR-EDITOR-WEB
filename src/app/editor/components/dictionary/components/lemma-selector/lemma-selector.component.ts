@@ -56,8 +56,12 @@ export class LemmaSelectorComponent extends BaseComponent {
       this.dictionaryService.SaveEntry(new EntryModel({
         morphId: this.result._id,
         projectId: this.dictionaryService.$currentDictionary.value?._id
-      })).then(()=>{
-        this.dictionaryService.GetEntries(this.dictionaryService.$currentDictionary.value?._id)
+      })).then((savedEntry)=>{
+        this.dictionaryService.createEntryCard(savedEntry);
+        this.dictionaryService.getEntries(this.dictionaryService.$currentDictionary.value?._id).then((items)=>{
+          let view = this.dictionaryService.$entries.value?.find(i=>i._id == savedEntry._id);
+          this.dictionaryService.$currentEntry.next(view);
+        });
       });
     }
     this.dialogRef.close();

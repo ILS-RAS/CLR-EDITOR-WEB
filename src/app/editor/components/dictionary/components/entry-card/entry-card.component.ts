@@ -13,7 +13,7 @@ import { EntryElementEditorComponent } from '../entry-element-editor/entry-eleme
   styleUrl: './entry-card.component.scss',
 })
 export class EntryCardComponent extends BaseComponent implements OnInit {
-  elements?: EntryElementModel[] = [];
+  headerElements?: EntryElementModel[] = [];
   entry?: EntryViewModel;
   header?: EntryElementModel;
   body?: EntryElementModel;
@@ -27,9 +27,9 @@ export class EntryCardComponent extends BaseComponent implements OnInit {
       if(this.entry?.entryObj?.trim()){
         let elems = JSON.parse(this.entry?.entryObj) as EntryElementModel[];
         this.header = elems.find((i) => i.type == EntryElementType.header);
+        this.headerElements = elems.filter(e=>e.parentId == this.header?._id);
         this.body = elems.find((i) => i.type == EntryElementType.body);
         this.footer = elems.find((i) => i.type == EntryElementType.footer);
-        this.elements?.push(... elems);
       }else{
         this.header = this.footer = this.body = undefined;
       }
@@ -45,25 +45,6 @@ export class EntryCardComponent extends BaseComponent implements OnInit {
   addHeaderElement() {
     this.dialog.open(EntryElementEditorComponent, {width: '600px'}).afterClosed().subscribe(result=>{
       if(result){
-        let e = new EntryElementModel({
-          entryId: this.entry?._id,
-          parentId: this.header?._id,
-          value:this.entry?._id,
-          type:EntryElementType.lemma
-        });
-        this.dictionaryService.SaveEntryElement(e).then((element: EntryElementModel)=>{
-          this.elements?.push(element);
-          let e = new EntryModel({
-            _id : this.entry?._id,
-            entryObj: JSON.stringify(this.elements),
-            morphId: this.entry?.morphId,
-            projectId: this.entry?.projectId
-          });
-          this.dictionaryService.SaveEntry(e).finally(()=>{
-            this.dictionaryService.GetEntryElements(e._id);
-            this.dictionaryService.$currentEntry.next(e);
-          })
-        })
       }
     })
   }

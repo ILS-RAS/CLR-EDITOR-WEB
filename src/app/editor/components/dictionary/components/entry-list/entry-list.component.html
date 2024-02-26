@@ -1,7 +1,7 @@
 <mat-action-list *ngIf="entries" class="lemmata">
     @for (entry of entries; track entry) {
     <span class="entry-list-item">
-        <button mat-list-item (click)="Select(entry)">
+        <button mat-list-item (click)="select(entry)">
             {{entry.lemma}}, {{entry.pos}}
         </button>
         <span class="spacer"></span>

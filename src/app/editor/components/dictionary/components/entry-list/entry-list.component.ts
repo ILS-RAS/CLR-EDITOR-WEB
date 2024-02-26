@@ -26,16 +26,15 @@ export class EntryListComponent extends BaseComponent implements OnInit {
     })
   }
 
-  Select(entry: EntryModel) {
+  select(entry: EntryModel) {
     this.dictionaryService.$currentEntry.next(entry);
-    this.dictionaryService.GetEntryElements(entry._id);
   }
 
   deleteEntry(entry: EntryModel) {
     this.dialog.open(ConfirmComponent).afterClosed().subscribe(result=>{
       if(result){
         this.dictionaryService.DeleteEntry(entry).then(()=>{
-          this.dictionaryService.GetEntries(this.dictionaryService.$currentDictionary.value?._id);
+          this.dictionaryService.getEntries(this.dictionaryService.$currentDictionary.value?._id);
         });
       }
     })
