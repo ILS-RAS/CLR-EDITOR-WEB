@@ -1,7 +1,7 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Entry element'>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Typus elementi'>
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
-            <mat-label>Editor</mat-label>
+            <mat-label>Typus elementi</mat-label>
             <mat-select formControlName="typeSelect" required>
                 @for (type of types; track type) {
                 <mat-option [value]="type.code">{{type.code}}</mat-option>

@@ -13,39 +13,75 @@ import { EntryElementEditorComponent } from '../entry-element-editor/entry-eleme
   styleUrl: './entry-card.component.scss',
 })
 export class EntryCardComponent extends BaseComponent implements OnInit {
+  elements?: EntryElementModel[] = [];
   headerElements?: EntryElementModel[] = [];
   entry?: EntryViewModel;
   header?: EntryElementModel;
   body?: EntryElementModel;
+  bodyElements?: EntryElementModel[] = [];
   footer?: EntryElementModel;
-  constructor(private dictionaryService: DictionaryService, private dialog: MatDialog) {
+  footerElements?: EntryElementModel[] = [];
+  constructor(
+    private dictionaryService: DictionaryService,
+    private dialog: MatDialog
+  ) {
     super();
   }
   ngOnInit(): void {
     this.dictionaryService.$currentEntry.subscribe((entry) => {
       this.entry = entry;
-      if(this.entry?.entryObj?.trim()){
-        let elems = JSON.parse(this.entry?.entryObj) as EntryElementModel[];
-        this.header = elems.find((i) => i.type == EntryElementType.header);
-        this.headerElements = elems.filter(e=>e.parentId == this.header?._id);
-        this.body = elems.find((i) => i.type == EntryElementType.body);
-        this.footer = elems.find((i) => i.type == EntryElementType.footer);
-      }else{
+      if (this.entry?.entryObj?.trim()) {
+        this.elements = JSON.parse(this.entry?.entryObj) as EntryElementModel[];
+        this.header = this.elements.find((i) => i.type == 'header');
+        this.headerElements = this.elements.filter(
+          (e) => e.parentId == this.header?._id
+        );
+        this.body = this.elements.find((i) => i.type == 'body');
+        this.bodyElements = this.elements.filter(
+          (i) => i.parentId == this.body?._id
+        );
+        this.footer = this.elements.find((i) => i.type == 'footer');
+        this.footerElements = this.elements.filter(
+          (i) => i.parentId == this.footer?._id
+        );
+      } else {
         this.header = this.footer = this.body = undefined;
       }
     });
   }
 
-  addFooterElement() {
-    this.dialog.open(EntryElementEditorComponent, {width: '600px'});
+  addElement(parentElement: EntryElementModel) {
+    this.dialog
+      .open(EntryElementEditorComponent, { width: '600px', data: parentElement })
+      .afterClosed()
+      .subscribe((element) => {
+        if (element) {
+          this.updateElements(element);
+        }
+      });
   }
-  addBodyElement() {
-    this.dialog.open(EntryElementEditorComponent, {width: '600px'});
-  }
-  addHeaderElement() {
-    this.dialog.open(EntryElementEditorComponent, {width: '600px'}).afterClosed().subscribe(result=>{
-      if(result){
-      }
-    })
+  
+  updateElements(element: EntryElementModel) {
+    this.elements?.push(element);
+    if (this.entry) {
+      let e = new EntryModel({
+        _id: this.entry._id,
+        entryObj: JSON.stringify(this.elements),
+        morphId: this.entry.morphId,
+        parentId: this.entry.parentId,
+        projectId: this.entry.projectId
+      });
+      this.dictionaryService.SaveEntry(e).then(saved=>{
+        if(saved){
+          let list = this.dictionaryService.$entries.value;
+          if(list){
+            let index = list?.findIndex(i => i._id === saved._id);
+            list[index].entryObj = saved.entryObj;
+            this.dictionaryService.$entries.next(list);
+            this.dictionaryService.$currentEntry.next(list[index]);
+          }
+        }
+      })
+    }
   }
 }

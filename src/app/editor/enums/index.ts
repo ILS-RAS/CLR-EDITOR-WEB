@@ -8,3 +8,4 @@ export * from './chunkStatus';
 export * from './language';
 export * from './userRole';
 export * from './entryElementType';
+export * from './entryStructType';

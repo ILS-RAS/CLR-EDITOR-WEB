@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { EntryModel, EntryViewModel, ProjectModel } from '../../../models';
+import { EntryModel, EntryViewModel, ProjectModel, TaxonomyModel } from '../../../models';
 import { BehaviorSubject, lastValueFrom } from 'rxjs';
 import { ApiService } from '../../../services/api.service';
 import { MorphModel } from '../../../models/morphModel';
 import { MorphQuery } from '../../../queries';
-import { AppType, EntryElementType } from '../../../enums';
+import { AppType, EntryElementType, EntryStructType } from '../../../enums';
 import { EntryElementModel } from '../../../models/entryElementModel';
 import { Helper } from '../../../../utils';
 
@@ -48,15 +48,6 @@ export class DictionaryService {
 
   }
 
-  public async SaveEntryElement(entryElement: EntryElementModel): Promise<EntryElementModel> {
-
-    let result = this.entryElementService
-      .save(entryElement, AppType.EntryElement);
-    
-    return await lastValueFrom(result);
-
-  }
-
   public async getEntries(projectId: string | undefined){
 
     let result = this.entryService.findByQuery(new EntryModel({}), JSON.stringify({projectId: projectId}), AppType.Entry);
@@ -76,10 +67,26 @@ export class DictionaryService {
 
   }
 
-  public async DeleteEntryElements(entryId: string | undefined){
-    let result = this.entryElementService.removeByQuery(new EntryElementModel({}), JSON.stringify({entryId: entryId}), AppType.EntryElement);
+  public getEntryElementTypes(): TaxonomyModel[]{
+    let types:TaxonomyModel[] = [];
 
-    await lastValueFrom(result);
+    types.push(new TaxonomyModel({
+      code: EntryElementType.lemma
+    }),
+    new TaxonomyModel({
+      code: EntryElementType.form
+    }),
+    new TaxonomyModel({
+      code: EntryElementType.collocation
+    }),
+    new TaxonomyModel({
+      code: EntryElementType.mark
+    }),
+    new TaxonomyModel({
+      code: EntryElementType.definition
+    }));
+
+    return types;
   }
 
   public createEntryCard(entry: EntryModel) {
@@ -87,7 +94,7 @@ export class DictionaryService {
     let header = new EntryElementModel({
       _id: Helper.newGuid(),
       entryId:  entry._id,
-      type: EntryElementType.header,
+      type: EntryStructType.header,
       order: 1
     });
 
@@ -103,14 +110,14 @@ export class DictionaryService {
     let body = new EntryElementModel({
       _id: Helper.newGuid(),
       entryId:  entry._id,
-      type: EntryElementType.body,
+      type: EntryStructType.body,
       order: 2
     });
 
     let footer = new EntryElementModel({
       _id: Helper.newGuid(),
       entryId:  entry._id,
-      type: EntryElementType.footer,
+      type: EntryStructType.footer,
       order: 3
     });
 
