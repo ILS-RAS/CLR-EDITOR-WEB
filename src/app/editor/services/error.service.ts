@@ -10,7 +10,17 @@ export class ErrorService {
   constructor(private snackBar: MatSnackBar) { }
 
   public errorHandler(response: any): string {
-    this.snackBar.open(response.message, 'ERROR');
+    
+    let msg = response.error.message;
+    
+    if(msg.includes('E11000')){
+
+      msg = 'Запись уже существует';
+
+    }
+    
+    this.snackBar.open(msg, 'ERROR');
+
     return response;
   }
 
