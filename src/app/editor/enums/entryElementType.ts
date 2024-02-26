@@ -3,5 +3,6 @@ export enum EntryElementType {
   definition = "definitio",
   form = "forma",
   mark = 'nota',
-  collocation = 'collocatio'
+  collocation = 'collocatio',
+  quote = 'excerptio'
 }

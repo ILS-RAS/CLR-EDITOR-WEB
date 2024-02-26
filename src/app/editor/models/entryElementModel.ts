@@ -1,7 +1,6 @@
 import { BaseModel } from "./baseModel";
 
 export class EntryElementModel extends BaseModel {
-    entryId?: string;
     value?: string;
     type?: string;
     parentId?: string;
