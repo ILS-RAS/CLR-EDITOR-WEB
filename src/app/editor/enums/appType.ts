@@ -17,6 +17,5 @@ export enum AppType {
     Interp = 'interps',
     Taxonomy = 'taxonomy-items',
     Note = 'notes',
-    NoteLink = 'note-links',
-    EntryElement = 'entry-elements'
+    NoteLink = 'note-links'
   };
