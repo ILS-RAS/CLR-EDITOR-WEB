@@ -13,6 +13,7 @@ import { EntryElementEditorComponent } from '../entry-element-editor/entry-eleme
   styleUrl: './entry-card.component.scss',
 })
 export class EntryCardComponent extends BaseComponent implements OnInit {
+
   elements?: EntryElementModel[] = [];
   headerElements?: EntryElementModel[] = [];
   entry?: EntryViewModel;

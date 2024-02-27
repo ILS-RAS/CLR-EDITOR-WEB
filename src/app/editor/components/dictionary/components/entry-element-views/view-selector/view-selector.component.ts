@@ -3,6 +3,7 @@ import { BaseComponent } from '../../../../../../components/base/base/base.compo
 import { EntryElementModel } from '../../../../../models/entryElementModel';
 import { DictionaryService } from '../../../services/dictionary.service';
 import { takeUntil } from 'rxjs';
+import { EntryModel } from '../../../../../models';
 
 @Component({
   selector: 'app-view-selector',
@@ -31,7 +32,20 @@ export class ViewSelectorComponent extends BaseComponent implements OnInit {
     return children;
   }
 
-  deleteElement(element: EntryElementModel) {
-     
+  delete(element: EntryElementModel) {
+    this.elements = this.elements?.filter(i=>i._id !== element._id);
+    let entry = this.dictionaryService.$currentEntry.value;
+    if(entry){
+      let e: EntryModel = new EntryModel({
+        _id: entry?._id,
+        entryObj: JSON.stringify(this.elements),
+        morphId: entry?.morphId,
+        parentId: entry?.parentId,
+        projectId: entry?.projectId
+      });
+      this.dictionaryService.SaveEntry(e).then(saved=>{
+        this.dictionaryService.$currentEntry.next(this.dictionaryService.$entries.value?.find(i=>i._id == saved._id));
+      });
+    }
   }
 }

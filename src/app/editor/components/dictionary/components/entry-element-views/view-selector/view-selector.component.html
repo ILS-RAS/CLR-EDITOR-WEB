@@ -6,7 +6,7 @@
         <app-mark-view [element]="element"></app-mark-view>
     </ng-container>
     <ng-container *ngIf="element && element.type == 'definitio'">
-        <app-definition-view [element]="element" (delete)="deleteElement(element)"></app-definition-view>
+        <app-definition-view [element]="element" (delete)="delete(element)"></app-definition-view>
     </ng-container>
     <ng-container *ngIf="element && element.type == 'excerptio'">
         <app-illustration-view [element]="element"></app-illustration-view>
