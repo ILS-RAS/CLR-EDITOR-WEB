@@ -147,4 +147,30 @@ export class DictionaryService {
 
     this.SaveEntry(e);
   }
+
+  updateElements(element: EntryElementModel) {
+    let entry = this.$currentEntry.value;
+    if (entry && entry.entryObj) {
+      let elements = JSON.parse(entry.entryObj);
+      elements.push(element);
+      let e = new EntryModel({
+        _id: entry._id,
+        entryObj: JSON.stringify(elements),
+        morphId: entry.morphId,
+        parentId: entry.parentId,
+        projectId: entry.projectId
+      });
+      this.SaveEntry(e).then(saved=>{
+        if(saved){
+          let list = this.$entries.value;
+          if(list){
+            let index = list?.findIndex(i => i._id === saved._id);
+            list[index].entryObj = saved.entryObj;
+            this.$entries.next(list);
+            this.$currentEntry.next(list[index]);
+          }
+        }
+      })
+    }
+  }
 }

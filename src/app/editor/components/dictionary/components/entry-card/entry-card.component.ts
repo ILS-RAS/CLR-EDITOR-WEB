@@ -50,38 +50,14 @@ export class EntryCardComponent extends BaseComponent implements OnInit {
     });
   }
 
-  addElement(parentElement: EntryElementModel) {
+  addChildElement(parentElement: EntryElementModel) {
     this.dialog
       .open(EntryElementEditorComponent, { width: '600px', data: parentElement })
       .afterClosed()
       .subscribe((element) => {
         if (element) {
-          this.updateElements(element);
+          this.dictionaryService.updateElements(element);
         }
       });
-  }
-  
-  updateElements(element: EntryElementModel) {
-    this.elements?.push(element);
-    if (this.entry) {
-      let e = new EntryModel({
-        _id: this.entry._id,
-        entryObj: JSON.stringify(this.elements),
-        morphId: this.entry.morphId,
-        parentId: this.entry.parentId,
-        projectId: this.entry.projectId
-      });
-      this.dictionaryService.SaveEntry(e).then(saved=>{
-        if(saved){
-          let list = this.dictionaryService.$entries.value;
-          if(list){
-            let index = list?.findIndex(i => i._id === saved._id);
-            list[index].entryObj = saved.entryObj;
-            this.dictionaryService.$entries.next(list);
-            this.dictionaryService.$currentEntry.next(list[index]);
-          }
-        }
-      })
-    }
   }
 }

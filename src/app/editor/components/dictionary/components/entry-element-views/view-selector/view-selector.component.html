@@ -1,0 +1,23 @@
+@for (element of elements; track element) {
+    <ng-container *ngIf="element && element.type == 'lemma'">
+        <app-lemma-view [element]="element"></app-lemma-view>
+    </ng-container>
+    <ng-container *ngIf="element && element.type == 'note'">
+        <app-mark-view [element]="element"></app-mark-view>
+    </ng-container>
+    <ng-container *ngIf="element && element.type == 'definitio'">
+        <app-definition-view [element]="element" (delete)="deleteElement(element)"></app-definition-view>
+    </ng-container>
+    <ng-container *ngIf="element && element.type == 'excerptio'">
+        <app-illustration-view [element]="element"></app-illustration-view>
+    </ng-container>
+    <ng-container *ngIf="element && element.type == 'collocatio'">
+        <app-collocation-view [element]="element"></app-collocation-view>
+    </ng-container>
+    <ng-container *ngIf="element && element.type == 'forma'">
+        <app-form-view [element]="element"></app-form-view>
+    </ng-container>
+    @for (child of getChildren(element); track child) {
+        <div class="child-element"><app-view-selector [elements]="getChildren(element)"></app-view-selector></div>
+    }
+}

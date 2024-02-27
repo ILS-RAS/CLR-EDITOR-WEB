@@ -1,9 +1,9 @@
-<div *ngIf="element"><span>{{element.value}}</span>
+<div *ngIf="element"><span>{{element.order}}</span>. <span>{{element.value}}</span>
     <button mat-icon-button [matMenuTriggerFor]="menu">
         <mat-icon>more_vert</mat-icon>    
     </button>
     <mat-menu #menu="matMenu">
-        <button mat-menu-item><mat-icon>add</mat-icon></button>
-        <button mat-menu-item><mat-icon>remove</mat-icon></button>
+        <button mat-icon-button (click)="addChildElement(element)"><mat-icon>add</mat-icon></button>
+        <button mat-icon-button (click)="removeElement(element)"><mat-icon>remove</mat-icon></button>
     </mat-menu>
 </div>

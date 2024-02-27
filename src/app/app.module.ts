@@ -94,6 +94,7 @@ import { FormValueEditorComponent } from './editor/components/dictionary/compone
 import { CollocationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/collocation-value-editor/collocation-value-editor.component';
 import { MarkValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/mark-value-editor/mark-value-editor.component';
 import { IllustrationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/illustration-value-editor/illustration-value-editor.component';
+import { ViewSelectorComponent } from './editor/components/dictionary/components/entry-element-views/view-selector/view-selector.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -154,7 +155,8 @@ import { IllustrationValueEditorComponent } from './editor/components/dictionary
     FormValueEditorComponent,
     CollocationValueEditorComponent,
     MarkValueEditorComponent,
-    IllustrationValueEditorComponent
+    IllustrationValueEditorComponent,
+    ViewSelectorComponent
   ],
   imports: [
     BrowserModule,
