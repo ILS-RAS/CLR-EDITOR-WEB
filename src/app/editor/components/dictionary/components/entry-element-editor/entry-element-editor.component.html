@@ -2,15 +2,29 @@
     <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
             <mat-label>Typus elementi</mat-label>
-            <mat-select formControlName="typeSelect" required>
+            <mat-select formControlName="typeSelect" required (selectionChange)="typeChange()">
                 @for (type of types; track type) {
                 <mat-option [value]="type.code">{{type.code}}</mat-option>
                 }
             </mat-select>
         </mat-form-field>
-        <!-- <mat-form-field class="input-field-full-width">
-            <mat-label>Value</mat-label>
-            <input matInput formControlName="valueInput" required>
-        </mat-form-field> -->
+        <ng-container *ngIf="selectedType == 'lemma'">
+            <app-lemma-value-editor></app-lemma-value-editor>
+        </ng-container>
+        <ng-container *ngIf="selectedType == 'nota'">
+            <app-mark-value-editor></app-mark-value-editor>
+        </ng-container>
+        <ng-container *ngIf="selectedType == 'definitio'">
+            <app-text-value-editor (value)="valueChange($event)"></app-text-value-editor>
+        </ng-container>
+        <ng-container *ngIf="selectedType == 'excerptio'">
+            <app-illustration-value-editor></app-illustration-value-editor>
+        </ng-container>
+        <ng-container *ngIf="selectedType == 'collocatio'">
+            <app-collocation-value-editor></app-collocation-value-editor>
+        </ng-container>
+        <ng-container *ngIf="selectedType == 'forma'">
+            <app-form-value-editor></app-form-value-editor>
+        </ng-container>
     </form>
   </app-dialog>

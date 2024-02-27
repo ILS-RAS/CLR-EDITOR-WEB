@@ -82,6 +82,18 @@ import { EntryToolbarComponent } from './editor/components/dictionary/components
 import { EntryFilterComponent } from './editor/components/dictionary/components/entry-filter/entry-filter.component';
 import { EntryElementEditorComponent } from './editor/components/dictionary/components/entry-element-editor/entry-element-editor.component';
 import { EntryCardComponent } from './editor/components/dictionary/components/entry-card/entry-card.component';
+import { LemmaViewComponent } from './editor/components/dictionary/components/entry-element-views/lemma-view/lemma-view.component';
+import { MarkViewComponent } from './editor/components/dictionary/components/entry-element-views/mark-view/mark-view.component';
+import { DefinitionViewComponent } from './editor/components/dictionary/components/entry-element-views/definition-view/definition-view.component';
+import { IllustrationViewComponent } from './editor/components/dictionary/components/entry-element-views/illustration-view/illustration-view.component';
+import { CollocationViewComponent } from './editor/components/dictionary/components/entry-element-views/collocation-view/collocation-view.component';
+import { FormViewComponent } from './editor/components/dictionary/components/entry-element-views/form-view/form-view.component';
+import { TextValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/text-value-editor/text-value-editor.component';
+import { LemmaValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/lemma-value-editor/lemma-value-editor.component';
+import { FormValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/form-value-editor/form-value-editor.component';
+import { CollocationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/collocation-value-editor/collocation-value-editor.component';
+import { MarkValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/mark-value-editor/mark-value-editor.component';
+import { IllustrationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/illustration-value-editor/illustration-value-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -130,7 +142,19 @@ import { EntryCardComponent } from './editor/components/dictionary/components/en
     EntryComponent,
     EntryToolbarComponent,
     EntryElementEditorComponent,
-    EntryCardComponent
+    EntryCardComponent,
+    LemmaViewComponent,
+    MarkViewComponent,
+    DefinitionViewComponent,
+    IllustrationViewComponent,
+    CollocationViewComponent,
+    FormViewComponent,
+    TextValueEditorComponent,
+    LemmaValueEditorComponent,
+    FormValueEditorComponent,
+    CollocationValueEditorComponent,
+    MarkValueEditorComponent,
+    IllustrationValueEditorComponent
   ],
   imports: [
     BrowserModule,
