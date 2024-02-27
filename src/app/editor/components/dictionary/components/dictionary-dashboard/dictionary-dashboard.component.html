@@ -10,10 +10,11 @@
   </mat-toolbar>
   <mat-drawer-container class="container">
     <mat-drawer #drawer class="sidenav" mode="side" [opened]="drawerOpened">
-      <app-word-list-toolbar></app-word-list-toolbar>
-      <app-word-list></app-word-list>
+      <app-entry-list-toolbar></app-entry-list-toolbar>
+      <app-entry-list></app-entry-list>
     </mat-drawer>
     <div class="sidenav-content">
-     
+      <app-entry-toolbar></app-entry-toolbar>
+      <app-entry></app-entry>
     </div>
   </mat-drawer-container>

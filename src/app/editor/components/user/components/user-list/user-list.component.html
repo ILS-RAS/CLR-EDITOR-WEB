@@ -1,7 +1,7 @@
 <mat-action-list *ngIf="users" class="user-list">
   @for (user of users; track user) {
   <span class="user-list-item">
-    <button mat-list-item (click)="Select(user)">{{user.name}}&nbsp;[{{ResolveRoleName(user.role)}}]</button>
+    <button mat-list-item (click)="Select(user)">{{user.name}}<span matListItemMeta>{{ResolveRoleName(user.role)}}</span></button>
     <button mat-icon-button color="primary" matTooltip="Edit Account" (click)="EditUser(user)">
       <mat-icon>edit</mat-icon>
     </button>

@@ -13,3 +13,5 @@ export * from './chunkViewModel';
 export * from './interpModel';
 export * from './elementModel';
 export * from './elementViewModal';
+export * from './entryModel';
+export * from './entryViewModel';

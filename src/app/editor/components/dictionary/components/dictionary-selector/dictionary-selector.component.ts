@@ -48,6 +48,7 @@ export class DictionarySelectorComponent extends BaseComponent implements OnInit
     let selectedProject = this.selected.value as unknown as ProjectModel;
     if(selectedProject){
       this.dictionaryService.InitContext(selectedProject);
+      this.dictionaryService.getEntries(selectedProject._id);
       this.Cancel();
       this.router.navigateByUrl('/lexicon');
     }

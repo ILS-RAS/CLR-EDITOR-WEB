@@ -68,15 +68,32 @@ import { UserEditorComponent } from './editor/components/user/components/user-ed
 import { TaxonomyIndexComponent } from './editor/components/taxonomy/components/taxonomy-index/taxonomy-index.component';
 import { TaxonomyItemsComponent } from './editor/components/taxonomy/components/taxonomy-items/taxonomy-items.component';
 import { DictionaryBuilderComponent } from './editor/components/dictionary/components/dictionary-builder/dictionary-builder.component';
-import { WordListComponent } from './editor/components/dictionary/components/word-list/word-list.component';
-import { WordSelectorComponent } from './editor/components/dictionary/components/word-selector/word-selector.component';
+import { EntryListComponent } from './editor/components/dictionary/components/entry-list/entry-list.component';
+import { LemmaSelectorComponent } from './editor/components/dictionary/components/lemma-selector/lemma-selector.component';
 import { MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatStepperModule} from '@angular/material/stepper';
 import { DictionaryEditorComponent } from './editor/components/dictionary/components/dictionary-editor/dictionary-editor.component';
 import { DictionarySelectorComponent } from './editor/components/dictionary/components/dictionary-selector/dictionary-selector.component';
-import { WordListToolbarComponent } from './editor/components/dictionary/components/word-list-toolbar/word-list-toolbar.component';
-import { WordFilterComponent } from './editor/components/dictionary/components/word-filter/word-filter.component';
-import { WordListItemComponent } from './editor/components/dictionary/components/word-list-item/word-list-item.component';
+import { EntryListToolbarComponent } from './editor/components/dictionary/components/entry-list-toolbar/entry-list-toolbar.component';
+import { EntryListItemComponent } from './editor/components/dictionary/components/entry-list-item/entry-list-item.component';
+import { TextIndexFilterComponent } from './editor/components/project/components/text-index-filter/text-index-filter.component';
+import { EntryComponent } from './editor/components/dictionary/components/entry/entry.component';
+import { EntryToolbarComponent } from './editor/components/dictionary/components/entry-toolbar/entry-toolbar.component';
+import { EntryFilterComponent } from './editor/components/dictionary/components/entry-filter/entry-filter.component';
+import { EntryElementEditorComponent } from './editor/components/dictionary/components/entry-element-editor/entry-element-editor.component';
+import { EntryCardComponent } from './editor/components/dictionary/components/entry-card/entry-card.component';
+import { LemmaViewComponent } from './editor/components/dictionary/components/entry-element-views/lemma-view/lemma-view.component';
+import { MarkViewComponent } from './editor/components/dictionary/components/entry-element-views/mark-view/mark-view.component';
+import { DefinitionViewComponent } from './editor/components/dictionary/components/entry-element-views/definition-view/definition-view.component';
+import { IllustrationViewComponent } from './editor/components/dictionary/components/entry-element-views/illustration-view/illustration-view.component';
+import { CollocationViewComponent } from './editor/components/dictionary/components/entry-element-views/collocation-view/collocation-view.component';
+import { FormViewComponent } from './editor/components/dictionary/components/entry-element-views/form-view/form-view.component';
+import { TextValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/text-value-editor/text-value-editor.component';
+import { LemmaValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/lemma-value-editor/lemma-value-editor.component';
+import { FormValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/form-value-editor/form-value-editor.component';
+import { CollocationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/collocation-value-editor/collocation-value-editor.component';
+import { MarkValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/mark-value-editor/mark-value-editor.component';
+import { IllustrationValueEditorComponent } from './editor/components/dictionary/components/entry-element-value-editors/illustration-value-editor/illustration-value-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,13 +131,30 @@ import { WordListItemComponent } from './editor/components/dictionary/components
     TaxonomyIndexComponent,
     TaxonomyItemsComponent,
     DictionaryBuilderComponent,
-    WordListComponent,
-    WordSelectorComponent,
+    EntryListComponent,
+    LemmaSelectorComponent,
     DictionaryEditorComponent,
     DictionarySelectorComponent,
-    WordListToolbarComponent,
-    WordFilterComponent,
-    WordListItemComponent
+    EntryListToolbarComponent,
+    EntryFilterComponent,
+    EntryListItemComponent,
+    TextIndexFilterComponent,
+    EntryComponent,
+    EntryToolbarComponent,
+    EntryElementEditorComponent,
+    EntryCardComponent,
+    LemmaViewComponent,
+    MarkViewComponent,
+    DefinitionViewComponent,
+    IllustrationViewComponent,
+    CollocationViewComponent,
+    FormViewComponent,
+    TextValueEditorComponent,
+    LemmaValueEditorComponent,
+    FormValueEditorComponent,
+    CollocationValueEditorComponent,
+    MarkValueEditorComponent,
+    IllustrationValueEditorComponent
   ],
   imports: [
     BrowserModule,

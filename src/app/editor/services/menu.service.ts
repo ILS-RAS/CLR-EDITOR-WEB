@@ -19,7 +19,7 @@ export class MenuService {
 
   GetMenuItems() {
     this.menuData.next([
-      new MenuItem({ title: 'Quaestio', action: Action.Search, icon: 'search', link: '/', type: MenuItemType.Normal }),
+      new MenuItem({ title: 'Quaesitio', action: Action.Search, icon: 'search', link: '/', type: MenuItemType.Normal }),
       new MenuItem({ title: 'Proiectus', action: Action.OpenProject, icon: 'works', link: '/proiectus', type: MenuItemType.Normal }),
       new MenuItem({ title: 'Lexicon', action: Action.OpenDictionary, icon: 'dictionary', link: '/lexicon', type: MenuItemType.Normal  }),
       new MenuItem({ title: 'Meta', action: Action.ManageTaxonomy, icon: 'toc', link: '/meta', type: MenuItemType.Normal  }),

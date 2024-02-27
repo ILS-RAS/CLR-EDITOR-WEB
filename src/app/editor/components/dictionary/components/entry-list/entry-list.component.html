@@ -1,0 +1,13 @@
+<mat-action-list *ngIf="entries" class="lemmata">
+    @for (entry of entries; track entry) {
+    <span class="entry-list-item">
+        <button mat-list-item (click)="select(entry)">
+            {{entry.lemma}}, {{entry.pos}}
+        </button>
+        <span class="spacer"></span>
+        <button mat-icon-button color="warn" (click)="deleteEntry(entry)">
+            <mat-icon>delete</mat-icon>
+        </button>
+    </span>
+    }
+</mat-action-list>

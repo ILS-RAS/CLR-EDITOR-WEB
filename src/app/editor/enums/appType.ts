@@ -4,6 +4,7 @@ export enum AppType {
     Role = 'roles',
     Project = 'projects',
     Index = 'indeces',
+    Entry = 'entries',
     IndexView = 'indeces',
     Header = 'headers',
     HeaderView = 'headers',
