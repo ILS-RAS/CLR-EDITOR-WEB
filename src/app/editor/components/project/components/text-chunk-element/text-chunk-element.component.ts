@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
 import { ChunkValueItemModel } from '../../../../models/chunkValueItemModel';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-text-chunk-element',
@@ -18,8 +19,12 @@ export class TextChunkElementComponent extends BaseComponent implements OnInit {
   @Input() chunk?: ChunkViewModel;
   @Input() element: any;
 
-  selectForm(orm: ChunkValueItemModel) {
-    throw new Error('Method not implemented.');
+  constructor(private projectService: ProjectService){
+    super()
+  }
+
+  selectForm(form: ChunkValueItemModel) {
+    this.projectService.$currentForm.next(form);
   }
 
   ngOnInit(): void {

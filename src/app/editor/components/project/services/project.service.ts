@@ -10,9 +10,9 @@ import {
   ProjectModel,
   HeaderModel,
   ChunkModel,
+  ChunkValueItemModel,
 } from '../../../models';
 import { Helper } from '../../../../utils';
-import { UiService } from '../../../../services/ui.service';
 import { ProjectType } from '../../../enums/projectType';
 import { MorphModel } from '../../../models/morphModel';
 import { ElementModel } from '../../../models/elementModel';
@@ -47,6 +47,8 @@ export class ProjectService {
   public $currentChunk = new BehaviorSubject<ChunkViewModel | undefined>(
     undefined
   );
+
+  public $currentForm = new BehaviorSubject<ChunkValueItemModel | undefined>(undefined);
 
   public $currentVersionChunks = new BehaviorSubject<
     ChunkViewModel[] | undefined
@@ -245,17 +247,5 @@ public async SaveInterpLink(InterpModel:InterpModel){
   return await lastValueFrom(result);
 }
 
-//#endregion
-
-//#region Morph
-public async GetMorphItems(lang: string): Promise<MorphModel[]> {
-  let items = this.morphApiService
-    .findByQuery(
-      new MorphModel({}),
-      JSON.stringify(new MorphQuery({ isRule: 'true', lang: lang })),
-      AppType.Morph
-    );
-    return await lastValueFrom<MorphModel[]>(items); 
-}
 //#endregion
 }

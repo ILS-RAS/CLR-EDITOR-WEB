@@ -12,3 +12,73 @@
         <mat-icon>delete</mat-icon>
       </button>
   </mat-toolbar>
+  <table mat-table [dataSource]="list" class="mat-elevation-z0">
+    <ng-container matColumnDef="form">
+      <th mat-header-cell *matHeaderCellDef> FORMA </th>
+      <td mat-cell *matCellDef="let item"> {{item.form}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="lemma">
+      <th mat-header-cell *matHeaderCellDef> LEMMA </th>
+      <td mat-cell *matCellDef="let item"> {{item.lemma}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="pos">
+      <th mat-header-cell *matHeaderCellDef> PARS ORATIONIS </th>
+      <td mat-cell *matCellDef="let item"> {{item.pos}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="gender">
+      <th mat-header-cell *matHeaderCellDef> GENUS NOMINIS </th>
+      <td mat-cell *matCellDef="let item"> {{item.gender}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="case">
+      <th mat-header-cell *matHeaderCellDef> CASUS </th>
+      <td mat-cell *matCellDef="let item"> {{item.case}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="person">
+      <th mat-header-cell *matHeaderCellDef> PERSONA </th>
+      <td mat-cell *matCellDef="let item"> {{item.person}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="mood">
+      <th mat-header-cell *matHeaderCellDef> MODUS </th>
+      <td mat-cell *matCellDef="let item"> {{item.mood}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef> NUMERUS </th>
+      <td mat-cell *matCellDef="let item"> {{item.number}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="tense">
+      <th mat-header-cell *matHeaderCellDef> TEMPUS </th>
+      <td mat-cell *matCellDef="let item"> {{item.tense}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="voice">
+      <th mat-header-cell *matHeaderCellDef> GENUS VERBI </th>
+      <td mat-cell *matCellDef="let item"> {{item.voice}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="degree">
+      <th mat-header-cell *matHeaderCellDef> GRADUS </th>
+      <td mat-cell *matCellDef="let item"> {{item.degree}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="dialect">
+      <th mat-header-cell *matHeaderCellDef> DIALECTOS </th>
+      <td mat-cell *matCellDef="let item"> {{item.dialect}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="feature">
+      <th mat-header-cell *matHeaderCellDef> IDIOMA </th>
+      <td mat-cell *matCellDef="let item"> {{item.feature}} </td>
+    </ng-container>
+
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
