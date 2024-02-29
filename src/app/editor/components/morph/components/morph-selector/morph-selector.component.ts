@@ -11,7 +11,7 @@ import { MorphService } from '../../services/morph.service';
   styleUrl: './morph-selector.component.scss'
 })
 export class MorphSelectorComponent extends BaseComponent implements OnInit {
-  
+  isDefined:boolean = false;
   list: MorphModel[] = [];
   displayedColumns: string[] = ['form', 'lemma', 'pos', 'gender', 'case', 'dialect', 'feature', 'person', 'number', 'tense', 'mood', 'voice', 'degree'];
   constructor(private projectService: ProjectService, private morphService: MorphService){
@@ -23,7 +23,8 @@ export class MorphSelectorComponent extends BaseComponent implements OnInit {
       if(form && form.value){
         this.morphService.GetItemsByForm(form.value?.toLowerCase()).then(items=>{
           this.list = items;
-        })
+          this.isDefined = items.filter(i=>i._id == form.morphId).length == 1;
+        });
       }
     })
   }
