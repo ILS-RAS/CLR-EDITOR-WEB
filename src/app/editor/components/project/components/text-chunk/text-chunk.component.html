@@ -4,13 +4,22 @@
         <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
     </ng-container>
 </div>
-<div *ngIf="versions">
-    <mat-divider></mat-divider>
-    <div *ngFor="let version of versions" class="text-version text-chunk">
-        <span class="index-name">{{version.indexName}}.&nbsp;</span>
-        <ng-container *ngFor="let element of version.elements">
-            <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
-        </ng-container>
-        <span class="header-code">{{version.headerCode}}</span>
-    </div>
-</div>
+<mat-tab-group *ngIf="chunk" headerPosition="above">
+    <mat-tab label="Versiones">
+        <div *ngIf="versions">
+            <div *ngFor="let version of versions" class="text-version text-chunk">
+                <span class="index-name">{{version.indexName}}.&nbsp;</span>
+                <ng-container *ngFor="let element of version.elements">
+                    <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+                </ng-container>
+                <span class="header-code">{{version.headerCode}}</span>
+            </div>
+        </div>
+    </mat-tab>
+    <mat-tab label="Morphologia">
+        <app-morph-selector></app-morph-selector>
+    </mat-tab>
+    <mat-tab label="Commentaria">
+        <app-note-editor></app-note-editor>
+    </mat-tab>
+</mat-tab-group>

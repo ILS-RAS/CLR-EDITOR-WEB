@@ -16,9 +16,7 @@ import { takeUntil } from 'rxjs';
 })
 export class TextToolbarComponent extends BaseComponent implements OnInit {
   toggleIcon: string = 'left_panel_open';
-  toggleLabel: string = 'Interpretatio';
   index?: IndexModel;
-  isChecked = false;
   isToggled = false;
   chunk?: ChunkModel;
   public progressBarIsOn?: boolean;
@@ -47,9 +45,6 @@ export class TextToolbarComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.uiService.$progressBarIsOn.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.progressBarIsOn = state;
-    });
-    this.projectService.$showVersion.pipe(takeUntil(this.destroyed)).subscribe((item) => {
-      this.isChecked = item;
     });
     this.projectService.$currentChunk.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.chunk = item;
@@ -85,16 +80,12 @@ export class TextToolbarComponent extends BaseComponent implements OnInit {
   }
 
   Change() {
-    this.projectService.$showVersion.next(this.isChecked);
-    if (this.isChecked == false) {
-      this.projectService.$currentVersionChunks.next(undefined);
-    } else {
-      if (this.projectService.$currentChunk.value) {
-        this.projectService.GetVersionChunks(
-          this.projectService.$currentChunk.value._id as string,
-          this.projectService.$currentChunk.value.headerLang == 'lat'
-        );
-      }
+    this.projectService.$currentVersionChunks.next(undefined);
+    if (this.projectService.$currentChunk.value) {
+      this.projectService.GetVersionChunks(
+        this.projectService.$currentChunk.value._id as string,
+        this.projectService.$currentChunk.value.headerLang == 'lat'
+      );
     }
   }
 }

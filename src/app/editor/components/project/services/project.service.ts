@@ -52,8 +52,6 @@ export class ProjectService {
     ChunkViewModel[] | undefined
   >(undefined);
 
-  public $showVersion = new BehaviorSubject<boolean>(false);
-
   constructor(
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
@@ -177,7 +175,7 @@ public async GetChunk(indexId: string) {
     .toPromise()
     .then((result) => {
       this.$currentChunk.next(result[0]);
-      if (this.$showVersion.value && result[0]) {
+      if (result[0]) {
         this.GetVersionChunks(result[0]._id, result[0].headerLang == 'lat');
       }
       Promise.resolve();
