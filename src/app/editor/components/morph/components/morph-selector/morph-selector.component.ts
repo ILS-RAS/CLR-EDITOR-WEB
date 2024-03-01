@@ -11,9 +11,11 @@ import { MorphService } from '../../services/morph.service';
   styleUrl: './morph-selector.component.scss'
 })
 export class MorphSelectorComponent extends BaseComponent implements OnInit {
+
   isDefined:boolean = false;
   list: MorphModel[] = [];
-  displayedColumns: string[] = ['form', 'lemma', 'pos', 'gender', 'case', 'dialect', 'feature', 'person', 'number', 'tense', 'mood', 'voice', 'degree'];
+  displayedColumns: string[] = ['select', 'form', 'lemma', 'pos', 'gender', 'case', 'person', 'number', 'tense', 'mood', 'voice', 'degree', 'dialect', 'feature'];
+  clickedRows = new Set<MorphModel>();
   constructor(private projectService: ProjectService, private morphService: MorphService){
     super()
   }

@@ -54,8 +54,6 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
 
   Save() {
 
-    //TODO:"Refactoring"
-
     this.uiService.$progressBarIsOn.next(true);
 
     if (!this.chunk._id) {

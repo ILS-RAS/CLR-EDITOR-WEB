@@ -13,11 +13,11 @@
         <span class="header-code">{{version.headerCode}}</span>
     </div>
 </div>
-<mat-tab-group *ngIf="chunk" headerPosition="above">
-    <mat-tab label="Morphologia">
+<mat-tab-group *ngIf="chunk && currentForm" headerPosition="above">
+    <mat-tab label="Morphologia {{currentForm.value}}">
         <app-morph-selector></app-morph-selector>
     </mat-tab>
-    <mat-tab label="Commentaria">
+    <mat-tab label="Commentaria {{currentForm.value}}">
         <app-note-editor></app-note-editor>
     </mat-tab>
 </mat-tab-group>

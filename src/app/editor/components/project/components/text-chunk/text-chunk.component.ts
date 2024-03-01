@@ -1,12 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, Component, OnInit } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
-import { IndexModel } from '../../../../models';
+import { ChunkValueItemModel, IndexModel } from '../../../../models';
 import { ActionService } from '../../services/action.service';
 import { Action } from '../../../../enums';
 import { FormControl, UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { UiService } from '../../../../../services/ui.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
   index?: IndexModel;
   chunkText = new FormControl([Validators.required]);
   editorForm: UntypedFormGroup;
-  constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder) {
+  currentForm?: ChunkValueItemModel;
+  constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder, private uiService: UiService) {
     super();
     
     this.editorForm = this.formBuilder.group({
@@ -32,6 +34,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
 
     this.projectService.$currentIndex.pipe(takeUntil(this.destroyed)).subscribe(item=>{
+      this.uiService.$progressBarIsOn.next(true);
       if(item){
         this.index = item;
       }
@@ -42,15 +45,22 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
       if(this.chunk){
         this.chunk.elements = JSON.parse(item?.valueObj as string);
       }
+      this.uiService.$progressBarIsOn.next(false);
     });
 
-    this.projectService.$currentVersionChunks.pipe(takeUntil(this.destroyed)).subscribe(item=>{
-      this.versions = item;
+    this.projectService.$currentVersionChunks.pipe(takeUntil(this.destroyed)).subscribe(versions=>{
+      this.versions = versions;
       if(this.versions){
+        this.uiService.$progressBarIsOn.next(true);
         this.versions.forEach(version=>{
           version.elements = JSON.parse(version.valueObj as string);
-        })
+        });
+        this.uiService.$progressBarIsOn.next(false);
       }
     });
+
+    this.projectService.$currentForm.pipe(takeUntil(this.destroyed)).subscribe(form=>{
+      this.currentForm = form;
+    })
   }
 }

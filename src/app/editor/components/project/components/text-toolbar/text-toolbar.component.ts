@@ -58,8 +58,11 @@ export class TextToolbarComponent extends BaseComponent implements OnInit {
       .afterClosed()
       .subscribe((res) => {
         if (res && chunk) {
+          this.uiService.$progressBarIsOn.next(true);
           this.projectService.DeleteChunk(chunk).then(() => {
             this.projectService.$currentChunk.next(undefined);
+          }).finally(()=>{
+            this.uiService.$progressBarIsOn.next(false);
           });
         }
       });
