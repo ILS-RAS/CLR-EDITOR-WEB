@@ -13,6 +13,15 @@ import { SelectionModel } from '@angular/cdk/collections';
   styleUrl: './morph-selector.component.scss'
 })
 export class MorphSelectorComponent extends BaseComponent implements OnInit {
+clone(_t229: any) {
+throw new Error('Method not implemented.');
+}
+delete(_t214: any) {
+throw new Error('Method not implemented.');
+}
+edit(_t199: any) {
+throw new Error('Method not implemented.');
+}
 removeDefinition(_t187: any) {
 throw new Error('Method not implemented.');
 }
@@ -22,7 +31,7 @@ throw new Error('Method not implemented.');
 
   isDefined:boolean = false;
   list: MorphModel[] = [];
-  displayedColumns: string[] = ['select', 'form', 'lemma', 'pos', 'gender', 'case', 'person', 'number', 'tense', 'mood', 'voice', 'degree', 'dialect', 'feature'];
+  displayedColumns: string[] = ['select', 'form', 'lemma', 'pos', 'gender', 'case', 'person', 'number', 'tense', 'mood', 'voice', 'degree', 'dialect', 'feature', 'edit', 'clone', 'delete'];
   clickedRows = new Set<MorphModel>();
   dataSource: MatTableDataSource<MorphModel> = new MatTableDataSource();
   selection = new SelectionModel<MorphModel>(true, []);

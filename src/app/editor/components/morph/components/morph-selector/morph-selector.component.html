@@ -2,15 +2,6 @@
   <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
     <mat-icon>add</mat-icon>
   </button>
-  <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon">
-    <mat-icon>edit</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>content_copy</mat-icon>
-  </button>
-  <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
-    <mat-icon>delete</mat-icon>
-  </button>
 </mat-toolbar>
 <table mat-table [dataSource]="dataSource" class="mat-elevation-z0 morph-table">
   <ng-container matColumnDef="select">
@@ -92,6 +83,44 @@
   <ng-container matColumnDef="feature">
     <th mat-header-cell *matHeaderCellDef> IDIOMA </th>
     <td mat-cell *matCellDef="let item"> {{item.feature}} </td>
+  </ng-container>
+
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef> 
+      <button mat-icon-button color="primary" disabled="true">
+        <mat-icon>edit</mat-icon>
+      </button>  
+    </th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-icon-button color="primary" (click)="edit(item)">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+  <ng-container matColumnDef="clone">
+    <th mat-header-cell *matHeaderCellDef> 
+      <button mat-icon-button color="primary" disabled="true">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let item">
+      <button mat-icon-button color="primary" (click)="clone(item)">
+        <mat-icon>content_copy</mat-icon>
+      </button>
+    </td>
+  </ng-container>
+
+  <ng-container matColumnDef="delete">
+    <th mat-header-cell *matHeaderCellDef> 
+      <button mat-icon-button color="warn" disabled="true">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </th>
+    <td mat-cell *matCellDef="let item"> 
+      <button mat-icon-button color="warn" (click)="delete(item)">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </td>
   </ng-container>
 
   <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
