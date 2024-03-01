@@ -61,7 +61,6 @@ export class ProjectService {
     private chunkViewApiService: ApiService<ChunkViewModel>,
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
-    private morphApiService: ApiService<MorphModel>,
     private elementApiService:ApiService<ElementModel>
   ) {}
 

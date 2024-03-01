@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
 import { ChunkValueItemModel } from '../../../../models/chunkValueItemModel';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
@@ -13,12 +13,12 @@ export class TextChunkElementComponent extends BaseComponent implements OnInit {
 
   isMorphStyle: boolean = false;
   isNotMorphStyle: boolean = false;
-  isSelected: boolean = false;
   isCommented: boolean = false;
 
   @Input() chunk?: ChunkViewModel;
   @Input() element: any;
-
+  @Input() isSelected: boolean = false;
+  
   constructor(private projectService: ProjectService){
     super()
   }

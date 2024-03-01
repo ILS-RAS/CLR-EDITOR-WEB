@@ -51,7 +51,7 @@ export class TextSelectorComponent extends BaseComponent implements OnInit {
     if(selectedHeader && selectedHeader?._id){
       this.projectService.$currentHeader.next(selectedHeader);
       this.projectService.GetIndeces(selectedHeader?._id);
-  
+      this.projectService.$currentForm.next(undefined);
       this.projectService.$currentIndex.next(undefined);
       this.projectService.$currentChunk.next(undefined);
       this.projectService.$currentVersionChunks.next(undefined);

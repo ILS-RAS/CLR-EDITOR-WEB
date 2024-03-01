@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewChecked, Component, OnInit } from '@angular/core';
+import { AfterContentInit, AfterViewChecked, Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
 import { ChunkValueItemModel, IndexModel } from '../../../../models';
@@ -23,6 +23,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
   chunkText = new FormControl([Validators.required]);
   editorForm: UntypedFormGroup;
   currentForm?: ChunkValueItemModel;
+  isSelected: boolean = false;
   constructor(private projectService: ProjectService, private formBuilder: UntypedFormBuilder, private uiService: UiService) {
     super();
     
@@ -31,6 +32,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
       chunkTextNew: new UntypedFormControl('')
     });
   }
+
   ngOnInit(): void {
 
     this.projectService.$currentIndex.pipe(takeUntil(this.destroyed)).subscribe(item=>{
@@ -61,6 +63,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
 
     this.projectService.$currentForm.pipe(takeUntil(this.destroyed)).subscribe(form=>{
       this.currentForm = form;
-    })
+    });
   }
+
 }

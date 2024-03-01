@@ -128,6 +128,7 @@ export class TextIndexComponent extends BaseComponent implements OnInit {
   
   Select(id: string) {
     this.projectService.$currentIndex.next(this.projectService.$currentIndeces.value?.find(i=>i._id == id));
+    this.projectService.$currentForm.next(undefined);
     this.projectService.$currentVersionChunks.next(undefined);
     this.projectService.GetChunk(id);
   }
