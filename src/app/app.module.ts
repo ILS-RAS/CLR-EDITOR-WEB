@@ -97,6 +97,7 @@ import { IllustrationValueEditorComponent } from './editor/components/dictionary
 import { ViewSelectorComponent } from './editor/components/dictionary/components/entry-element-views/view-selector/view-selector.component';
 import { MorphSelectorComponent } from './editor/components/morph/components/morph-selector/morph-selector.component';
 import { NoteEditorComponent } from './editor/components/project/components/note-editor/note-editor.component';
+import { MorphEditorComponent } from './editor/components/morph/components/morph-editor/morph-editor.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -160,7 +161,8 @@ import { NoteEditorComponent } from './editor/components/project/components/note
     IllustrationValueEditorComponent,
     ViewSelectorComponent,
     MorphSelectorComponent,
-    NoteEditorComponent
+    NoteEditorComponent,
+    MorphEditorComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,113 @@
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Definitio formae'>
+    <form class="form" [formGroup]="form">
+        
+        <div class="cols">
+            <div class="col"> 
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Lingua</mat-label>
+                    <mat-select formControlName="langSelect" required>
+                        @for (language of languages; track language) {
+                        <mat-option [value]="language.code">{{language.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Lemma</mat-label>
+                    <input matInput formControlName="lemmaInput" required>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Forma</mat-label>
+                    <input matInput formControlName="formInput" required>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Pars orationis</mat-label>
+                    <mat-select formControlName="posSelect" required>
+                        @for (p of pos; track p) {
+                        <mat-option [value]="p.code">{{p.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Genus nominis</mat-label>
+                    <mat-select formControlName="genderSelect">
+                        @for (gender of genders; track gender) {
+                        <mat-option [value]="gender.code">{{gender.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Casus</mat-label>
+                    <mat-select formControlName="caseSelect">
+                        @for (case of cases; track case) {
+                        <mat-option [value]="case.code">{{case.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Persona</mat-label>
+                    <mat-select formControlName="personSelect">
+                        @for (person of persons; track person) {
+                        <mat-option [value]="person.code">{{person.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field></div>
+            <div class="col">
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Numerus</mat-label>
+                    <mat-select formControlName="numberSelect">
+                        @for (number of numbers; track number) {
+                        <mat-option [value]="number.code">{{number.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Tempus</mat-label>
+                    <mat-select formControlName="tenseSelect">
+                        @for (tense of tenses; track tense) {
+                        <mat-option [value]="tense.code">{{tense.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Modus</mat-label>
+                    <mat-select formControlName="moodSelect">
+                        @for (mood of moods; track mood) {
+                        <mat-option [value]="mood.code">{{mood.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Genus verbi</mat-label>
+                    <mat-select formControlName="voiceSelect">
+                        @for (voice of voices; track voice) {
+                        <mat-option [value]="voice.code">{{voice.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Gradus</mat-label>
+                    <mat-select formControlName="degreeSelect">
+                        @for (degree of degrees; track degree) {
+                        <mat-option [value]="degree.code">{{degree.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Dialectos</mat-label>
+                    <mat-select formControlName="dialectSelect">
+                        @for (dialect of dialects; track dialect) {
+                        <mat-option [value]="dialect.code">{{dialect.code}}</mat-option>
+                        }
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="input-field-full-width">
+                    <mat-label>Idioma</mat-label>
+                    <input matInput formControlName="featureInput">
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</app-dialog>
