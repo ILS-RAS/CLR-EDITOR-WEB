@@ -13,18 +13,18 @@
         <span class="header-code">{{version.headerCode}}</span>
     </div>
 </div>
-<mat-tab-group *ngIf="chunk && currentForm" headerPosition="above">
+<mat-tab-group *ngIf="chunk" headerPosition="above">
     <mat-tab>
         <ng-template mat-tab-label>
             <span>Morphologia</span>
-            <mat-chip color="primary">{{currentForm.value}}</mat-chip>
+            <mat-chip color="primary" *ngIf="currentForm">{{currentForm.value}}</mat-chip>
         </ng-template>
         <app-morph-selector></app-morph-selector>
     </mat-tab>
     <mat-tab>
         <ng-template mat-tab-label>
             <span>Commentaria</span>
-            <mat-chip color="warn">{{currentForm.value}}</mat-chip>
+            <mat-chip color="warn" *ngIf="currentForm">{{currentForm.value}}</mat-chip>
         </ng-template>
         <app-note-editor></app-note-editor>
     </mat-tab>

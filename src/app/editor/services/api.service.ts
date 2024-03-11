@@ -145,4 +145,17 @@ export class ApiService<T extends BaseModel> implements OnInit {
         );
     }
   }
+
+  patch(item: T, path:string) {
+    return this.httpClient
+      .patch(`${environment.API}${path}/${item._id}`, item, {
+        headers: this.headers,
+      })
+      .pipe(
+        map((res) => {
+          return res;
+        }),
+        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+      );
+  }
 }

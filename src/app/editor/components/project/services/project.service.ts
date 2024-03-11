@@ -11,6 +11,7 @@ import {
   HeaderModel,
   ChunkModel,
   ChunkValueItemModel,
+  ElementViewModel,
 } from '../../../models';
 import { Helper } from '../../../../utils';
 import { ProjectType } from '../../../enums/projectType';
@@ -61,7 +62,8 @@ export class ProjectService {
     private chunkViewApiService: ApiService<ChunkViewModel>,
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
-    private elementApiService:ApiService<ElementModel>
+    private elementApiService:ApiService<ElementModel>,
+    private elementViewApiService:ApiService<ElementViewModel>
   ) {}
 
   public InitProjectContext(project: ProjectModel | undefined) {
@@ -200,10 +202,21 @@ public async SaveChunk(chunk: ChunkModel) {
   return await lastValueFrom<ChunkModel>(result);
 }
 
+public async UpdateChunkDefinition(chunk: ChunkModel) {
+  let result = this.chunkApiService.patch(chunk, AppType.Chunk);
+  return await lastValueFrom(result);
+}
+
 public async SaveElement(element: ElementModel){
   let result = this.elementApiService
   .save(element, AppType.Element);
   return await lastValueFrom<ElementModel>(result);
+}
+
+public async GetElementView(elementModel: ElementModel){
+  let result = this.elementViewApiService
+  .findOne(elementModel, AppType.ElementView);
+  return await lastValueFrom(result);
 }
 
 public async DeleteElementsByChunk(chunkId: string){
@@ -227,17 +240,13 @@ public async GetVersionChunks(chunkId: string, interp: boolean = true) {
       ? interps.map((i: { interpId: any }) => i.interpId)
       : interps.map((i_1: { sourceId: any }) => i_1.sourceId);
 
-    await this.chunkViewApiService
+    let result = this.chunkViewApiService
       .findByQuery(
         new ChunkViewModel({}),
         JSON.stringify({ _id: chunkIds }),
         AppType.Chunk
-      )
-      .toPromise()
-      .then((result) => {
-        this.$currentVersionChunks.next(result);
-        Promise.resolve();
-      });
+      );
+      this.$currentVersionChunks.next(await lastValueFrom(result));
   }
 }
 

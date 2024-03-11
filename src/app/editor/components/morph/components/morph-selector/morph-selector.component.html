@@ -14,7 +14,7 @@
       <button mat-icon-button color="primary" *ngIf="!IsChecked(item)" (click)="setDefinition(item)">
         <mat-icon>radio_button_unchecked</mat-icon>
       </button>
-      <button mat-icon-button color="warn" *ngIf="IsChecked(item)" (click)="removeDefinition(item)">
+      <button mat-icon-button color="primary" *ngIf="IsChecked(item)" (click)="removeDefinition(item)">
         <mat-icon>check_circle</mat-icon>
       </button>
     </td>
