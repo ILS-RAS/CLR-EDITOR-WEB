@@ -1,14 +1,8 @@
 .text-chunk{
-    padding: 15px;
+    padding: 5px;
+    overflow-wrap: anywhere;
+    margin-bottom: 15px;
 }
-app-text-chunk-element{
-    font-family: initial;
-    font-size: 110%;
-}
-.index-name, .header-code{
-    font-weight: bolder;
-    font-size: 110%;
-}
-.header-code{
-    margin-left: 5px;
+.card{
+    width: 100%;
 }

@@ -6,6 +6,7 @@ import { ProjectModel } from '../../../../models/projectModel';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { take, takeUntil } from 'rxjs';
 import { HeaderQuery } from '../../../../queries';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-text-selector',
@@ -13,6 +14,7 @@ import { HeaderQuery } from '../../../../queries';
   styleUrl: './text-selector.component.scss'
 })
 export class TextSelectorComponent extends BaseComponent implements OnInit {
+
   
   form: UntypedFormGroup;
 
@@ -44,10 +46,8 @@ export class TextSelectorComponent extends BaseComponent implements OnInit {
     this.form.controls['headerSelect'].setValue(this.header?.code);
   }
 
-  Change() {
-    
-    let selectedHeader = this.headers.find(i=>i.code == this.form.controls['headerSelect'].value);
-
+  Change(event: DropdownChangeEvent) {
+    let selectedHeader = event.value;
     if(selectedHeader && selectedHeader?._id){
       this.projectService.$currentHeader.next(selectedHeader);
       this.projectService.GetIndeces(selectedHeader?._id);
@@ -56,6 +56,5 @@ export class TextSelectorComponent extends BaseComponent implements OnInit {
       this.projectService.$currentChunk.next(undefined);
       this.projectService.$currentVersionChunks.next(undefined);
     }
-
   }
 }

@@ -1,31 +1,39 @@
-<div *ngIf="chunk" class="text-chunk">
-    <span class="index-name">{{chunk.indexName}}.&nbsp;</span>
-    <ng-container *ngFor="let element of chunk.elements">
-        <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
-    </ng-container>
-</div>
-<div *ngIf="versions">
-    <div *ngFor="let version of versions" class="text-version text-chunk">
-        <span class="index-name">{{version.indexName}}.&nbsp;</span>
-        <ng-container *ngFor="let element of version.elements">
-            <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
-        </ng-container>
-        <span class="header-code">{{version.headerCode}}</span>
-    </div>
-</div>
-<mat-tab-group *ngIf="chunk" headerPosition="above">
-    <mat-tab>
-        <ng-template mat-tab-label>
-            <span>Morphologia</span>
-            <mat-chip color="primary" *ngIf="currentForm">{{currentForm.value}}</mat-chip>
-        </ng-template>
+<p-splitter layout="vertical" [panelSizes]="[15, 85]">
+    <ng-template pTemplate>
+        <p-panel *ngIf="index" [toggleable]="true">
+            <ng-template pTemplate="header">
+                <div class="flex align-items-center gap-2">
+                    {{index.name}}
+                </div>
+            </ng-template>
+            <ng-template pTemplate="icons">
+                <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
+                    <span class="pi pi-cog"></span>
+                </button>
+                <p-menu #menu id="config_menu" [model]="items" [popup]="true" />
+            </ng-template>
+            <div *ngIf="chunk" class="text-chunk">
+                <ng-container *ngFor="let element of chunk.elements">
+                    <app-text-chunk-element [element]="element" [chunk]="chunk"></app-text-chunk-element>
+                </ng-container>
+            </div>
+            <div *ngIf="versions">
+                <p-inplace *ngFor="let version of versions" [closable]="true">
+                    <ng-template pTemplate="display">
+                        {{version.indexName}}. {{version.headerCode}}
+                    </ng-template>
+                    <ng-template pTemplate="content">
+                        <div class="text-chunk">
+                            <ng-container *ngFor="let element of version.elements">
+                                <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+                            </ng-container>
+                        </div>
+                    </ng-template>
+                </p-inplace>
+            </div>
+        </p-panel>
+    </ng-template>
+    <ng-template pTemplate>
         <app-morph-selector></app-morph-selector>
-    </mat-tab>
-    <mat-tab>
-        <ng-template mat-tab-label>
-            <span>Commentaria</span>
-            <mat-chip color="warn" *ngIf="currentForm">{{currentForm.value}}</mat-chip>
-        </ng-template>
-        <app-note-editor></app-note-editor>
-    </mat-tab>
-</mat-tab-group>
+    </ng-template>
+</p-splitter>

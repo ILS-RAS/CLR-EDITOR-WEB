@@ -1,11 +1,15 @@
-<app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-<mat-drawer-container class="container">
-  <mat-drawer #drawer class="sidenav" mode="side" [opened]="drawerOpened">
-    <app-text-index-toolbar></app-text-index-toolbar>
-    <app-text-index *ngIf="header" [header]="header"></app-text-index>
-  </mat-drawer>
-  <div class="sidenav-content">
-    <app-text-toolbar *ngIf="header"></app-text-toolbar>
-    <app-text-chunk *ngIf="header"></app-text-chunk>
-  </div>
-</mat-drawer-container>
+<p-splitter [panelSizes]="[15, 85]" layout="vertical">
+  <ng-template pTemplate>
+    <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
+  </ng-template>
+  <ng-template pTemplate>
+    <p-splitter [panelSizes]="[12, 88]" *ngIf="header">
+      <ng-template pTemplate>
+        <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+      </ng-template>
+      <ng-template pTemplate>
+        <app-text-chunk *ngIf="header"></app-text-chunk>
+      </ng-template>
+    </p-splitter>
+  </ng-template>
+</p-splitter>

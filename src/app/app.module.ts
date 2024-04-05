@@ -37,12 +37,8 @@ import { TextSelectorComponent } from './editor/components/project/components/te
 import { ProjectToolbarComponent } from './editor/components/project/components/project-toolbar/project-toolbar.component';
 import {MatTreeModule} from '@angular/material/tree';
 import { TextChunkComponent } from './editor/components/project/components/text-chunk/text-chunk.component';
-import { TextIndexComponent } from './editor/components/project/components/text-index/text-index.component';
 import {MatChipsModule} from '@angular/material/chips';
-import { TextToolbarComponent } from './editor/components/project/components/text-toolbar/text-toolbar.component';
 import { TextChunkElementComponent } from './editor/components/project/components/text-chunk-element/text-chunk-element.component';
-import { TextIndexToolbarComponent } from './editor/components/project/components/text-index-toolbar/text-index-toolbar.component';
-import { TextIndexItemToolbarComponent } from './editor/components/project/components/text-index-item-toolbar/text-index-item-toolbar.component';
 import { DialogComponent } from './widgets/dialog/dialog.component';
 import { TextHeaderEditorComponent } from './editor/components/project/components/text-header-editor/text-header-editor.component';
 import { TextIndexItemEditorComponent } from './editor/components/project/components/text-index-item-editor/text-index-item-editor.component';
@@ -98,6 +94,29 @@ import { ViewSelectorComponent } from './editor/components/dictionary/components
 import { MorphSelectorComponent } from './editor/components/morph/components/morph-selector/morph-selector.component';
 import { NoteEditorComponent } from './editor/components/project/components/note-editor/note-editor.component';
 import { MorphEditorComponent } from './editor/components/morph/components/morph-editor/morph-editor.component';
+
+
+import { SplitterModule } from 'primeng/splitter';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { TreeModule } from 'primeng/tree';
+import { ToastModule } from 'primeng/toast';
+import { TextIndexTreeComponent } from './editor/components/project/components/text-index-tree/text-index-tree.component';
+import { ButtonModule } from 'primeng/button';
+import { ButtonGroupModule } from 'primeng/buttongroup';
+import { ToolbarModule } from 'primeng/toolbar';
+import { ContextMenuModule } from 'primeng/contextmenu';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { TabViewModule } from 'primeng/tabview';
+import { PanelModule } from 'primeng/panel';
+import { MenuModule } from 'primeng/menu';
+import { AccordionModule } from 'primeng/accordion';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { TableModule } from 'primeng/table';
+import { CheckboxModule } from 'primeng/checkbox';
+import { FieldsetModule } from 'primeng/fieldset';
+import { DropdownModule } from 'primeng/dropdown';
+import { InplaceModule } from 'primeng/inplace';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,11 +130,7 @@ import { MorphEditorComponent } from './editor/components/morph/components/morph
     TextSelectorComponent,
     ProjectToolbarComponent,
     TextChunkComponent,
-    TextIndexComponent,
-    TextToolbarComponent,
     TextChunkElementComponent,
-    TextIndexToolbarComponent,
-    TextIndexItemToolbarComponent,
     DialogComponent,
     TextHeaderEditorComponent,
     TextIndexItemEditorComponent,
@@ -162,7 +177,8 @@ import { MorphEditorComponent } from './editor/components/morph/components/morph
     ViewSelectorComponent,
     MorphSelectorComponent,
     NoteEditorComponent,
-    MorphEditorComponent
+    MorphEditorComponent,
+    TextIndexTreeComponent
   ],
   imports: [
     BrowserModule,
@@ -205,7 +221,27 @@ import { MorphEditorComponent } from './editor/components/morph/components/morph
     MatExpansionModule,
     MatPaginatorModule,
     MatAutocompleteModule,
-    MatStepperModule
+    MatStepperModule,
+
+    SplitterModule,
+    ScrollPanelModule,
+    TreeModule,
+    ButtonModule,
+    ButtonGroupModule,
+    ToolbarModule,
+    ContextMenuModule,
+    TabMenuModule,
+    ToastModule,
+    TabViewModule,
+    PanelModule,
+    MenuModule,
+    AccordionModule,
+    SpeedDialModule,
+    TableModule,
+    CheckboxModule,
+    FieldsetModule,
+    DropdownModule,
+    InplaceModule
   ],
   providers: [HttpClientModule],
   bootstrap: [AppComponent],

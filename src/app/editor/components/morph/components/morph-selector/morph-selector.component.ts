@@ -10,7 +10,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { MorphEditorComponent } from '../morph-editor/morph-editor.component';
 import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { ChunkModel, ChunkValueItemModel, ChunkViewModel, ElementModel } from '../../../../models';
-import { TextIndexComponent } from '../../../project/components/text-index/text-index.component';
 
 @Component({
   selector: 'app-morph-selector',
@@ -20,27 +19,9 @@ import { TextIndexComponent } from '../../../project/components/text-index/text-
 export class MorphSelectorComponent extends BaseComponent implements OnInit {
   isDefined: boolean = false;
   currentForm?: ChunkValueItemModel;
-  displayedColumns: string[] = [
-    'select',
-    'form',
-    'lemma',
-    'pos',
-    'gender',
-    'case',
-    'person',
-    'number',
-    'tense',
-    'mood',
-    'voice',
-    'degree',
-    'dialect',
-    'feature',
-    'edit',
-    'clone',
-    'delete',
-  ];
   clickedRows = new Set<MorphModel>();
-  dataSource: MatTableDataSource<MorphModel> = new MatTableDataSource();
+  forms: MorphModel[] = [];
+  selectedForms!: MorphModel;
   selection = new SelectionModel<MorphModel>(true, []);
   constructor(
     private projectService: ProjectService,
@@ -59,14 +40,18 @@ export class MorphSelectorComponent extends BaseComponent implements OnInit {
           this.morphService
             .GetItemsByForm(form.value?.toLowerCase())
             .then((items) => {
-              this.dataSource = new MatTableDataSource<MorphModel>(items);
+              this.forms = items;
+              this.SetChecked(items);
             });
         }
       });
   }
 
-  IsChecked(morp: MorphModel): boolean {
-    return this.projectService.$currentForm.value?.morphId == morp._id;
+  SetChecked(forms: MorphModel[]) {
+    let checked = forms.find(i=>i._id == this.projectService.$currentForm.value?.morphId);
+    if(checked){
+      this.selectedForms = checked;
+    }
   }
 
   add() {

@@ -1,17 +1,25 @@
-<mat-toolbar color="primary" *ngIf="project">
-  <span class="section-header">{{project.code}}</span>
-  <app-text-selector [project]="project" [header]="header"></app-text-selector>
-  <button mat-mini-fab color="secondary" (click)="AddHeader()">
-    <mat-icon>add</mat-icon>
-  </button>
-  <button class="btn-edit" mat-mini-fab color="secondary" (click)="EditHeader()" *ngIf="header">
-    <mat-icon>edit</mat-icon>
-  </button>
-  <button class="btn-delete" mat-mini-fab color="warn" (click)="DeleteHeader()" *ngIf="header">
-    <mat-icon>delete</mat-icon>
-  </button>
-  <mat-divider [vertical]="true"></mat-divider>
-  <button class="btn-close" mat-mini-fab color="primary" (click)="Close()">
-    <mat-icon>close</mat-icon>
-  </button>
-</mat-toolbar>
+<div class="flex">
+  <p-toolbar *ngIf="project">
+    <div class="">
+      <span class="section-header">{{project.code}}</span>
+    </div>
+    <div class="flex-grow-1">
+      <span class="p-input-icon-left">
+        <i class="pi pi-search"></i>
+        <app-text-selector [project]="project" [header]="header"></app-text-selector>
+      </span>
+    </div>
+    <div class="">
+      <p-menu #menu [model]="items" [popup]="true"></p-menu>
+      <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
+        <span class="pi pi-cog"></span>
+      </button>
+    </div>
+  </p-toolbar>
+</div>
+
+<!-- <div class="flex overflow-hidden">
+  <div class="flex-none flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
+  <div class="flex-grow-1 flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
+  <div class="flex-none flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
+</div> -->

@@ -9,6 +9,7 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
 import { HeaderQuery } from '../../../../queries';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-project-toolbar',
@@ -19,7 +20,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   @Input() project?: ProjectModel;
   @Output() onClose: EventEmitter<void> = new EventEmitter();
   header?: HeaderModel;
-
+  items: MenuItem[] = [];
   constructor(
     public dialog: MatDialog,
     private projectService: ProjectService,
@@ -28,6 +29,28 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     super();
   }
   ngOnInit(): void {
+    this.items = [
+      {
+        label: 'Add',
+        icon: 'pi pi-plus',
+        command: () => this.AddHeader(),
+      },
+      {
+        label: 'Edit',
+        icon: 'pi pi-pencil',
+        command: () => this.EditHeader(),
+      },
+      {
+        label: 'Delete',
+        icon: 'pi pi-trash',
+        command: () => this.DeleteHeader(),
+      },
+      {
+        label: 'Close',
+        icon: 'pi pi-times',
+        command: () => this.Close()
+      },
+    ];
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.header = item;
     });

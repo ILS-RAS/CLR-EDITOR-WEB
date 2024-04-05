@@ -1,128 +1,45 @@
-<mat-toolbar color="secondary">
-  <button mat-mini-fab color="primary" (click)="add()">
-    <mat-icon>add</mat-icon>
-  </button>
-</mat-toolbar>
-<table mat-table [dataSource]="dataSource" class="mat-elevation-z0 morph-table">
-  <ng-container matColumnDef="select">
-    <th mat-header-cell *matHeaderCellDef>
-      <button mat-icon-button color="secondary" disabled="true">
-        <mat-icon>task_alt</mat-icon>
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let item">
-      <button mat-icon-button color="primary" *ngIf="!IsChecked(item)" (click)="setDefinition(item)">
-        <mat-icon>radio_button_unchecked</mat-icon>
-      </button>
-      <button mat-icon-button color="primary" *ngIf="IsChecked(item)" (click)="removeDefinition(item)">
-        <mat-icon>check_circle</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="form">
-    <th mat-header-cell *matHeaderCellDef> FORMA </th>
-    <td mat-cell *matCellDef="let item"> {{item.form}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="lemma">
-    <th mat-header-cell *matHeaderCellDef> LEMMA </th>
-    <td mat-cell *matCellDef="let item"> {{item.lemma}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="pos">
-    <th mat-header-cell *matHeaderCellDef> PARS ORATIONIS </th>
-    <td mat-cell *matCellDef="let item"> {{item.pos}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="gender">
-    <th mat-header-cell *matHeaderCellDef> GENUS NOMINIS </th>
-    <td mat-cell *matCellDef="let item"> {{item.gender}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="case">
-    <th mat-header-cell *matHeaderCellDef> CASUS </th>
-    <td mat-cell *matCellDef="let item"> {{item.case}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="person">
-    <th mat-header-cell *matHeaderCellDef> PERSONA </th>
-    <td mat-cell *matCellDef="let item"> {{item.person}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="mood">
-    <th mat-header-cell *matHeaderCellDef> MODUS </th>
-    <td mat-cell *matCellDef="let item"> {{item.mood}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="number">
-    <th mat-header-cell *matHeaderCellDef> NUMERUS </th>
-    <td mat-cell *matCellDef="let item"> {{item.number}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="tense">
-    <th mat-header-cell *matHeaderCellDef> TEMPUS </th>
-    <td mat-cell *matCellDef="let item"> {{item.tense}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="voice">
-    <th mat-header-cell *matHeaderCellDef> GENUS VERBI </th>
-    <td mat-cell *matCellDef="let item"> {{item.voice}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="degree">
-    <th mat-header-cell *matHeaderCellDef> GRADUS </th>
-    <td mat-cell *matCellDef="let item"> {{item.degree}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="dialect">
-    <th mat-header-cell *matHeaderCellDef> DIALECTOS </th>
-    <td mat-cell *matCellDef="let item"> {{item.dialect}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="feature">
-    <th mat-header-cell *matHeaderCellDef> IDIOMA </th>
-    <td mat-cell *matCellDef="let item"> {{item.feature}} </td>
-  </ng-container>
-
-  <ng-container matColumnDef="edit">
-    <th mat-header-cell *matHeaderCellDef> 
-      <button mat-icon-button color="primary" disabled="true">
-        <mat-icon>edit</mat-icon>
-      </button>  
-    </th>
-    <td mat-cell *matCellDef="let item">
-      <button mat-icon-button color="primary" (click)="edit(item)">
-        <mat-icon>edit</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-  <ng-container matColumnDef="clone">
-    <th mat-header-cell *matHeaderCellDef> 
-      <button mat-icon-button color="primary" disabled="true">
-        <mat-icon>content_copy</mat-icon>
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let item">
-      <button mat-icon-button color="primary" (click)="clone(item)">
-        <mat-icon>content_copy</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <ng-container matColumnDef="delete">
-    <th mat-header-cell *matHeaderCellDef> 
-      <button mat-icon-button color="warn" disabled="true">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </th>
-    <td mat-cell *matCellDef="let item"> 
-      <button mat-icon-button color="warn" (click)="delete(item)">
-        <mat-icon>delete</mat-icon>
-      </button>
-    </td>
-  </ng-container>
-
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+<p-panel header="Morphologia" [toggleable]="true">
+  <p-table [value]="forms" [(selection)]="selectedForms" [scrollable]="true" scrollHeight="300px" dataKey="_id"
+    [tableStyle]="{'min-width': '50rem'}">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 4rem">
+          <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+        </th>
+        <th>form</th>
+        <th>lemma</th>
+        <th>pos</th>
+        <th>gender</th>
+        <th>case</th>
+        <th>person</th>
+        <th>number</th>
+        <th>tense</th>
+        <th>mood</th>
+        <th>voice</th>
+        <th>degree</th>
+        <th>dialect</th>
+        <th>feature</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-form>
+      <tr>
+        <td>
+          <p-tableCheckbox [value]="form"></p-tableCheckbox>
+        </td>
+        <td>{{form.form}}</td>
+        <td>{{form.lemma}}</td>
+        <td>{{form.pos}}</td>
+        <td>{{form.gender}}</td>
+        <td>{{form.case}}</td>
+        <td>{{form.person}}</td>
+        <td>{{form.number}}</td>
+        <td>{{form.tense}}</td>
+        <td>{{form.mood}}</td>
+        <td>{{form.voice}}</td>
+        <td>{{form.degree}}</td>
+        <td>{{form.dialect}}</td>
+        <td>{{form.feature}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</p-panel>
