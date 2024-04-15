@@ -7,6 +7,7 @@ import { MetaService } from '../../editor/components/project/services/meta.servi
 import { UserService } from '../../editor/components/user/services/user.service';
 import { UserModel } from '../../editor/models';
 import { Helper } from '../../utils';
+import { MenuItem } from 'primeng/api/menuitem';
 
 @Component({
   selector: 'app-header',
@@ -19,13 +20,44 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
   @Output() toggle: EventEmitter<any> = new EventEmitter();
   loggedUser?:UserModel;
   public isAuthenticated = false;
-
+  items: MenuItem[] | undefined;
   constructor(private authService: AuthService, private projectService: ProjectService, private metaService: MetaService, private userService: UserService) {
     super();
   }
 
   public ngOnInit(): void {
-    
+    this.items = [
+      {
+          label: 'Options',
+          items: [
+              {
+                  label: 'Quaesitio',
+                  icon: 'pi pi-search',
+                  routerLink: '/'
+              },
+              {
+                  label: 'Proiectus',
+                  icon: 'pi pi-book',
+                  routerLink: '/proiectus'
+              },
+              {
+                  label: 'Lexicon',
+                  icon: 'pi pi-align-left',
+                  routerLink: '/lexicon'
+              },
+              {
+                  label: 'Meta',
+                  icon: 'pi pi-list',
+                  routerLink: '/meta'
+              },
+              {
+                  label: 'Sodales',
+                  icon: 'pi pi-user-edit',
+                  routerLink: '/sodales'
+              }
+          ]
+      }
+  ];
     this.authService.isAuthenticated$.pipe(takeUntil(this.destroyed)).subscribe((item)=>{
       this.isAuthenticated = item;
     });
@@ -50,5 +82,9 @@ export class HeaderComponent extends BaseComponent implements OnInit, OnDestroy 
     setTimeout(() => {
       window.dispatchEvent(new Event('resize'));
     }, 300);
+  }
+
+  click(item: MenuItem) {
+
   }
 }

@@ -1,13 +1,11 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row fxLayout="row" class="app-toolbar-row mat-elevation-z8" fxLayoutAlign="space-between center">
-            <button color="primary" mat-mini-fab (click)="toggleSideBar()" [disabled]="!isAuthenticated" >
-                <mat-icon svgIcon="menu"></mat-icon>
-            </button>
-            <span class="title">{{title}}</span>
-            <span class="spacer"></span>
-            <span class="name" *ngIf="loggedUser">{{loggedUser.name}}&nbsp;{{ResolveRoleName(loggedUser.role)}}</span>
-            <button color="primary" mat-mini-fab *ngIf="isAuthenticated" (click)="logout()">
-                <mat-icon svgIcon="exit"></mat-icon>
-            </button>
-    </mat-toolbar-row>
-</mat-toolbar>
+<p-toolbar>
+    <div class="p-toolbar-group-start">
+        <p-button [rounded]="true" icon="pi pi-bars" (click)="menu.toggle($event)" [disabled]="!isAuthenticated"></p-button>
+        <p-menu #menu [model]="items" [popup]="true"></p-menu>
+        <span class="title">{{title}}</span>
+    </div>
+    <div class="p-toolbar-group-end">
+        <span class="name" *ngIf="loggedUser">{{loggedUser.name}}&nbsp;{{ResolveRoleName(loggedUser.role)}}</span>
+        <p-button [rounded]="true" *ngIf="isAuthenticated" icon="pi pi-user" (click)="logout()"></p-button>
+    </div>
+</p-toolbar>

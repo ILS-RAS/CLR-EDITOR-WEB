@@ -7,6 +7,7 @@ import { DictionaryService } from '../../services/dictionary.service';
 import { takeUntil } from 'rxjs';
 import { Router } from '@angular/router';
 import { UiService } from '../../../../../services/ui.service';
+import { DictionarySelectorComponent } from '../dictionary-selector/dictionary-selector.component';
 
 @Component({
   selector: 'app-dictionary-dashboard',
@@ -22,6 +23,9 @@ export class DictionaryDashboardComponent extends BaseComponent implements OnIni
   ngOnInit(): void {
     this.dictionaryService.$currentDictionary.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.dictionary = item;
+      if(!this.dictionary){
+        this.dialog.open(DictionarySelectorComponent, { width: '600px' });
+      }
     });
     this.uiService.$entryPanelOpened.pipe(takeUntil(this.destroyed)).subscribe(state=>{
       this.drawerOpened = state;

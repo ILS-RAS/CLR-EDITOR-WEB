@@ -24,7 +24,6 @@ import { LoginComponent } from './components/login/login.component';
 import { DefaultComponent } from './editor/components/default/default.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './editor/components/sidebar/sidebar.component';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
@@ -116,6 +115,10 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { FieldsetModule } from 'primeng/fieldset';
 import { DropdownModule } from 'primeng/dropdown';
 import { InplaceModule } from 'primeng/inplace';
+import { SidebarModule } from 'primeng/sidebar';
+import { MessagesModule } from 'primeng/messages';
+import { MessageService } from 'primeng/api';
+import { DockModule } from 'primeng/dock';
 
 @NgModule({
   declarations: [
@@ -124,7 +127,6 @@ import { InplaceModule } from 'primeng/inplace';
     DefaultComponent,
     FooterComponent,
     HeaderComponent,
-    SidebarComponent,
     ProjectSelectorComponent,
     ProjectDashboardComponent,
     TextSelectorComponent,
@@ -241,9 +243,12 @@ import { InplaceModule } from 'primeng/inplace';
     CheckboxModule,
     FieldsetModule,
     DropdownModule,
-    InplaceModule
+    InplaceModule,
+    SidebarModule,
+    MessagesModule,
+    DockModule
   ],
-  providers: [HttpClientModule],
+  providers: [HttpClientModule, MessageService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

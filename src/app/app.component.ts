@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { MatIconRegistry } from '@angular/material/icon';
 import { DomSanitizer } from '@angular/platform-browser';
 import { MenuItem } from './editor/models/menuItem';
-import { MenuService } from './editor/services/menu.service';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { AppConfig } from './constants/app-config';
 import { BaseComponent } from './components/base/base/base.component';

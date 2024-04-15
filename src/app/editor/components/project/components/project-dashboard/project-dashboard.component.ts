@@ -6,6 +6,8 @@ import { HeaderModel } from '../../../../models/headerModel';
 import { UiService } from '../../../../../services/ui.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
+import { MatDialog } from '@angular/material/dialog';
+import { ProjectSelectorComponent } from '../project-selector/project-selector.component';
 
 @Component({
   selector: 'app-project-dashboard',
@@ -22,7 +24,8 @@ export class ProjectDashboardComponent extends BaseComponent implements OnInit {
   constructor(
     private projectService: ProjectService,
     private router: Router,
-    private uiService: UiService
+    private uiService: UiService,
+    public dialog: MatDialog,
   ) {
       super();
   }
@@ -30,6 +33,9 @@ export class ProjectDashboardComponent extends BaseComponent implements OnInit {
   ngOnInit(): void {
     this.projectService.$currentProject.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.project = item;
+      if(!this.project){
+        this.dialog.open(ProjectSelectorComponent, { width: '600px' });
+      }
     });
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.header = item;
