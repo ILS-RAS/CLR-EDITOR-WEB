@@ -42,7 +42,7 @@ export class UserEditorComponent extends BaseComponent implements OnInit {
       roleSelect: new UntypedFormControl(''),
     });
     this.roles?.push(
-      { code: UserRole.Admitistrator, name: 'Admitistrator' },
+      { code: UserRole.Administrator, name: 'Administrator' },
       { code: UserRole.Editor, name: 'Editor' }
     );
   }

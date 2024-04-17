@@ -18,8 +18,8 @@ export class Helper {
   }
 
   public static ResolveRoleName(role:number){
-    if(role == UserRole.Admitistrator){
-      return "Admitistrator";
+    if(role == UserRole.Administrator){
+      return "Administrator";
     }else{
       return "Editor";
     }
