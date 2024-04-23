@@ -1,115 +1,12 @@
-/* You can add global styles to this file, and also import other style files */
-@import "../node_modules/@angular/material/prebuilt-themes/indigo-pink.css";
+$gutter: 1rem; //for primeflex grid system
+@import "assets/layout/styles/layout/layout.scss";
 
-@import "primeng/resources/themes/soho-light/theme.css";
-// primeng/resources/themes/md-light-indigo/theme.css
+/* PrimeNG */
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
 
-// primeng/resources/themes/md-light-deeppurple/theme.css
-// primeng/resources/themes/md-dark-indigo/theme.css
-// primeng/resources/themes/md-dark-deeppurple/theme.css
-// primeng/resources/themes/mdc-light-indigo/theme.css
-// primeng/resources/themes/mdc-light-deeppurple/theme.css
-// primeng/resources/themes/mdc-dark-indigo/theme.css
-// primeng/resources/themes/mdc-dark-deeppurple/theme.css
-// primeng/resources/themes/fluent-light/theme.css
-// primeng/resources/themes/lara-light-blue/theme.css
-// primeng/resources/themes/lara-light-indigo/theme.css
-// primeng/resources/themes/lara-light-purple/theme.css
-// primeng/resources/themes/lara-light-teal/theme.css
-// primeng/resources/themes/lara-dark-blue/theme.css
-// primeng/resources/themes/lara-dark-indigo/theme.css
-// primeng/resources/themes/lara-dark-purple/theme.css
-// primeng/resources/themes/lara-dark-teal/theme.css
-// primeng/resources/themes/soho-light/theme.css
-// primeng/resources/themes/soho-dark/theme.css
-// primeng/resources/themes/viva-light/theme.css
-// primeng/resources/themes/viva-dark/theme.css
-// primeng/resources/themes/mira/theme.css
-// primeng/resources/themes/nano/theme.css
-// primeng/resources/themes/saga-blue/theme.css
-// primeng/resources/themes/saga-green/theme.css
-// primeng/resources/themes/saga-orange/theme.css
-// primeng/resources/themes/saga-purple/theme.css
-// primeng/resources/themes/vela-blue/theme.css
-// primeng/resources/themes/vela-green/theme.css
-// primeng/resources/themes/vela-orange/theme.css
-// primeng/resources/themes/vela-purple/theme.css
-// primeng/resources/themes/arya-blue/theme.css
-// primeng/resources/themes/arya-green/theme.css
-// primeng/resources/themes/arya-orange/theme.css
-// primeng/resources/themes/arya-purple/theme.css
-// primeng/resources/themes/nova/theme.css
-// primeng/resources/themes/nova-alt/theme.css
-// primeng/resources/themes/nova-accent/theme.css
-// primeng/resources/themes/luna-amber/theme.css
-// primeng/resources/themes/luna-blue/theme.css
-// primeng/resources/themes/luna-green/theme.css
-// primeng/resources/themes/luna-pink/theme.css
-// primeng/resources/themes/rhea/theme.css
-@import "primeng/resources/primeng.css";
-@import "primeicons/primeicons.css";
-@import 'primeflex/primeflex.scss';
-
-body {
-  margin: 0;
-  position: absolute;
-  right: 0px;
-  left: 0px;
-  height: 100%;
-  min-width: 360px;
-}
-
-.spacer {
-  flex: 1 1 auto;
-}
-
-app-sidenav {
-  display: flex;
-}
-
-app-project-dashboard, app-taxonomy-dashboard, app-default, app-dictionary-dashboard, app-user-dashboard, app-login {
-  height: 100%;
-}
-
-mat-drawer {
-  width: auto;
-}
-
-.input-field-full-width{
-  width: 100%;
-}
-
-app-text-selector{
-  width: 100%;
-  height: inherit;
-  margin-top: 14px;
-  margin-left: 15px;
-}
-
-
-.mat-drawer-inner-container::-webkit-scrollbar {
-  display: none;
-}
-
-.mat-drawer-inner-container{
-  height: fit-content !important;
-}
-
-.mat-expansion-panel-body{
-  overflow: auto;
-}
-
-.mat-mdc-tab-body-content{
-  overflow: hidden !important;
-}
-
-.section-header{
-  font-weight: 300 !important;
-  margin: 0;
-  padding: 28px 8px;
-  font-size: 20px !important;
-}
-
-.mat-drawer.mat-drawer-side {
-  width: 50px;
-}
+/* Demos */
+@import "assets/clr/styles/flags/flags.css";
+@import "assets/clr/styles/badges.scss";
+@import "assets/clr/styles/code.scss";
