@@ -7,7 +7,7 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { take, takeUntil } from 'rxjs';
 import { HeaderQuery } from '../../../../queries';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-
+import { FormControl, FormGroup } from '@angular/forms';
 @Component({
   selector: 'app-text-selector',
   templateUrl: './text-selector.component.html',

@@ -10,12 +10,12 @@ import { Helper } from '../../../../../utils';
 @Component({
   selector: 'app-text-index-item-editor',
   templateUrl: './text-index-item-editor.component.html',
-  styleUrl: './text-index-item-editor.component.scss'
+  styleUrl: './text-index-item-editor.component.scss',
 })
 export class TextIndexItemEditorComponent extends BaseComponent implements OnInit {
   form: UntypedFormGroup;
   isDisabled: boolean = false;
-
+  visible: boolean = true;
   constructor(
     public dialogRef: MatDialogRef<TextIndexItemEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public index: IndexModel,

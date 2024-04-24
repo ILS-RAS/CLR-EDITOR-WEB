@@ -48,6 +48,6 @@ export class ProjectDashboardComponent extends BaseComponent implements OnInit {
   Close() {
     this.projectService.$currentProject.next(undefined);
     this.uiService.Reset();
-    this.router.navigateByUrl('/');
-    }
+    this.router.navigateByUrl('/project');
+  }
 }

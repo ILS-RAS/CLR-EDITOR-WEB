@@ -3,7 +3,6 @@ import { BaseModel } from '../models/baseModel';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { catchError, map, throwError } from 'rxjs';
-import { ErrorService } from './error.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +12,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
   private headers = new HttpHeaders();
   private token: string | null | undefined;
 
-  constructor(private httpClient: HttpClient, private errorService: ErrorService) { 
+  constructor(private httpClient: HttpClient) { 
 
     this.token = sessionStorage.getItem('token');
    
@@ -38,7 +37,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
       map((res: any) => {
         return res;
       }),
-      catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+      catchError((e: any) => throwError(console.log(e)))
     );
   }
 
@@ -51,7 +50,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -64,7 +63,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res: any) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -77,7 +76,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res: any) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -90,7 +89,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res: any) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -103,7 +102,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -116,7 +115,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 
@@ -130,7 +129,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
           map((res) => {
             return res;
           }),
-          catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+          catchError((e: any) => throwError(console.log(e)))
         );
     } else {
       return this.httpClient
@@ -141,7 +140,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
           map((res) => {
             return res;
           }),
-          catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+          catchError((e: any) => throwError(console.log(e)))
         );
     }
   }
@@ -155,7 +154,7 @@ export class ApiService<T extends BaseModel> implements OnInit {
         map((res) => {
           return res;
         }),
-        catchError((e: any) => throwError(this.errorService.errorHandler(e)))
+        catchError((e: any) => throwError(console.log(e)))
       );
   }
 }

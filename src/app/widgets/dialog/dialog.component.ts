@@ -7,10 +7,14 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 })
 export class DialogComponent {
   @Input() title?: string;
-  @Input() disabled: boolean = true;
+  @Input() disabled: boolean = false;
   @Output() onSave: EventEmitter<void> = new EventEmitter<void>();
   @Output() onCancel: EventEmitter<void> = new EventEmitter<void>();
+  visible: boolean = true;
 
+  showDialog() {
+    this.visible = true;
+  }
   Cancel() {
     this.onCancel.emit();
   }

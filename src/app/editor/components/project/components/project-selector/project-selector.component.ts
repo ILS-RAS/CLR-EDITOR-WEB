@@ -17,9 +17,11 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   
   projects: ProjectModel[] = [];
 
-  selected = new FormControl([Validators.required]);
+  selected!: ProjectModel;
 
-  isDisabled: boolean = true;
+  isDisabled: boolean = false;
+  
+  visible: boolean = true;
 
   label: string = 'Выбрать проект ...';
 
@@ -30,12 +32,14 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
     private router: Router,
   ) {
     super();
-
+    
   }
   ngOnInit(): void {
-    this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe(items=>{
-      this.projects = items.filter(i=>i.projectType == ProjectType.Text).sort((a, b) => a.code!.localeCompare(b.code!));
-    });
+    this.projectService.GetProjects().then(()=>{
+      this.projectService.$projects.pipe(takeUntil(this.destroyed)).subscribe(items=>{
+        this.projects = items.filter(i=>i.projectType == ProjectType.Text).sort((a, b) => a.code!.localeCompare(b.code!));
+      });
+    })
   }
 
   Cancel() {
@@ -43,16 +47,16 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   }
 
   Open() {
-    let selectedProject = this.selected.value as unknown as ProjectModel;
+    let selectedProject = this.selected as unknown as ProjectModel;
     if(selectedProject){
       this.projectService.InitProjectContext(selectedProject);
       this.Cancel();
-      this.router.navigateByUrl('/proiectus');
+      this.router.navigateByUrl('/project');
     }
   }
 
   Change() {
-    this.isDisabled = this.selected.value == undefined;
+    this.isDisabled = this.selected == undefined;
     if (!this.isDisabled) {
       this.label = 'Код проекта';
     }

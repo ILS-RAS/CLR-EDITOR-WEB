@@ -1,14 +1,13 @@
 import { Injectable } from '@angular/core';
 import { ChunkModel } from '../../../models';
 import { ElementModel } from '../../../models/elementModel';
-import { ErrorService } from '../../../services/error.service';
 import { ElementType } from '../../../enums/elementType';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ChunkParserService {
-  constructor(private errorService: ErrorService) {}
+  constructor() {}
 
   private async SplitPhrase(chunkValue?: string): Promise<string[]> {
 
@@ -43,7 +42,7 @@ export class ChunkParserService {
           element.type = ElementType.Space;
         }
       }else{
-        this.errorService.errorMessage(`Неизвестный символ: ${ JSON.stringify(item) }`);
+        console.log(`Неизвестный символ: ${ JSON.stringify(item) }`);
       }
 
       elements.push(element);

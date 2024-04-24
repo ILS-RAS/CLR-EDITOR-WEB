@@ -1,8 +1,5 @@
 <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Fragmentum'>
     <form class="form" [formGroup]="form">
-        <mat-form-field class="input-field-full-width">
-          <mat-label>Textus Fragmenti</mat-label>
-          <textarea rows="10" matInput formControlName="chunkInput" required></textarea>
-        </mat-form-field>
+      <textarea rows="10" matInput formControlName="chunkInput" required></textarea>
       </form>
-  </app-dialog>
+</app-dialog>

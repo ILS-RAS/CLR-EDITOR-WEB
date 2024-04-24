@@ -29,6 +29,7 @@ import { RouteConfigLoadEnd } from '@angular/router';
 export class TextChunkEditorComponent extends BaseComponent implements OnInit {
   form: UntypedFormGroup;
   isDisabled: boolean = true;
+  visible: boolean = true;
   constructor(
     public dialogRef: MatDialogRef<TextChunkEditorComponent>,
     private projectService: ProjectService,
