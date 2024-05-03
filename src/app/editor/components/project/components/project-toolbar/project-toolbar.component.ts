@@ -10,6 +10,7 @@ import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
 import { HeaderQuery } from '../../../../queries';
 import { MenuItem } from 'primeng/api';
+import { DropdownChangeEvent } from 'primeng/dropdown';
 
 @Component({
   selector: 'app-project-toolbar',
@@ -21,6 +22,8 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   @Output() onClose: EventEmitter<void> = new EventEmitter();
   header?: HeaderModel;
   items: MenuItem[] = [];
+  selected?: HeaderModel;
+  headers?: HeaderModel[];
   constructor(
     public dialog: MatDialog,
     private projectService: ProjectService,
@@ -52,8 +55,12 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
       },
     ];
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((item) => {
-      this.header = item;
+      this.selected = this.header = item;
     });
+    this.projectService.$projectHeaders.pipe(takeUntil(this.destroyed)).subscribe(headers=>{
+      this.headers = headers;
+    })
+
   }
 
   DeleteHeader() {
@@ -88,5 +95,16 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
 
   Close() {
     this.onClose.emit();
+  }
+
+  Change(event: DropdownChangeEvent) {
+    if(this.selected && this.selected?._id){
+      this.projectService.$currentHeader.next(this.selected);
+      this.projectService.GetIndeces(this.selected?._id);
+      this.projectService.$currentForm.next(undefined);
+      this.projectService.$currentIndex.next(undefined);
+      this.projectService.$currentChunk.next(undefined);
+      this.projectService.$currentVersionChunks.next(undefined);
+    }
   }
 }

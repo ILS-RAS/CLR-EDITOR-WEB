@@ -10,3 +10,7 @@ $gutter: 1rem; //for primeflex grid system
 @import "assets/clr/styles/flags/flags.css";
 @import "assets/clr/styles/badges.scss";
 @import "assets/clr/styles/code.scss";
+
+.p-dropdown-item{
+    text-wrap: pretty !important;
+}

@@ -79,10 +79,13 @@ export class TextIndexTreeComponent extends BaseComponent {
   }
 
   CreateChunk() {
-    this.dialog.open(TextChunkEditorComponent, {
-      width: '600px',
-      data: new ChunkViewModel({}),
-    });
+    let inx = this.projectService.$currentIndex.value;
+    if(inx && inx._id){
+      this.dialog.open(TextChunkEditorComponent, {
+        width: '600px',
+        data: new ChunkViewModel({ indexId: inx._id}),
+      });
+    }
   }
   
   CreateTopIndex() {

@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
 import { ProjectType } from '../../../../enums/projectType';
+import { LayoutService } from '../../../../../layout/service/layout.service';
 
 @Component({
   selector: 'app-project-selector',
@@ -27,6 +28,7 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
+    private layoutService: LayoutService,
     public dialogRef: MatDialogRef<ProjectSelectorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
     private router: Router,
@@ -48,8 +50,9 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
 
   Open() {
     let selectedProject = this.selected as unknown as ProjectModel;
-    if(selectedProject){
+    if(selectedProject && selectedProject._id){
       this.projectService.InitProjectContext(selectedProject);
+      this.projectService.GetHeadersByProjectId(selectedProject._id);
       this.Cancel();
       this.router.navigateByUrl('/project');
     }

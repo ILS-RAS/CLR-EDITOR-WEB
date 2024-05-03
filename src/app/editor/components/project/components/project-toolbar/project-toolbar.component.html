@@ -1,25 +1,5 @@
-<div class="flex">
-  <p-toolbar *ngIf="project">
-    <div class="">
-      <span class="section-header">{{project.code}}</span>
-    </div>
-    <div class="flex-grow-1">
-      <span class="p-input-icon-left">
-        <i class="pi pi-search"></i>
-        <app-text-selector [project]="project" [header]="header"></app-text-selector>
-      </span>
-    </div>
-    <div class="">
-      <p-menu #menu [model]="items" [popup]="true"></p-menu>
-      <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
-        <span class="pi pi-cog"></span>
-      </button>
-    </div>
-  </p-toolbar>
+<div *ngIf="project" class="flex">
+    <p-button styleClass="p-button-secondary" [style]="{'margin-right': '15px'}" icon="pi pi-bars" (click)="menu.toggle($event)"></p-button>
+    <p-dropdown class="flex-1" [style]="{'width': '100%', 'max-width': '500px'}" [(ngModel)]="selected" [options]="headers" optionLabel="desc" placeholder="Select a Header" (onChange)="Change($event)"></p-dropdown>
+    <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
 </div>
-
-<!-- <div class="flex overflow-hidden">
-  <div class="flex-none flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
-  <div class="flex-grow-1 flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
-  <div class="flex-none flex align-items-center justify-content-center bg-primary font-bold m-2 px-5 py-3 border-round">PrimeFlex</div>
-</div> -->

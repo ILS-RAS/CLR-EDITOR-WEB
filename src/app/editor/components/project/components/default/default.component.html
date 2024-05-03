@@ -1,15 +1,6 @@
-<p-splitter *ngIf="project" [panelSizes]="[15, 85]" layout="vertical">
-    <ng-template pTemplate>
-      <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-    </ng-template>
-    <ng-template pTemplate>
-      <p-splitter [panelSizes]="[12, 88]" *ngIf="header">
-        <ng-template pTemplate>
-          <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
-        </ng-template>
-        <ng-template pTemplate>
-          <app-text-chunk *ngIf="header"></app-text-chunk>
-        </ng-template>
-      </p-splitter>
-    </ng-template>
-  </p-splitter>
+<p-sidebar [style]="{'z-index': '1000', 'margin-top': '100px'}" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false" [showCloseIcon]="true" [appendTo]="'.layout-main-container'">
+  
+  <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+</p-sidebar>
+<app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
+<app-text-chunk *ngIf="header"></app-text-chunk>

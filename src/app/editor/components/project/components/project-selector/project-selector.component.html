@@ -1,3 +1,3 @@
 <app-dialog (onCancel)="Cancel()" (onSave)="Open()" [disabled]="isDisabled" title='Проекты'>
-    <p-dropdown [options]="projects" [(ngModel)]="selected" optionLabel="code" [showClear]="true" placeholder="Select a Project"></p-dropdown>
+    <p-dropdown [options]="projects" [(ngModel)]="selected" optionLabel="code" [showClear]="true" placeholder="Select a Project" class="w-full"></p-dropdown>
 </app-dialog>

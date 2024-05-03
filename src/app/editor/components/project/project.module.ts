@@ -15,9 +15,13 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { PanelModule } from 'primeng/panel';
 import { InplaceModule } from 'primeng/inplace';
 import { MatDialogModule } from '@angular/material/dialog';
+import { SidebarModule } from 'primeng/sidebar';
+import { SpeedDialModule } from 'primeng/speeddial';
+import { TieredMenuModule } from 'primeng/tieredmenu';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 import { ProjectToolbarComponent } from './components/project-toolbar/project-toolbar.component';
-import { TextSelectorComponent } from './components/text-selector/text-selector.component';
 import { DefaultComponent } from './components/default/default.component';
 import { TextIndexTreeComponent } from './components/text-index-tree/text-index-tree.component';
 import { TextChunkComponent } from './components/text-chunk/text-chunk.component';
@@ -31,7 +35,6 @@ import { DialogComponent } from '../../../widgets/dialog/dialog.component';
   declarations: [
     DefaultComponent,
     ProjectToolbarComponent,
-    TextSelectorComponent,
     TextIndexTreeComponent,
     TextChunkComponent,
     TextChunkEditorComponent,
@@ -56,7 +59,12 @@ import { DialogComponent } from '../../../widgets/dialog/dialog.component';
     ContextMenuModule,
     PanelModule,
     InplaceModule,
-    MatDialogModule
+    SidebarModule,
+    MatDialogModule,
+    SpeedDialModule,
+    TieredMenuModule,
+    IconFieldModule,
+    InputIconModule
   ]
 })
 export class ProjectModule { }

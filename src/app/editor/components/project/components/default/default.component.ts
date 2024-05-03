@@ -15,6 +15,7 @@ import { ProjectSelectorComponent } from '../project-selector/project-selector.c
 export class DefaultComponent extends BaseComponent implements OnInit {
   public project?: ProjectModel;
   public header?:HeaderModel;
+  public visible: boolean = false;
   constructor(
     private projectService: ProjectService,
     private router: Router,
@@ -28,6 +29,8 @@ export class DefaultComponent extends BaseComponent implements OnInit {
       this.project = item;
       if(!this.project){
         this.dialog.open(ProjectSelectorComponent, { width: '600px' });
+      }else{
+        this.visible = true;
       }
     });
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe(item=>{
@@ -36,6 +39,7 @@ export class DefaultComponent extends BaseComponent implements OnInit {
   }
 
   Close() {
+    this.visible = false;
     this.projectService.$currentProject.next(undefined);
     this.router.navigateByUrl('/project');
   }
