@@ -1,6 +1,10 @@
-<p-sidebar [style]="{'z-index': '1000', 'margin-top': '100px'}" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false" [showCloseIcon]="true" [appendTo]="'.layout-main-container'">
-  
-  <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+  <p-sidebar [style]="{'margin-top': '100px', 'margin-right':'100px', 'height': 'calc(100vh - 9rem)'}" [visible]="visible" position="right" [modal]="false"
+  (onHide)="visible = false" [showCloseIcon]="true">
+  <ng-template pTemplate="header">{{header?.code}}</ng-template>
+  <ng-template pTemplate="content">
+    <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+  </ng-template>
+  <ng-template pTemplate="footer">Footer Content</ng-template>
 </p-sidebar>
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
 <app-text-chunk *ngIf="header"></app-text-chunk>
