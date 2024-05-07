@@ -3,37 +3,6 @@ import { RouterModule } from '@angular/router';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './guards/auth.guard';
 
-// const routes: Routes = [
-//   {
-//     path: 'accipe',
-//     component: LoginComponent,
-//   },
-//   {
-//     path: '',
-//     component: DefaultComponent,
-//     canActivate: [ AuthGuard ]
-//   },
-//   {
-//     path: 'proiectus',
-//     component: ProjectDashboardComponent,
-//     canActivate: [ AuthGuard ]
-//   },
-//   {
-//     path: 'lexicon',
-//     component: DictionaryDashboardComponent,
-//     canActivate: [ AuthGuard ]
-//   },
-//   {
-//     path: 'meta',
-//     component: TaxonomyDashboardComponent,
-//     canActivate: [ AuthGuard ]
-//   },
-//   {
-//     path: 'sodales',
-//     component: UserDashboardComponent,
-//     canActivate: [ AuthGuard ]
-//   }
-// ];
 
 @NgModule({
   imports: [RouterModule.forRoot([{
