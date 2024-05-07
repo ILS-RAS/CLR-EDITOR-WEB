@@ -30,7 +30,6 @@ import { TextIndexItemEditorComponent } from './components/text-index-item-edito
 import { TextChunkElementComponent } from './components/text-chunk-element/text-chunk-element.component';
 import { ProjectSelectorComponent } from './components/project-selector/project-selector.component';
 import { DialogComponent } from '../../../widgets/dialog/dialog.component';
-
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -42,7 +41,7 @@ import { DialogComponent } from '../../../widgets/dialog/dialog.component';
     TextIndexTreeComponent,
     TextChunkElementComponent,
     ProjectSelectorComponent,
-    DialogComponent
+    DialogComponent,
   ],
   imports: [
     CommonModule,
