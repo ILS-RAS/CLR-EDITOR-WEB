@@ -1,4 +1,4 @@
-<mat-tab-group *ngIf="index" mat-stretch-tabs="true" mat-align-tabs="start">
+<!-- <mat-tab-group *ngIf="index" mat-stretch-tabs="true" mat-align-tabs="start">
     <mat-tab label="{{index.categoryDesc}}">
       <mat-form-field class="input-field-full-width">
         <mat-label>Filter</mat-label>
@@ -19,4 +19,24 @@
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
           </table>
     </mat-tab>
-  </mat-tab-group>
+  </mat-tab-group> -->
+
+<div *ngIf="datasource">
+  <p-table  #taxtable [value]="datasource" [globalFilterFields]="displayedColumns"> 
+    <ng-template pTemplate="caption">
+      <input #textinput pInputText type="text" (input)="taxtable.filterGlobal(textinput.value, 'contains')">
+    </ng-template>
+    <ng-template pTemplate="header"> 
+      <tr> 
+        <th>Code</th>
+        <th>Description</th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td>{{ item.code }}</td>
+        <td> {{ item.desc }} </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
