@@ -8,7 +8,6 @@ import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.compone
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
-import { HeaderQuery } from '../../../../queries';
 import { MenuItem } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 

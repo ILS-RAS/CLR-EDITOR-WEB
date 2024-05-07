@@ -13,12 +13,14 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
+import { TaxonomyToolbarComponent } from './components/taxonomy-toolbar/taxonomy-toolbar.component';
 
 @NgModule({
   declarations: [
     DefaultComponent,
     TaxonomyItemsComponent,
-    TaxonomyIndexComponent
+    TaxonomyIndexComponent,
+    TaxonomyToolbarComponent
   ],
   imports: [
     CommonModule,
