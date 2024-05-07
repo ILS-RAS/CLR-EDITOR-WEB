@@ -1,8 +1,12 @@
 <p-toolbar>
     <div>
-        <p-button icon="pi pi-plus" (onClick)="createTaxonomy()" ></p-button>
+        <p-button icon="pi pi-plus" (onClick)="createTaxonomy()"></p-button>
     </div>
 </p-toolbar>
-
-<app-taxonomy-index></app-taxonomy-index>
+<p-sidebar
+    [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}"
+    styleClass="project-sidebar" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false"
+    [showCloseIcon]="true">
+    <app-taxonomy-index></app-taxonomy-index>
+</p-sidebar>
 <app-taxonomy-items></app-taxonomy-items>

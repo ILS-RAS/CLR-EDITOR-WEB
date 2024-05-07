@@ -1,12 +1,11 @@
   <p-sidebar [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}" 
-  [transitionOptions]="'.3s cubic-bezier(0, 0, 0.2, 1)'" 
-  styleClass="layout-config-sidebar w-20rem" [visible]="visible" position="right" [modal]="false"
+  styleClass="project-sidebar" [visible]="visible" position="right" [modal]="false"
   (onHide)="visible = false" [showCloseIcon]="true">
   <ng-template pTemplate="header">{{header?.code}}</ng-template>
   <ng-template pTemplate="content">
     <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
   </ng-template>
-  <ng-template pTemplate="footer">Footer Content</ng-template>
+  <!-- <ng-template pTemplate="footer">Footer Content</ng-template> -->
 </p-sidebar>
 <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
 <app-text-chunk *ngIf="header"></app-text-chunk>

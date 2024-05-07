@@ -12,7 +12,7 @@ import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-
+import { SidebarModule } from 'primeng/sidebar';
 
 @NgModule({
   declarations: [
@@ -28,7 +28,8 @@ import { ButtonModule } from 'primeng/button';
     TableModule,
     InputTextModule,
     ToolbarModule,
-    ButtonModule
+    ButtonModule,
+    SidebarModule
   ]
 })
 export class TaxonomyModule { }
