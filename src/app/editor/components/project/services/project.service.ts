@@ -25,6 +25,8 @@ import { UserService } from '../../user/services/user.service';
 })
 export class ProjectService {
 
+  public $contentVisible = new BehaviorSubject<boolean>(true);
+
   public $projects = new BehaviorSubject<ProjectModel[]>([]);
 
   public $currentProject = new BehaviorSubject<ProjectModel | undefined>(

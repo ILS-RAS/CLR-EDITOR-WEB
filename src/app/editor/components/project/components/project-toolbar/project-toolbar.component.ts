@@ -49,7 +49,18 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
         command: () => this.DeleteHeader(),
       },
       {
-        label: 'Close',
+        separator: true
+      },
+      {
+        label: 'Show Content',
+        icon: 'pi pi-list',
+        command: () => this.showContent()
+      },
+      {
+        separator: true
+      },
+      {
+        label: 'Close Project',
         icon: 'pi pi-times',
         command: () => this.Close()
       },
@@ -80,12 +91,14 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
         }
       });
   }
+
   EditHeader() {
     this.dialog.open(TextHeaderEditorComponent, {
       width: '600px',
       data: this.header,
     });
   }
+
   AddHeader() {
     this.dialog.open(TextHeaderEditorComponent, {
       width: '600px',
@@ -106,5 +119,9 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
       this.projectService.$currentChunk.next(undefined);
       this.projectService.$currentVersionChunks.next(undefined);
     }
+  }
+
+  showContent() {
+    this.projectService.$contentVisible.next(true);
   }
 }

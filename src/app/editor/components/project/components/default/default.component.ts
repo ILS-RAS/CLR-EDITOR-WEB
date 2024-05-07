@@ -33,9 +33,15 @@ export class DefaultComponent extends BaseComponent implements OnInit {
         this.visible = true;
       }
     });
+
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.header = item;
     });
+
+    this.projectService.$contentVisible.pipe(takeUntil(this.destroyed)).subscribe(visible=>{
+      this.visible = visible;
+    });
+    
   }
 
   Close() {
