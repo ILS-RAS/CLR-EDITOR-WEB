@@ -1,10 +1,7 @@
 import {
-  AfterContentInit,
-  AfterViewChecked,
   Component,
-  OnChanges,
+  OnDestroy,
   OnInit,
-  SimpleChanges,
 } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
@@ -13,8 +10,7 @@ import {
   HeaderModel,
   IndexModel,
 } from '../../../../models';
-import { ActionService } from '../../services/action.service';
-import { Action } from '../../../../enums';
+
 import {
   FormControl,
   UntypedFormBuilder,
@@ -26,16 +22,16 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
 import { MenuItem } from 'primeng/api';
-import { MatDialog } from '@angular/material/dialog';
-import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
-
+import { ConfirmationService, MessageService } from 'primeng/api';
 @Component({
   selector: 'app-text-chunk',
   templateUrl: './text-chunk.component.html',
   styleUrl: './text-chunk.component.scss',
+  providers: [DialogService, ConfirmationService, MessageService]
 })
-export class TextChunkComponent extends BaseComponent implements OnInit {
+export class TextChunkComponent extends BaseComponent implements OnInit, OnDestroy {
   header?: HeaderModel;
   chunk?: ChunkViewModel;
   versions?: ChunkViewModel[];
@@ -46,12 +42,14 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
   isSelected: boolean = false;
   items: MenuItem[] = [];
   public progressBarIsOn?: boolean;
-
+  ref: DynamicDialogRef | undefined;
   constructor(
     private projectService: ProjectService,
     private formBuilder: UntypedFormBuilder,
     private uiService: UiService,
-    public dialog: MatDialog
+    public dialogService: DialogService,
+    public confirmationService: ConfirmationService,
+    public messageService: MessageService
   ) {
     super();
 
@@ -124,11 +122,17 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
 
   DeleteChunk() {
     let chunk = this.projectService.$currentChunk.value;
-    this.dialog
-      .open(ConfirmComponent, { data: chunk?.value })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res && chunk) {
+    this.confirmationService.confirm({
+      message: 'Do you want to delete this record?',
+      header: 'Delete Confirmation',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass:"p-button-danger p-button-text",
+      rejectButtonStyleClass:"p-button-text p-button-text",
+      acceptIcon:"none",
+      rejectIcon:"none",
+
+      accept: () => {
+        if (chunk) {
           this.uiService.$progressBarIsOn.next(true);
           this.projectService
             .DeleteChunk(chunk)
@@ -137,16 +141,29 @@ export class TextChunkComponent extends BaseComponent implements OnInit {
             })
             .finally(() => {
               this.uiService.$progressBarIsOn.next(false);
+              if(chunk){
+                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: `${chunk.indexName} text deleted`});
+              }
             });
         }
-      });
+      },
+      reject: () => {
+          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
+      }
+  });
   }
 
   EditChunk() {
-    this.dialog.open(TextChunkEditorComponent, {
-      width: '600px',
+    this.ref = this.dialogService.open(TextChunkEditorComponent, { 
       data: this.chunk,
-    });
+      header: 'Fragmentum'
+  });
   }
+
+  OnDestroy() {
+    if (this.ref) {
+        this.ref.close();
+    }
+}
 
 }

@@ -20,6 +20,9 @@ import { SpeedDialModule } from 'primeng/speeddial';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 import { ProjectToolbarComponent } from './components/project-toolbar/project-toolbar.component';
 import { DefaultComponent } from './components/default/default.component';
@@ -63,7 +66,10 @@ import { DialogComponent } from '../../../widgets/dialog/dialog.component';
     SpeedDialModule,
     TieredMenuModule,
     IconFieldModule,
-    InputIconModule
-  ]
+    InputIconModule,
+    InputTextareaModule,
+    ConfirmDialogModule,
+    ToastModule
+  ],
 })
 export class ProjectModule { }

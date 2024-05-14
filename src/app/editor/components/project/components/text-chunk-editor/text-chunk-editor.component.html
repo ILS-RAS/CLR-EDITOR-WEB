@@ -1,5 +1,10 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Fragmentum'>
+<app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" [title]="title">
     <form class="form" [formGroup]="form">
-      <textarea rows="10" matInput formControlName="chunkInput" required></textarea>
+      <textarea 
+        rows="14" 
+        cols="100" 
+        pInputTextarea 
+        [autoResize]="true"
+        formControlName="chunkInput"></textarea>
     </form>
 </app-dialog>
