@@ -1,3 +1,2 @@
-<app-dialog (onCancel)="Cancel()" (onSave)="Open()" [disabled]="isDisabled" title='Проекты'>
-    <p-dropdown [options]="projects" [(ngModel)]="selected" optionLabel="code" [showClear]="true" placeholder="Select a project" class="w-full" [style]="{'width': '100%', 'max-width': '500px'}"></p-dropdown>
-</app-dialog>
+<p-dropdown [options]="projects" [(ngModel)]="selected" optionLabel="code" [showClear]="true" (onClear)="Clear()"
+placeholder="Выбрать проект..." class="w-full" [style]="{'width': '100%', 'max-width': '500px', 'min-width': '500px'}" (onChange)="Change()"></p-dropdown>

@@ -16,6 +16,7 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
   form: UntypedFormGroup;
   isDisabled: boolean = false;
   visible: boolean = true;
+  label: string = "Index";
   constructor(
     public dialogRef: MatDialogRef<TextIndexItemEditorComponent>,
     @Inject(MAT_DIALOG_DATA) public index: IndexModel,

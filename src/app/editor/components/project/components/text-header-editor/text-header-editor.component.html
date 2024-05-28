@@ -1,5 +1,4 @@
-<!-- <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" [title]='title'>
-    <form class="form" [formGroup]="form">
+<!-- <form class="form" [formGroup]="form">
         <mat-form-field class="input-field-full-width">
           <mat-label>Index</mat-label>
           <input matInput formControlName="codeInput" required>
@@ -24,5 +23,19 @@
           <mat-label>Bibliographia</mat-label>
           <textarea rows="10" matInput formControlName="biblioInput" required></textarea>
         </mat-form-field>
-      </form>
-  </app-dialog> -->
+      </form> -->
+
+<p-dialog [header]="title" [(visible)]="isDisabled" [modal]="true" [style]="{ width: '30vw', height:'50%' }"
+  [draggable]="false" [resizable]="false">
+  <form class="form" [formGroup]="form">
+    <label for="codeInput">Код</label>
+    <input type="text" id="codeInput" pInputText formControlName="codeInput" required="true" />
+  </form>
+  <ng-template pTemplate="footer">
+    <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()"
+      [disabled]="isDisabled"></p-button>
+    <p-button label="Cancel" (click)="Cancel()" [text]="true"
+      styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+      class="w-full"></p-button>
+  </ng-template>
+</p-dialog>

@@ -3,10 +3,7 @@ import { BaseComponent } from '../../../../../components/base/base/base.componen
 import { HeaderModel, ProjectModel } from '../../../../models';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
-import { MatDialog } from '@angular/material/dialog';
 import { takeUntil } from 'rxjs';
-import { ProjectSelectorComponent } from '../project-selector/project-selector.component';
-
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
@@ -18,8 +15,7 @@ export class DefaultComponent extends BaseComponent implements OnInit {
   public visible: boolean = false;
   constructor(
     private projectService: ProjectService,
-    private router: Router,
-    public dialog: MatDialog,
+    private router: Router
   ) {
       super();
   }
@@ -27,11 +23,6 @@ export class DefaultComponent extends BaseComponent implements OnInit {
     
     this.projectService.$currentProject.pipe(takeUntil(this.destroyed)).subscribe(item=>{
       this.project = item;
-      if(!this.project){
-        this.dialog.open(ProjectSelectorComponent, { width: '600px' });
-      }else{
-        this.visible = true;
-      }
     });
 
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe(item=>{

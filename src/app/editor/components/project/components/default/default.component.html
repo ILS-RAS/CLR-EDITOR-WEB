@@ -1,8 +1,16 @@
 <p-sidebar
   [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}"
-  styleClass="project-sidebar" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false"
-  [showCloseIcon]="true">
-  <ng-template pTemplate="header">{{header?.code}}</ng-template>
+  styleClass="project-sidebar" [visible]="true" position="right" [modal]="false" [showCloseIcon]="false">
+  <ng-template pTemplate="header">
+    <p-toolbar>
+      <div class="p-toolbar-group-start">
+        {{header?.code}}
+    </div>
+    <div class="p-toolbar-group-end">
+      
+    </div>
+    </p-toolbar>
+  </ng-template>
   <ng-template pTemplate="content">
     <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
   </ng-template>

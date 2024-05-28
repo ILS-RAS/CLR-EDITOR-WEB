@@ -1,20 +1,18 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ProjectModel } from '../../../../models/projectModel';
-import { MatDialog } from '@angular/material/dialog';
 import { TextHeaderEditorComponent } from '../text-header-editor/text-header-editor.component';
 import { ProjectService } from '../../services/project.service';
 import { HeaderModel } from '../../../../models';
-import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
-import { UiService } from '../../../../../services/ui.service';
 import { MenuItem } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ProjectSelectorComponent } from '../project-selector/project-selector.component';
 @Component({
   selector: 'app-project-toolbar',
   templateUrl: './project-toolbar.component.html',
-  styleUrl: './project-toolbar.component.scss',
+  styleUrl: './project-toolbar.component.scss'
 })
 export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   @Input() project?: ProjectModel;
@@ -23,46 +21,30 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   items: MenuItem[] = [];
   selected?: HeaderModel;
   headers?: HeaderModel[];
+  ref: DynamicDialogRef | undefined;
   constructor(
-    public dialog: MatDialog,
     private projectService: ProjectService,
-    private uiService: UiService
+    public dialogService: DialogService
   ) {
     super();
   }
   ngOnInit(): void {
     this.items = [
       {
-        label: 'Add',
+        label: 'Добавить текст',
         icon: 'pi pi-plus',
         command: () => this.AddHeader(),
       },
       {
-        label: 'Edit',
+        label: 'Редактировать текст',
         icon: 'pi pi-pencil',
         command: () => this.EditHeader(),
       },
       {
-        label: 'Delete',
+        label: 'Удалить текст',
         icon: 'pi pi-trash',
         command: () => this.DeleteHeader(),
-      },
-      {
-        separator: true
-      },
-      {
-        label: 'Show Content',
-        icon: 'pi pi-list',
-        command: () => this.showContent()
-      },
-      {
-        separator: true
-      },
-      {
-        label: 'Close Project',
-        icon: 'pi pi-times',
-        command: () => this.Close()
-      },
+      }
     ];
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((item) => {
       this.selected = this.header = item;
@@ -72,34 +54,36 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     })
 
   }
+  OpenProject(): void {
+    this.dialogService.open(ProjectSelectorComponent, { width:'600px', height:'100%' });
+  }
 
   DeleteHeader() {
-    this.dialog
-      .open(ConfirmComponent, { width:'600px', data: this.header?.desc })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res && this.header) {
-          this.projectService.MarkHeaderAsDeleted(this.header).then(() => {
-            if (this.header?.projectId) {
-              this.projectService.GetHeadersByProjectId(this.header.projectId);
-              this.projectService.$currentHeader.next(undefined);
-              this.projectService.$currentIndeces.next(undefined);
-              this.uiService.$indexPanelOpened.next(false);
-            }
-          });
-        }
-      });
+    // this.dialogService
+    //   .open(ConfirmComponent, { width:'600px', data: this.header?.desc })
+    //   .subscribe((res) => {
+    //     if (res && this.header) {
+    //       this.projectService.MarkHeaderAsDeleted(this.header).then(() => {
+    //         if (this.header?.projectId) {
+    //           this.projectService.GetHeadersByProjectId(this.header.projectId);
+    //           this.projectService.$currentHeader.next(undefined);
+    //           this.projectService.$currentIndeces.next(undefined);
+    //           this.uiService.$indexPanelOpened.next(false);
+    //         }
+    //       });
+    //     }
+    //   });
   }
 
   EditHeader() {
-    this.dialog.open(TextHeaderEditorComponent, {
+    this.dialogService.open(TextHeaderEditorComponent, {
       width: '600px',
       data: this.header,
     });
   }
 
   AddHeader() {
-    this.dialog.open(TextHeaderEditorComponent, {
+    this.dialogService.open(TextHeaderEditorComponent, {
       width: '600px',
       data: new HeaderModel({}),
     });
@@ -109,7 +93,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     this.onClose.emit();
   }
 
-  Change(event: DropdownChangeEvent) {
+  Change() {
     if(this.selected && this.selected?._id){
       this.projectService.$currentHeader.next(this.selected);
       this.projectService.GetIndeces(this.selected?._id);

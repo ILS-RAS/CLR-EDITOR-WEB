@@ -1,15 +1,13 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { MenuItem, MessageService, TreeNode } from 'primeng/api';
+import { MenuItem, TreeNode } from 'primeng/api';
 import { ChunkViewModel, HeaderModel, IndexModel } from '../../../../models';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { ProjectService } from '../../services/project.service';
 import { takeUntil } from 'rxjs';
 import { TextIndexBuilderComponent } from '../text-index-builder/text-index-builder.component';
-import { MatDialog } from '@angular/material/dialog';
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
-import { ConfirmComponent } from '../../../../../widgets/confirm/confirm.component';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
-
+import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 @Component({
   selector: 'app-text-index-tree',
   templateUrl: './text-index-tree.component.html',
@@ -29,7 +27,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   constructor(
     private cd: ChangeDetectorRef,
     private projectService: ProjectService,
-    public dialog: MatDialog
+    public dialogService: DialogService
   ) {
     super();
   }
@@ -81,7 +79,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   CreateChunk() {
     let inx = this.projectService.$currentIndex.value;
     if(inx && inx._id){
-      this.dialog.open(TextChunkEditorComponent, {
+      this.dialogService.open(TextChunkEditorComponent, {
         width: '600px',
         data: new ChunkViewModel({ indexId: inx._id}),
       });
@@ -89,7 +87,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   }
   
   CreateTopIndex() {
-    this.dialog.open(TextIndexBuilderComponent, {
+    this.dialogService.open(TextIndexBuilderComponent, {
       width: '600px',
       data: new IndexModel({
         headerId: this.projectService.$currentHeader.value?._id,
@@ -98,27 +96,27 @@ export class TextIndexTreeComponent extends BaseComponent {
   }
 
   DeleteIndex() {
-    let inx = this.projectService.$currentIndex.value;
-    this.dialog
-      .open(ConfirmComponent, { width: `600px`, hasBackdrop: true, data: inx })
-      .afterClosed()
-      .subscribe((res) => {
-        if (res && inx && inx.headerId) {
-          this.projectService.DeleteIndex(inx).then(() => {
-            if (inx && inx.headerId) {
-              this.projectService.GetIndeces(inx.headerId);
-            }
-          });
-        }
-      });
+    // let inx = this.projectService.$currentIndex.value;
+    // this.dialog
+    //   .open(ConfirmComponent, { width: `600px`, hasBackdrop: true, data: inx })
+    //   .afterClosed()
+    //   .subscribe((res) => {
+    //     if (res && inx && inx.headerId) {
+    //       this.projectService.DeleteIndex(inx).then(() => {
+    //         if (inx && inx.headerId) {
+    //           this.projectService.GetIndeces(inx.headerId);
+    //         }
+    //       });
+    //     }
+    //   });
   }
 
   EditIndexName() {
     let inx = this.projectService.$currentIndex.value;
     if (inx) {
-      this.dialog.open(TextIndexItemEditorComponent, {
+      this.dialogService.open(TextIndexItemEditorComponent, {
         width: `600px`,
-        hasBackdrop: true,
+        modal: true,
         data: new IndexModel({
           _id: inx._id,
           parentId: inx.parentId,
@@ -134,7 +132,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   CreateChildIndex() {
     let inx = this.projectService.$currentIndex.value;
     if (inx && inx._id) {
-      this.dialog.open(TextIndexBuilderComponent, {
+      this.dialogService.open(TextIndexBuilderComponent, {
         width: '600px',
         data: new IndexModel({
           parentId: inx._id,

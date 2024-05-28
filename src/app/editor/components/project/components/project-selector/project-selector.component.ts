@@ -1,21 +1,18 @@
-import { Component, Inject, OnInit } from '@angular/core';
-import { ProjectModel } from '../../../../models/projectModel';
-import { FormControl, Validators } from '@angular/forms';
-import { ProjectService } from '../../services/project.service';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
-import { ProjectType } from '../../../../enums/projectType';
+import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { LayoutService } from '../../../../../layout/service/layout.service';
+import { ProjectType } from '../../../../enums/projectType';
+import { ProjectModel } from '../../../../models/projectModel';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-project-selector',
   templateUrl: './project-selector.component.html',
   styleUrl: './project-selector.component.scss',
 })
-export class ProjectSelectorComponent extends BaseComponent implements OnInit {
-  
+export class ProjectSelectorComponent extends BaseComponent implements OnInit {  
   projects: ProjectModel[] = [];
 
   selected!: ProjectModel;
@@ -28,9 +25,6 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
 
   constructor(
     private projectService: ProjectService,
-    private layoutService: LayoutService,
-    public dialogRef: MatDialogRef<ProjectSelectorComponent>,
-    @Inject(MAT_DIALOG_DATA) public data: ProjectModel,
     private router: Router,
   ) {
     super();
@@ -45,23 +39,18 @@ export class ProjectSelectorComponent extends BaseComponent implements OnInit {
   }
 
   Cancel() {
-    this.dialogRef.close();
+    this.visible = false;
   }
 
-  Open() {
+  Clear() {
+    this.projectService.InitProjectContext(undefined);
+  }
+
+  Change() {
     let selectedProject = this.selected as unknown as ProjectModel;
     if(selectedProject && selectedProject._id){
       this.projectService.InitProjectContext(selectedProject);
       this.projectService.GetHeadersByProjectId(selectedProject._id);
-      this.Cancel();
-      this.router.navigateByUrl('/project');
-    }
-  }
-
-  Change() {
-    this.isDisabled = this.selected == undefined;
-    if (!this.isDisabled) {
-      this.label = 'Код проекта';
     }
   }
 }
