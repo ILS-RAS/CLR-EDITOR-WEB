@@ -1,0 +1,21 @@
+.layout-topbar {
+    justify-content: space-between;
+}
+
+.layout-topbar-logo {
+    justify-content: center;
+}
+
+@media (max-width: 991px) {
+    .layout-topbar .main-menu {
+        order: 0;
+    }
+
+    .layout-topbar .layout-topbar-logo {
+        order: 1;
+    }
+
+    .layout-topbar .logout {
+        order: 2;   
+    }
+}

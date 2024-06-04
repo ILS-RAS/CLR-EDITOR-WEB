@@ -15,6 +15,7 @@ import { InputIconModule } from 'primeng/inputicon';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { SplitterModule } from 'primeng/splitter';
@@ -68,7 +69,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     InputIconModule,
     InputTextareaModule,
     ConfirmDialogModule,
-    ToastModule
+    ToastModule,
+    ScrollPanelModule
   ],
   providers:[DialogService]
 })

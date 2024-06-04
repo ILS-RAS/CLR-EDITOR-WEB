@@ -22,7 +22,7 @@
   </mat-tab-group> -->
 
 <div *ngIf="datasource">
-  <p-table  #taxtable [value]="datasource" [globalFilterFields]="displayedColumns"> 
+  <p-table  #taxtable [value]="datasource" [globalFilterFields]="displayedColumns" [scrollable]="true" scrollHeight="55vh"> 
     <ng-template pTemplate="caption">
       <input #textinput pInputText type="text" (input)="taxtable.filterGlobal(textinput.value, 'contains')">
     </ng-template>

@@ -6,6 +6,7 @@ import { TaxonomyRoutingModule } from './taxonomy-routing.module';
 import { DefaultComponent } from './components/default/default.component';
 import { TaxonomyItemsComponent } from './components/taxonomy-items/taxonomy-items.component';
 import { TaxonomyIndexComponent } from './components/taxonomy-index/taxonomy-index.component';
+import { TaxonomyToolbarComponent } from './components/taxonomy-toolbar/taxonomy-toolbar.component';
 
 import { ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
@@ -13,7 +14,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
 import { SidebarModule } from 'primeng/sidebar';
-import { TaxonomyToolbarComponent } from './components/taxonomy-toolbar/taxonomy-toolbar.component';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { SplitterModule } from 'primeng/splitter';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { TaxonomyToolbarComponent } from './components/taxonomy-toolbar/taxonomy
     InputTextModule,
     ToolbarModule,
     ButtonModule,
-    SidebarModule
+    SidebarModule,
+    ScrollPanelModule,
+    SplitterModule,
   ]
 })
 export class TaxonomyModule { }

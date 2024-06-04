@@ -1,12 +1,29 @@
-<p-toolbar>
-    <div>
-        <p-button icon="pi pi-plus" (onClick)="createTaxonomy()"></p-button>
-    </div>
-</p-toolbar>
-<p-sidebar
-  [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}"
-  styleClass="project-sidebar" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false"
-  [showCloseIcon]="true">
-  <app-taxonomy-index></app-taxonomy-index>
-</p-sidebar>
-<app-taxonomy-items></app-taxonomy-items>
+ <p-splitter [style]="{height: '100%'}" [panelSizes]="[75, 25]">  
+
+    <ng-template pTemplate>
+      <div [style]="{flex: 'auto'}">
+        <p-toolbar>
+            <div>
+                <p-button icon="pi pi-plus" (onClick)="createTaxonomy()"></p-button>
+            </div>
+        </p-toolbar>
+
+      <!-- <p-sidebar
+        [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}"
+        styleClass="project-sidebar" [visible]="visible" position="right" [modal]="false" (onHide)="visible = false"
+        [showCloseIcon]="true">
+        <app-taxonomy-index></app-taxonomy-index>
+      </p-sidebar> -->
+
+        <app-taxonomy-items></app-taxonomy-items>
+      </div>
+    </ng-template>
+
+    <ng-template pTemplate> 
+      <div [style]="{flex: 'auto'}">
+        <p-scrollPanel>
+          <app-taxonomy-index> </app-taxonomy-index>
+        </p-scrollPanel>
+      </div>
+    </ng-template>  
+</p-splitter>

@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { LayoutService } from '../../../../../layout/service/layout.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../../../../services/auth.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
@@ -25,7 +24,7 @@ export class LoginComponent extends BaseComponent implements OnInit{
     returnUrl: string;
     loginValid = true;
 
-    constructor(public layoutService: LayoutService,
+    constructor(
       private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService

@@ -1,5 +1,5 @@
-<p-sidebar
-  [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px'}"
+<!-- <p-sidebar
+  [style]="{'margin-top': '100px', 'margin-right':'75px', 'height': 'calc(100vh - 9rem)', 'position': 'fixed', 'width':'300px', 'z-index': -1}"
   styleClass="project-sidebar" [visible]="true" position="right" [modal]="false" [showCloseIcon]="false">
   <ng-template pTemplate="header">
     <p-toolbar>
@@ -14,6 +14,34 @@
   <ng-template pTemplate="content">
     <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
   </ng-template>
-</p-sidebar>
-<app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
-<app-text-chunk *ngIf="header"></app-text-chunk>
+</p-sidebar> -->
+<p-splitter [style]="{height: '100%'}" [panelSizes]="[75,25]">
+  <ng-template pTemplate>
+    <div>
+      <div class="flex">
+        <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
+      </div>
+      <app-text-chunk *ngIf="header"></app-text-chunk>
+    </div>
+  </ng-template>
+
+  <ng-template pTemplate>
+    <div [style]="{'display':'flex'}">
+      <p-scrollPanel [style]="{'flex':'auto', 'height':'76vh'}" >
+        <ng-template pTemplate="header">
+            <p-toolbar>
+              <div class="p-toolbar-group-start"> 
+                {{header?.code}}
+              </div>
+              <div class="p-toolbar-group-end">
+              </div>
+            </p-toolbar> 
+        </ng-template>
+        <ng-template pTemplate="content"> 
+          <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+        </ng-template>
+      </p-scrollPanel>
+    </div>
+  </ng-template>
+
+</p-splitter>

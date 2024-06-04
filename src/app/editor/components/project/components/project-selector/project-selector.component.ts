@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
-import { LayoutService } from '../../../../../layout/service/layout.service';
 import { ProjectType } from '../../../../enums/projectType';
 import { ProjectModel } from '../../../../models/projectModel';
 import { ProjectService } from '../../services/project.service';
