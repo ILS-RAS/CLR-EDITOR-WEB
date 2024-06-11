@@ -15,19 +15,20 @@
     <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
   </ng-template>
 </p-sidebar> -->
-<p-splitter [style]="{height: '100%'}" [panelSizes]="[75,25]">
-  <ng-template pTemplate>
+<div class="flex"> 
     <div>
       <div class="flex">
         <app-project-toolbar [project]="project" (onClose)="Close()"></app-project-toolbar>
       </div>
-      <app-text-chunk *ngIf="header"></app-text-chunk>
+      <div>
+        <app-text-chunk *ngIf="header"></app-text-chunk>
+      </div> 
     </div>
-  </ng-template>
 
-  <ng-template pTemplate>
-    <div [style]="{'display':'flex'}">
-      <p-scrollPanel [style]="{'flex':'auto', 'height':'76vh'}" >
+    <p-divider layout="vertical" /> 
+
+    <div>
+      <p-scrollPanel [style]="{'flex':'auto', 'height':'76vh', 'width':'18vw'}" >
         <ng-template pTemplate="header">
             <p-toolbar>
               <div class="p-toolbar-group-start"> 
@@ -42,6 +43,4 @@
         </ng-template>
       </p-scrollPanel>
     </div>
-  </ng-template>
-
-</p-splitter>
+</div>

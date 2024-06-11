@@ -1,3 +1,7 @@
-<div *ngIf="indeces">
+<!-- <div *ngIf="indeces">
   <p-listbox [options]="indeces" [(ngModel)]="selected" optionLabel="categoryCode" (onChange)="Select()" [filter]="true" scrollHeight="65vh"></p-listbox>
+</div> -->
+
+<div *ngIf="indeces">
+  <p-dropdown [options]="indeces" optionLabel="categoryCode" (onChange)="Select()" [(ngModel)]="selected" [style]="{'width': '100%', 'max-width': '500px', 'min-width': '500px'}"></p-dropdown>
 </div>

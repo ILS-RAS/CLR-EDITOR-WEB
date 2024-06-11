@@ -1,4 +1,4 @@
-<p-panel *ngIf="index" [toggleable]="true" [style]="{'margin-top': '15px'}">
+<p-panel *ngIf="index" [toggleable]="true" [style]="{'margin-top': '15px', 'max-width': '73vw'}">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
             {{index.name}}
@@ -17,7 +17,7 @@
     </div>
 </p-panel>
 <div *ngIf="versions">
-    <p-panel *ngFor="let version of versions" [toggleable]="true" [collapsed]="true" [style]="{'margin-top': '15px'}">
+    <p-panel *ngFor="let version of versions" [toggleable]="true" [collapsed]="true" [style]="{'margin-top': '15px', 'max-width': '73vw'}">
         <ng-template pTemplate="header">
             {{version.indexName}}. {{version.headerCode}}
         </ng-template>

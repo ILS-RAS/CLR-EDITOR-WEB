@@ -8,6 +8,7 @@ import { TaxonomyItemsComponent } from './components/taxonomy-items/taxonomy-ite
 import { TaxonomyIndexComponent } from './components/taxonomy-index/taxonomy-index.component';
 import { TaxonomyToolbarComponent } from './components/taxonomy-toolbar/taxonomy-toolbar.component';
 
+import { DropdownModule } from 'primeng/dropdown';
 import { ListboxModule } from 'primeng/listbox';
 import { TableModule } from 'primeng/table';
 import { InputTextModule } from 'primeng/inputtext';
@@ -36,6 +37,7 @@ import { SplitterModule } from 'primeng/splitter';
     SidebarModule,
     ScrollPanelModule,
     SplitterModule,
+    DropdownModule,
   ]
 })
 export class TaxonomyModule { }

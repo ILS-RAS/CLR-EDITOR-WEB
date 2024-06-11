@@ -8,6 +8,7 @@ import { ButtonModule } from 'primeng/button';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
+import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InplaceModule } from 'primeng/inplace';
@@ -70,7 +71,8 @@ import { DialogService } from 'primeng/dynamicdialog';
     InputTextareaModule,
     ConfirmDialogModule,
     ToastModule,
-    ScrollPanelModule
+    ScrollPanelModule,
+    DividerModule
   ],
   providers:[DialogService]
 })
