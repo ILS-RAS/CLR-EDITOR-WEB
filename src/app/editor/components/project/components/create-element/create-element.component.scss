@@ -1,0 +1,7 @@
+.flex-parent{
+    height: 50vh;
+}
+
+:host ::ng-deep .p-dropdown {
+    width: 80%
+}

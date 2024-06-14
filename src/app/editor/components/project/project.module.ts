@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectRoutingModule } from './project-routing.module';
 
 import { ButtonModule } from 'primeng/button';
+import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
@@ -13,6 +14,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InplaceModule } from 'primeng/inplace';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
 import { PanelModule } from 'primeng/panel';
@@ -20,6 +22,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { SpeedDialModule } from 'primeng/speeddial';
 import { SplitterModule } from 'primeng/splitter';
+import { TableModule } from 'primeng/table';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -35,6 +38,9 @@ import { TextIndexItemEditorComponent } from './components/text-index-item-edito
 import { TextIndexTreeComponent } from './components/text-index-tree/text-index-tree.component';
 import { TextHeaderEditorComponent } from './components/text-header-editor/text-header-editor.component';
 import { DialogService } from 'primeng/dynamicdialog';
+import { ElementSelectorComponent } from './components/element-selector/element-selector.component';
+import { ElementToolbarComponent } from './components/element-toolbar/element-toolbar.component';
+import { CreateElementComponent } from './components/create-element/create-element.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -46,7 +52,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     TextIndexTreeComponent,
     TextChunkElementComponent,
     ProjectSelectorComponent,
-    TextHeaderEditorComponent
+    TextHeaderEditorComponent,
+    ElementSelectorComponent,
+    ElementToolbarComponent,
+    CreateElementComponent,
   ],
   imports: [
     CommonModule,
@@ -72,7 +81,10 @@ import { DialogService } from 'primeng/dynamicdialog';
     ConfirmDialogModule,
     ToastModule,
     ScrollPanelModule,
-    DividerModule
+    DividerModule,
+    TableModule,
+    InputTextModule,
+    ChipsModule
   ],
   providers:[DialogService]
 })

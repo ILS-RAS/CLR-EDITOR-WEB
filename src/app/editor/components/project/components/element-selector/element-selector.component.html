@@ -1,0 +1,42 @@
+<div *ngIf="this.currentForm" class="mt-3 max-width">
+    <app-element-toolbar> </app-element-toolbar>
+
+    <p-table [value]="forms" [(selection)]="selected">
+        <ng-template pTemplate="header">
+            <tr>
+                <th></th>
+                <th>Forma</th>
+                <th>Lemma</th>
+                <th>Pars orationis</th>
+                <th>Genus nominis</th>
+                <th>Casus</th>
+                <th>Persona</th>
+                <th>Numerus</th>
+                <th>Tempus</th>
+                <th>Modus</th>
+                <th>Genus verbi</th>
+                <th>Gradus</th>
+                <th>Dialectos</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-form>
+            <tr>
+                <td>
+                    <p-tableRadioButton [value]="form"></p-tableRadioButton>
+                </td>
+                <td>{{form.form}}</td>
+                <td>{{form.lemma}}</td>
+                <td>{{form.pos}}</td>
+                <td>{{form.gender}}</td>
+                <td>{{form.case}}</td>
+                <td>{{form.person}}</td>
+                <td>{{form.number}}</td>
+                <td>{{form.tense}}</td>
+                <td>{{form.mood}}</td>
+                <td>{{form.voice}}</td>
+                <td>{{form.degree}}</td>
+                <td>{{form.dialect}}</td>
+            </tr>
+        </ng-template>    
+    </p-table>
+</div>
