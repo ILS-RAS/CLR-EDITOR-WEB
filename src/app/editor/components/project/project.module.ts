@@ -11,12 +11,14 @@ import { ContextMenuModule } from 'primeng/contextmenu';
 import { DialogModule } from 'primeng/dialog';
 import { DividerModule } from 'primeng/divider';
 import { DropdownModule } from 'primeng/dropdown';
+import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InplaceModule } from 'primeng/inplace';
 import { InputIconModule } from 'primeng/inputicon';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
+import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
@@ -41,6 +43,7 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ElementSelectorComponent } from './components/element-selector/element-selector.component';
 import { ElementToolbarComponent } from './components/element-toolbar/element-toolbar.component';
 import { CreateElementComponent } from './components/create-element/create-element.component';
+import { EditElementComponent } from './components/edit-element/edit-element.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -56,6 +59,7 @@ import { CreateElementComponent } from './components/create-element/create-eleme
     ElementSelectorComponent,
     ElementToolbarComponent,
     CreateElementComponent,
+    EditElementComponent,
   ],
   imports: [
     CommonModule,
@@ -84,7 +88,9 @@ import { CreateElementComponent } from './components/create-element/create-eleme
     DividerModule,
     TableModule,
     InputTextModule,
-    ChipsModule
+    ChipsModule,
+    MessageModule,
+    DynamicDialogModule,
   ],
   providers:[DialogService]
 })

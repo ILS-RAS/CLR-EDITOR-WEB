@@ -33,5 +33,14 @@ public async GetItemsByForm(form: string): Promise<MorphModel[]> {
     return await lastValueFrom<MorphModel[]>(items); 
 }
 
+public async SaveMorph(morph: MorphModel) {
+  let result = this.morphApiService.save(morph, AppType.Morph);
+  return await lastValueFrom<MorphModel>(result);
+}
+
+public async UpdateMorph(morph: MorphModel) {
+  let result = this.morphApiService.patch(morph, AppType.Morph);
+  return await lastValueFrom<MorphModel>(result);
+}
 //#endregion
 }

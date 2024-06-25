@@ -157,4 +157,17 @@ export class ApiService<T extends BaseModel> implements OnInit {
         catchError((e: any) => throwError(console.log(e)))
       );
   }
+
+  getById(id: string, path:string) {
+    return this.httpClient
+      .get(`${environment.API}${path}/${id}`, {
+        headers: this.headers
+      })
+      .pipe(
+        map((res: any) => {
+          return res;
+        }),
+        catchError((e: any) => throwError(console.log(e)))
+      );
+  }
 }

@@ -209,6 +209,12 @@ public async UpdateChunkDefinition(chunk: ChunkModel) {
   return await lastValueFrom(result);
 }
 
+public async GetChunkById(id: string) {
+  let result = this.chunkApiService
+  .getById(id, AppType.Chunk);
+  return await lastValueFrom<ChunkModel>(result);
+}
+
 public async SaveElement(element: ElementModel){
   let result = this.elementApiService
   .save(element, AppType.Element);

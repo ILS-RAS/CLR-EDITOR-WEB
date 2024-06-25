@@ -4,7 +4,13 @@ import { MetaService } from '../../services/meta.service';
 import { TaxonomyCategory } from '../../../../enums';
 import { TaxonomyViewModel } from '../../../../models';
 import { MorphModel } from '../../../../models/morphModel';
-import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { ProjectService } from '../../services/project.service';
+import { MorphService } from '../../../morph/services/morph.service';
+import { takeUntil } from 'rxjs';
+import {DynamicDialogRef} from 'primeng/dynamicdialog';
+import { SelectorService } from '../../services/selector.service';
+
 
 
 @Component({
@@ -14,6 +20,8 @@ import { FormControl, FormGroup, Validators, FormBuilder } from '@angular/forms'
 })
 export class CreateElementComponent extends BaseComponent implements OnInit {
   definitionForm : FormGroup;
+  currentForm?: string;
+  saveSuccessful: boolean = false;
 
   languages?: TaxonomyViewModel[];
   genders?: TaxonomyViewModel[];
@@ -27,13 +35,17 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
   degrees?:TaxonomyViewModel[];
   dialects?:TaxonomyViewModel[];
 
-  constructor(private metaService: MetaService, fb: FormBuilder) {
+  constructor(private metaService: MetaService, 
+    private fb: FormBuilder, 
+    private projectService: ProjectService,
+    private ref: DynamicDialogRef,
+    private selectorService: SelectorService) {
     super();
 
-    this.definitionForm = fb.group({
+    this.definitionForm = this.fb.group({
       lemma: ["", [Validators.required]],
-      form : ["", [Validators.required]],
-      features: [""],
+      form: ["", [Validators.required]],
+      feature: [""],
       lang: ["", [Validators.required]],
       pos:["",[Validators.required]],
       gender: [""],
@@ -63,13 +75,58 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
         this.degrees = this.metaService.GetByCategory(TaxonomyCategory.Degree);
         this.dialects = this.metaService.GetByCategory(TaxonomyCategory.Dialect);
       }
-    )
+    );
+
+    this.projectService.$currentForm
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((form) => {
+        if (form && form.value) {
+          this.currentForm = form.value.toLowerCase();
+        }
+      });
+
+    this.definitionForm.controls['form'].setValue(this.currentForm);
+    this.definitionForm.controls['form'].disable();
+  }
+
+  get _lemma() { 
+    return this.definitionForm.get('lemma')
+  }
+
+  get _lang() {
+    return this.definitionForm.get('lang')
+  }
+
+  get _pos() {
+    return this.definitionForm.get('pos')
   }
 
   onSubmit(): void {
     this.definitionForm.markAllAsTouched();
-    if (!this.definitionForm.valid) {
-      console.log("Validation error")
+    if (this.definitionForm.valid) {
+      let feature = undefined;
+      if (this.definitionForm.get('feature')?.value) {
+        feature = this.definitionForm.get('feature')?.value.toString()
+      }
+      let newMorph = new MorphModel({
+        lemma: this.definitionForm.get('lemma')?.value,
+        form: this.definitionForm.get('form')?.value,
+        pos: this.definitionForm.get('pos')?.value.code,
+        gender: this.definitionForm.get('gender')?.value.code,
+        case: this.definitionForm.get('case')?.value.code,
+        dialect: this.definitionForm.get('dialect')?.value.code,
+        feature: feature,
+        person: this.definitionForm.get('person')?.value.code,
+        number: this.definitionForm.get('number')?.value.code,
+        tense: this.definitionForm.get('tense')?.value.code,
+        mood: this.definitionForm.get('mood')?.value.code,
+        voice: this.definitionForm.get('voice')?.value.code,
+        degree: this.definitionForm.get('degree')?.value.code,
+        lang: this.definitionForm.get('lang')?.value.code,
+        isRule: "false",
+      });
+      this.selectorService.addMorph(newMorph);
+      this.ref.close(newMorph)
+      }
     }
   }
-}

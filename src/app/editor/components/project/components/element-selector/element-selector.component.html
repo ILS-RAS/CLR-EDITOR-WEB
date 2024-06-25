@@ -1,7 +1,7 @@
-<div *ngIf="this.currentForm" class="mt-3 max-width">
+<div *ngIf="this.display" class="mt-3 max-width">
     <app-element-toolbar> </app-element-toolbar>
 
-    <p-table [value]="forms" [(selection)]="selected">
+    <p-table [value]="forms" [(selection)]="selected" (selectionChange)="onChange()">
         <ng-template pTemplate="header">
             <tr>
                 <th></th>
