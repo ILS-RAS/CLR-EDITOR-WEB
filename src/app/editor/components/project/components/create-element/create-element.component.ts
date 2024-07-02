@@ -6,9 +6,8 @@ import { TaxonomyViewModel } from '../../../../models';
 import { MorphModel } from '../../../../models/morphModel';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
-import { MorphService } from '../../../morph/services/morph.service';
 import { takeUntil } from 'rxjs';
-import {DynamicDialogRef} from 'primeng/dynamicdialog';
+import { DynamicDialogRef } from 'primeng/dynamicdialog';
 import { SelectorService } from '../../services/selector.service';
 
 
@@ -20,8 +19,7 @@ import { SelectorService } from '../../services/selector.service';
 })
 export class CreateElementComponent extends BaseComponent implements OnInit {
   definitionForm : FormGroup;
-  currentForm?: string;
-  saveSuccessful: boolean = false;
+  currentForm?: MorphModel;
 
   languages?: TaxonomyViewModel[];
   genders?: TaxonomyViewModel[];
@@ -81,11 +79,11 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
       .pipe(takeUntil(this.destroyed))
       .subscribe((form) => {
         if (form && form.value) {
-          this.currentForm = form.value.toLowerCase();
+          this.currentForm = form;
         }
       });
 
-    this.definitionForm.controls['form'].setValue(this.currentForm);
+    this.definitionForm.controls['form'].setValue(this.currentForm?.form?.toLowerCase());
     this.definitionForm.controls['form'].disable();
   }
 

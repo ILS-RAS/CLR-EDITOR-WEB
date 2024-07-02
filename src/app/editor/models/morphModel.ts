@@ -8,7 +8,7 @@ export class MorphModel extends BaseModel {
   gender?: string;
   case?: string;
   dialect?: string;
-  feature?: string;
+  feature?: string | null;
   person?: string;
   number?: string;
   tense?: string;

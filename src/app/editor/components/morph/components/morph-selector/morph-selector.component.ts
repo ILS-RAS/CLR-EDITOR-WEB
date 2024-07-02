@@ -151,7 +151,7 @@ export class MorphSelectorComponent extends BaseComponent implements OnInit {
         chunkValueItemModel!.case = morph.case;
         chunkValueItemModel!.degree = morph.degree;
         chunkValueItemModel!.dialect = morph.dialect;
-        chunkValueItemModel!.feature = morph.feature;
+        // chunkValueItemModel!.feature = morph.feature;
         chunkValueItemModel!.form = morph.form;
         chunkValueItemModel!.gender = morph.gender;
         chunkValueItemModel!.lang = morph.lang;

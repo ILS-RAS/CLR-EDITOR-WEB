@@ -1,7 +1,7 @@
 <form [formGroup]="definitionForm" (ngSubmit)="onSubmit()">
     <div class="flex flex-column mt-3">
         <label for="form_input"> Form </label>
-        <input pInputText type="text" id="form_input" formControlName="form" [value]="currentForm"> 
+        <input pInputText type="text" id="form_input" formControlName="form"> 
     </div>
 
     <div class="flex flex-column mt-3 mb-2">
@@ -10,7 +10,7 @@
     </div>
 
     <div class="flex flex-column flex-parent flex-wrap flex-parent">
-        <p-dropdown [options]="languages" optionLabel="code" placeholder="Language..." formControlName="lang" class="mt-2 mb-2"> </p-dropdown>
+        <p-dropdown [options]="languages" optionLabel="code" placeholder="Language..." formControlName="lang" dataKey="code" class="mt-2 mb-2"> </p-dropdown>
 
         <p-dropdown [options]="pos" optionLabel="code" placeholder="Part of speech..." formControlName="pos" class="mt-2 mb-2"> </p-dropdown>
 

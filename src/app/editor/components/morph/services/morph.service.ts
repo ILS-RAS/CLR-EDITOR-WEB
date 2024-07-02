@@ -42,5 +42,10 @@ public async UpdateMorph(morph: MorphModel) {
   let result = this.morphApiService.patch(morph, AppType.Morph);
   return await lastValueFrom<MorphModel>(result);
 }
+
+public async DeleteMorph(morph: MorphModel) {
+  let result = this.morphApiService.remove(morph, AppType.Morph);
+  return await lastValueFrom<MorphModel>(result);
+}
 //#endregion
 }

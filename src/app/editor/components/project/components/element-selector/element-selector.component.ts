@@ -37,8 +37,10 @@ export class ElementSelectorComponent extends BaseComponent implements OnInit {
           .then(() => {
             this.selectorService.$currentMorphs.subscribe((forms) => {
               this.forms = forms;
-              this.setChecked(forms);
-              this.display = true;
+              this.selectorService.$selectedDefinition.subscribe((def) => {
+                this.selected = def;
+                this.display = true;
+              })
             })
           })
         };
@@ -54,6 +56,7 @@ export class ElementSelectorComponent extends BaseComponent implements OnInit {
 
   async onChange() {
     if (this.selected) {
+      this.selectorService.$selectedDefinition.next(this.selected);
       let new_id = this.selected?._id;
       let form = this.projectService.$currentForm.getValue()
       if (form) {
