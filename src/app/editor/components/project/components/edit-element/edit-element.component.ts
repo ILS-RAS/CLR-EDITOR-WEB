@@ -119,7 +119,6 @@ export class EditElementComponent extends BaseComponent implements OnInit {
     this.currentForm!.lang = this.definitionForm.get('lang')?.value;
 
     this.selectorService.editMorph(this.currentForm!);
-    console.log(this.currentForm)
     this.ref.close(this.currentForm);
   }
 }
