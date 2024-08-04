@@ -7,7 +7,7 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { InputTextModule } from 'primeng/inputtext';
 import { SidebarModule } from 'primeng/sidebar';
@@ -17,29 +17,23 @@ import { InputSwitchModule } from 'primeng/inputswitch';
 import { RippleModule } from 'primeng/ripple';
 import { RouterModule } from '@angular/router';
 import { MenuModule } from 'primeng/menu';
-@NgModule({
-  declarations: [
-    LayoutComponent,
-    FooterComponent,
-    MenuComponent,
-    SidebarComponent,
-    TopbarComponent
-  ],
-  imports: [
-    CommonModule,
-    BrowserModule,
-    FormsModule,
-    HttpClientModule,
-    BrowserAnimationsModule,
-    InputTextModule,
-    SidebarModule,
-    BadgeModule,
-    RadioButtonModule,
-    InputSwitchModule,
-    RippleModule,
-    RouterModule,
-    MenuModule,
-  ],
-  exports: [LayoutComponent]
-})
+@NgModule({ declarations: [
+        LayoutComponent,
+        FooterComponent,
+        MenuComponent,
+        SidebarComponent,
+        TopbarComponent
+    ],
+    exports: [LayoutComponent], imports: [CommonModule,
+        BrowserModule,
+        FormsModule,
+        BrowserAnimationsModule,
+        InputTextModule,
+        SidebarModule,
+        BadgeModule,
+        RadioButtonModule,
+        InputSwitchModule,
+        RippleModule,
+        RouterModule,
+        MenuModule], providers: [provideHttpClient(withInterceptorsFromDi())] })
 export class LayoutModule { }
