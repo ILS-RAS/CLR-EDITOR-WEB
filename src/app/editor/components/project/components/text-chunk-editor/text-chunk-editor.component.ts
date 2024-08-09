@@ -13,6 +13,7 @@ import { takeUntil } from 'rxjs';
 import { UiService } from '../../../../../services/ui.service';
 import { ChunkStatus, EditionType } from '../../../../enums';
 import { ChunkQuery } from '../../../../queries';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-text-chunk-editor',
@@ -24,17 +25,20 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
   isDisabled: boolean = true;
   visible: boolean = true;
   title: string = 'Fragmentum';
+  chunk: ChunkViewModel;
   constructor(
     private projectService: ProjectService,
     private chunkParser: ChunkParserService,
-    public chunk: ChunkViewModel,
     private formBuilder: UntypedFormBuilder,
-    private uiService: UiService
+    private uiService: UiService,
+    public ref: DynamicDialogRef,
+    public refconf: DynamicDialogConfig
   ) {
     super();
     this.form = this.formBuilder.group({
       chunkInput: new UntypedFormControl(''),
     });
+    this.chunk = refconf.data.chunk;
   }
 
   ngOnInit(): void {

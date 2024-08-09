@@ -1,14 +1,10 @@
-<p-dialog [header]="title" [(visible)]="visible" [modal]="true" [style]="{ width: '30vw', height:'50%' }" [draggable]="false" [resizable]="false">
+<div class="w-full">
   <form class="form" [formGroup]="form">
     <textarea 
-      rows="14" 
-      cols="100" 
-      pInputTextarea 
-      [autoResize]="true"
-      formControlName="chunkInput"></textarea>
-  </form>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="visible = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
-    <p-button label="Cancel" (click)="Cancel()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
-</ng-template>
-</p-dialog>
+        rows="14" 
+        pInputTextarea 
+        formControlName="chunkInput"></textarea>
+    </form>
+  </div>  
+
+<p-button icon="pi pi-check" (click)="visible = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>

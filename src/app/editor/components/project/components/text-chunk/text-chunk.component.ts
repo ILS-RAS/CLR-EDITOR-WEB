@@ -40,6 +40,8 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
   editorForm: UntypedFormGroup;
   currentForm?: ChunkValueItemModel;
   isSelected: boolean = false;
+  first: boolean = false;
+  last: boolean = false;
   items: MenuItem[] = [];
   public progressBarIsOn?: boolean;
   ref: DynamicDialogRef | undefined;
@@ -118,6 +120,22 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
       .subscribe((form) => {
         this.currentForm = form;
       });
+
+    this.projectService.$currentIndexListPosition
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((position) => {
+      if (position === 0) {
+        this.first = true;
+      } else {
+        this.first = false;
+      }
+
+      if (position! + 1 === this.projectService.$currentIndeces.value?.length){
+        this.last = true;
+      } else {
+        this.last = false;
+      }
+    })
   }
 
   DeleteChunk() {
@@ -158,6 +176,14 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
       data: this.chunk,
       header: 'Fragmentum'
   });
+  }
+
+  toNext(){
+    this.projectService.GetNextIndex();
+  }
+
+  toPrev() {
+    this.projectService.GetPrevIndex();
   }
 
   OnDestroy() {

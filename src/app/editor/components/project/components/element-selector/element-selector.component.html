@@ -1,7 +1,6 @@
-<div *ngIf="this.display" class="mt-3 max-width">
+<div *ngIf="this.display" class="mt-3 max-width custom-border">
     <app-element-toolbar> </app-element-toolbar>
-
-    <p-table [value]="forms" [(selection)]="selected" (selectionChange)="onChange()">
+    <p-table [value]="forms" [(selection)]="selected" (selectionChange)="onChange()" styleClass="p-datatable-gridlines" >
         <ng-template pTemplate="header">
             <tr>
                 <th></th>

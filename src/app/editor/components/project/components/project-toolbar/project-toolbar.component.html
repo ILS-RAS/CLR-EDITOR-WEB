@@ -1,15 +1,24 @@
-<p-toolbar [style]="{}">
+<p-toolbar [style]="{'width':'92vw'}">
     <div class="p-toolbar-group-start">
         <app-project-selector></app-project-selector>
     </div>
     <div class="p-toolbar-group-center flex-1">
-        <p-dropdown *ngIf="project" [style]="{'width': '100%', 'max-width': '500px', 'min-width': '500px'}"
+        <p-dropdown *ngIf="project" [style]="{'width': '40vw'}"
             [(ngModel)]="selected" [options]="headers" optionLabel="desc" placeholder="Select a Header"
             (onChange)="Change()"></p-dropdown>
     </div>
     <div class="p-toolbar-group-end">
-        <p-button styleClass="p-button-secondary" [style]="{'margin-right': '15px', 'margin-left': '15px'}"
+        <p-button styleClass="p-button-secondary" [style]="{'margin-right': '0.5vw', 'margin-left': '0.5vw'}"
             icon="pi pi-bars" (click)="menu.toggle($event)"></p-button>
         <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
     </div>
 </p-toolbar>
+
+<p-sidebar [(visible)]="contentsOpened" position="right" styleClass="w-30rem">
+    <ng-template pTemplate="header">
+        <div class="font-semibold text-xl">Contents</div>
+    </ng-template>
+    <div>
+        <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
+    </div>
+</p-sidebar>

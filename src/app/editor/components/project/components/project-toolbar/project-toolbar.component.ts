@@ -21,6 +21,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   items: MenuItem[] = [];
   selected?: HeaderModel;
   headers?: HeaderModel[];
+  contentsOpened: boolean = false;
   ref: DynamicDialogRef | undefined;
   constructor(
     private projectService: ProjectService,
@@ -44,6 +45,12 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
         label: 'Удалить текст',
         icon: 'pi pi-trash',
         command: () => this.DeleteHeader(),
+      },
+      {
+        label: 'Открыть содержание',
+        icon: 'pi pi-list',
+        command: () => this.OpenContents(),
+        disabled: false
       }
     ];
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((item) => {
@@ -51,6 +58,13 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     });
     this.projectService.$projectHeaders.pipe(takeUntil(this.destroyed)).subscribe(headers=>{
       this.headers = headers;
+    })
+    this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((header) => {
+      if (!header) {
+        this.items[3].disabled = true
+      } else {
+        this.items[3].disabled = false
+      }
     })
 
   }
@@ -87,6 +101,10 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
       width: '600px',
       data: new HeaderModel({}),
     });
+  }
+
+  OpenContents() {
+    this.contentsOpened = true;
   }
 
   Close() {

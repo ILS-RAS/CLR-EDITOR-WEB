@@ -24,23 +24,4 @@
         <app-text-chunk *ngIf="header"></app-text-chunk>
       </div> 
     </div>
-
-    <p-divider layout="vertical" /> 
-
-    <div>
-      <p-scrollPanel [style]="{'flex':'auto', 'height':'76vh', 'width':'18vw'}" >
-        <ng-template pTemplate="header">
-            <p-toolbar>
-              <div class="p-toolbar-group-start"> 
-                {{header?.code}}
-              </div>
-              <div class="p-toolbar-group-end">
-              </div>
-            </p-toolbar> 
-        </ng-template>
-        <ng-template pTemplate="content"> 
-          <app-text-index-tree *ngIf="header" [header]="header"></app-text-index-tree>
-        </ng-template>
-      </p-scrollPanel>
-    </div>
 </div>

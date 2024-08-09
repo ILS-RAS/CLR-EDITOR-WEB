@@ -1,10 +1,12 @@
-<p-panel *ngIf="index" [toggleable]="true" [style]="{'margin-top': '15px', 'max-width': '73vw'}">
+<p-panel *ngIf="index" [toggleable]="true" [style]="{'margin-top': '15px', 'max-width': '92vw'}">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
             {{index.name}}
         </div>
     </ng-template>
     <ng-template pTemplate="icons">
+        <p-button class="p-panel-header-icon p-link mr-2" icon="pi pi-chevron-left" [rounded]="true" [disabled]="first" (onClick)="toPrev()"></p-button>
+        <p-button class="p-panel-header-icon p-link mr-2" icon="pi pi-chevron-right" [rounded]="true" [disabled]="last" (onClick)="toNext()"></p-button>
         <button class="p-panel-header-icon p-link mr-2" (click)="menu.toggle($event)">
             <span class="pi pi-cog"></span>
         </button>
@@ -17,7 +19,7 @@
     </div>
 </p-panel>
 <div *ngIf="versions">
-    <p-panel *ngFor="let version of versions" [toggleable]="true" [collapsed]="true" [style]="{'margin-top': '15px', 'max-width': '73vw'}">
+    <p-panel *ngFor="let version of versions" [toggleable]="true" [collapsed]="true" [style]="{'margin-top': '15px', 'max-width': '92vw'}">
         <ng-template pTemplate="header">
             {{version.indexName}}. {{version.headerCode}}
         </ng-template>

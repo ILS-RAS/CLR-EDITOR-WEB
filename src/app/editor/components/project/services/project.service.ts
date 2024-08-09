@@ -47,6 +47,8 @@ export class ProjectService {
 
   public $currentIndex = new BehaviorSubject<IndexModel | undefined>(undefined);
 
+  public $currentIndexListPosition = new BehaviorSubject<number | undefined>(undefined);
+
   public $currentChunk = new BehaviorSubject<ChunkViewModel | undefined>(
     undefined
   );
@@ -147,7 +149,13 @@ public async GetIndeces(headerId: string): Promise<IndexModel[]> {
     )
     .toPromise()
     .then((result) => {
-      this.$currentIndeces.next(result);
+      let res_sorted = result.sort(this.SortIndeces);
+      this.$currentIndeces.next(res_sorted);
+      this.$currentIndexListPosition.next(0);
+      if(result[0]._id) {
+        this.$currentIndex.next(result[0]);
+        this.GetChunk(result[0]._id);
+      }
       return Promise.resolve(result);
     });
 }
@@ -167,6 +175,53 @@ public async DeleteIndex(index: IndexModel) {
   });
 }
 
+public async GetNextIndex() {
+  if (this.$currentIndexListPosition) {
+    let value = this.$currentIndexListPosition.value;
+    this.$currentIndexListPosition.next(value! + 1);
+    this.$currentIndex.next(this.$currentIndeces.value![value! + 1]);
+    this.GetChunk(this.$currentIndex.value!._id!)
+  }
+}
+
+public async GetPrevIndex() {
+  if (this.$currentIndexListPosition) {
+    let value = this.$currentIndexListPosition.value;
+    this.$currentIndexListPosition.next(value! - 1);
+    this.$currentIndex.next(this.$currentIndeces.value![value! - 1]);
+    this.GetChunk(this.$currentIndex.value!._id!)
+  }
+}
+
+private SortIndeces(a: IndexModel, b: IndexModel){
+  if (a.name === b.name) {
+    return 0;
+  }
+
+  let a_arr = a.name!.split('.');
+  let b_arr = b.name!.split('.');
+  
+  let len = Math.min(a_arr.length, b_arr.length);
+
+  for (let i = 0; i < len; i++) {
+    if (Number(a_arr[i]) > Number(b_arr[i])) {
+      return 1;
+    } else if (Number(a_arr[i]) < Number(b_arr[i])) {
+      return - 1
+    }
+  }
+
+  if (a_arr.length < b_arr.length) {
+    return -1;
+  }
+
+  if (b_arr.length < a_arr.length) {
+    return 1;
+  }
+
+  return 0;
+}
+
 //#endregion
 
 //#region Chunk
@@ -182,6 +237,9 @@ public async GetChunk(indexId: string) {
       this.$currentChunk.next(result[0]);
       if (result[0]) {
         this.GetVersionChunks(result[0]._id, result[0].headerLang == 'lat');
+      }
+      else {
+        this.$currentVersionChunks.next(undefined);
       }
       Promise.resolve();
     });

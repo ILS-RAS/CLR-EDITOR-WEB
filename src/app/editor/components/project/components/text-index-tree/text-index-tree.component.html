@@ -1,3 +1,3 @@
 <p-tree [style]="{'border': 'none'}" [value]="nodes" selectionMode="single" [filter]="true" [contextMenu]="cm" (onNodeExpand)="nodeExpand($event)"
-[loading]="loading" (onNodeSelect)="Select($event)" (onNodeUnselect)="Unselect($event)"></p-tree>
-<p-contextMenu #cm [model]="items"></p-contextMenu>
+[loading]="loading" (onNodeSelect)="Select($event)" (onNodeUnselect)="Unselect($event)" [(selection)]="selection"></p-tree>
+<p-contextMenu #cm [model]="items" appendTo="body"></p-contextMenu>

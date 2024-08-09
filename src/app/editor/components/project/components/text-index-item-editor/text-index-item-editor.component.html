@@ -1,4 +1,3 @@
-<p-dialog [header]="label" [(visible)]="isDisabled" [modal]="true" [style]="{ width: '30vw', height:'50%' }" [draggable]="false" [resizable]="false">
   <form class="form" [formGroup]="form">
     <input formControlName="name" required>
     <input formControlName="order" required>
@@ -7,4 +6,3 @@
     <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
     <p-button label="Cancel" (click)="Cancel()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
 </ng-template>
-</p-dialog>

@@ -45,6 +45,15 @@ export class ElementSelectorComponent extends BaseComponent implements OnInit {
           })
         };
       })
+
+    this.projectService.$currentIndex
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((index) => {
+      if (index) {
+        this.selectorService.$currentMorphs.next([]);
+        this.display = false;
+      }
+    })
   }
 
   setChecked(forms: MorphModel[]) {

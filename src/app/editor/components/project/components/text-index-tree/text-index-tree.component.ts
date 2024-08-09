@@ -24,10 +24,14 @@ export class TextIndexTreeComponent extends BaseComponent {
 
   items!: MenuItem[];
 
+  ref: DynamicDialogRef | undefined;
+
+  selection: IndexModel | undefined;
+
   constructor(
     private cd: ChangeDetectorRef,
     private projectService: ProjectService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
   ) {
     super();
   }
@@ -46,6 +50,15 @@ export class TextIndexTreeComponent extends BaseComponent {
           this.cd.markForCheck();
         }
       });
+
+    this.projectService.$currentIndex
+      .pipe(takeUntil(this.destroyed))
+      .subscribe((index) => {
+        if (index) {
+          this.selection = index;
+          console.log(this.selection);
+        }
+      })
 
     this.items = [
       {
@@ -79,19 +92,24 @@ export class TextIndexTreeComponent extends BaseComponent {
   CreateChunk() {
     let inx = this.projectService.$currentIndex.value;
     if(inx && inx._id){
-      this.dialogService.open(TextChunkEditorComponent, {
+      this.ref = this.dialogService.open(TextChunkEditorComponent, {
+        header: 'Chunk creation',
         width: '600px',
-        data: new ChunkViewModel({ indexId: inx._id}),
+        data: {
+          chunk: new ChunkViewModel({ indexId: inx._id})
+        }
       });
     }
   }
   
   CreateTopIndex() {
-    this.dialogService.open(TextIndexBuilderComponent, {
+    this.ref = this.dialogService.open(TextIndexBuilderComponent, {
       width: '600px',
-      data: new IndexModel({
-        headerId: this.projectService.$currentHeader.value?._id,
-      }),
+      data: {
+        index: new IndexModel({
+          headerId: this.projectService.$currentHeader.value?._id,
+        }),
+      }
     });
   }
 
@@ -114,17 +132,19 @@ export class TextIndexTreeComponent extends BaseComponent {
   EditIndexName() {
     let inx = this.projectService.$currentIndex.value;
     if (inx) {
-      this.dialogService.open(TextIndexItemEditorComponent, {
+      this.ref = this.dialogService.open(TextIndexItemEditorComponent, {
         width: `600px`,
         modal: true,
-        data: new IndexModel({
-          _id: inx._id,
-          parentId: inx.parentId,
-          headerId: inx.headerId,
-          name: inx.name,
-          order: inx.order,
-          bookmarked: inx.bookmarked,
-        }),
+        data: {
+          index: new IndexModel({
+            _id: inx._id,
+            parentId: inx.parentId,
+            headerId: inx.headerId,
+            name: inx.name,
+            order: inx.order,
+            bookmarked: inx.bookmarked,
+          }),
+        }
       });
     }
   }
@@ -132,13 +152,15 @@ export class TextIndexTreeComponent extends BaseComponent {
   CreateChildIndex() {
     let inx = this.projectService.$currentIndex.value;
     if (inx && inx._id) {
-      this.dialogService.open(TextIndexBuilderComponent, {
+      this.ref = this.dialogService.open(TextIndexBuilderComponent, {
         width: '600px',
-        data: new IndexModel({
-          parentId: inx._id,
-          headerId: inx.headerId,
-          name: inx.name,
-        }),
+        data: {
+          index: new IndexModel({
+            parentId: inx._id,
+            headerId: inx.headerId,
+            name: inx.name,
+          })
+        }
       });
     }
   }
@@ -171,6 +193,11 @@ export class TextIndexTreeComponent extends BaseComponent {
     this.projectService.$currentIndex.next(
       this.projectService.$currentIndeces.value?.find(
         (i) => i._id == event.node.key
+      )
+    );
+    this.projectService.$currentIndexListPosition.next(
+      this.projectService.$currentIndeces.value?.indexOf(
+        this.projectService.$currentIndex.value!
       )
     );
     this.projectService.$currentForm.next(undefined);

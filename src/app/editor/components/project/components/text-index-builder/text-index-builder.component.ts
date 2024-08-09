@@ -4,12 +4,12 @@ import {
   UntypedFormControl,
   UntypedFormGroup,
 } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { HeaderModel, IndexModel } from '../../../../models';
 import { IndexService } from '../../services/index.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { Helper } from '../../../../../utils';
 import { ProjectService } from '../../services/project.service';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 @Component({
   selector: 'app-text-index-builder',
@@ -20,10 +20,11 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
   isRange: boolean = false;
   isDisabled: boolean = true;
   form: UntypedFormGroup;
+  index: IndexModel;
   constructor(
-    public dialogRef: MatDialogRef<TextIndexBuilderComponent>,
+    public ref: DynamicDialogRef,
+    public refconf: DynamicDialogConfig,
     private projectService: ProjectService,
-    @Inject(MAT_DIALOG_DATA) public index: IndexModel,
     private formBuilder: UntypedFormBuilder
   ) {
     super();
@@ -32,6 +33,7 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
       endValueInput: new UntypedFormControl(''),
       checkControl: new UntypedFormControl(false),
     });
+    this.index = refconf.data.index;
   }
 
   ngOnInit(): void {
@@ -45,7 +47,7 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
   }
 
   Cancel() {
-    this.dialogRef.close();
+    this.ref.close();
   }
 
   Save() {
@@ -64,7 +66,7 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
             }
           });
         }
-        this.dialogRef.close();
+        this.ref.close();
       }
   }
 }

@@ -1,10 +1,10 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IndexModel } from '../../../../models';
-import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { Helper } from '../../../../../utils';
+import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
 
 @Component({
@@ -17,9 +17,10 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
   isDisabled: boolean = false;
   visible: boolean = true;
   label: string = "Index";
+  index: IndexModel;
   constructor(
-    public dialogRef: MatDialogRef<TextIndexItemEditorComponent>,
-    @Inject(MAT_DIALOG_DATA) public index: IndexModel,
+    public ref: DynamicDialogRef,
+    public refconf: DynamicDialogConfig,
     private formBuilder: UntypedFormBuilder,
     private projectService: ProjectService
     ){
@@ -27,7 +28,8 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
       this.form = this.formBuilder.group({
         name: new UntypedFormControl(''),
         order: new UntypedFormControl('')
-      })
+      });
+      this.index = refconf.data.index;
     }
 
   ngOnInit(): void {
@@ -40,7 +42,7 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
   }
 
   Cancel(): void {
-    this.dialogRef.close();
+    this.ref.close();
   }
 
   Save(): void {
@@ -51,7 +53,7 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
       let savedIndex = item as IndexModel;
       if (savedIndex && savedIndex.headerId) {
         this.projectService.GetIndeces(savedIndex.headerId);
-        this.dialogRef.close()
+        this.ref.close()
       }
     })
 
