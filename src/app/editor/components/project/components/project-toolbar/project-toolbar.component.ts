@@ -9,6 +9,8 @@ import { MenuItem } from 'primeng/api';
 import { DropdownChangeEvent } from 'primeng/dropdown';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { ProjectSelectorComponent } from '../project-selector/project-selector.component';
+
+
 @Component({
   selector: 'app-project-toolbar',
   templateUrl: './project-toolbar.component.html',
@@ -25,7 +27,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   constructor(
     private projectService: ProjectService,
-    public dialogService: DialogService
+    public dialogService: DialogService,
   ) {
     super();
   }
@@ -60,11 +62,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
       this.headers = headers;
     })
     this.projectService.$currentHeader.pipe(takeUntil(this.destroyed)).subscribe((header) => {
-      if (!header) {
-        this.items[3].disabled = true
-      } else {
-        this.items[3].disabled = false
-      }
+      this.items[3].disabled = header? false : true;
     })
 
   }
@@ -72,6 +70,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
     this.dialogService.open(ProjectSelectorComponent, { width:'600px', height:'100%' });
   }
 
+  //#TODO: rewrite to use confirm dialog service, not component
   DeleteHeader() {
     // this.dialogService
     //   .open(ConfirmComponent, { width:'600px', data: this.header?.desc })
@@ -119,6 +118,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
       this.projectService.$currentIndex.next(undefined);
       this.projectService.$currentChunk.next(undefined);
       this.projectService.$currentVersionChunks.next(undefined);
+      this.projectService.$selectedDefinition.next(undefined);
     }
   }
 

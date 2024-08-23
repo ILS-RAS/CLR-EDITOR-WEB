@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { SelectorService } from '../../services/selector.service';
 import { MorphModel } from '../../../../models/morphModel';
 import { OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { takeUntil } from 'rxjs';
-import { TaxonomyViewModel } from '../../../../models';
+import { ChunkValueItemModel, TaxonomyViewModel } from '../../../../models';
 import { TaxonomyCategory } from '../../../../enums';
 import { MetaService } from '../../services/meta.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'app-edit-element',
@@ -17,7 +17,7 @@ import { DynamicDialogRef } from 'primeng/dynamicdialog';
 })
 export class EditElementComponent extends BaseComponent implements OnInit {
   definitionForm: FormGroup;
-  currentForm?: MorphModel;
+  currentForm?: ChunkValueItemModel;
 
   languages?: TaxonomyViewModel[];
   genders?: TaxonomyViewModel[];
@@ -31,7 +31,7 @@ export class EditElementComponent extends BaseComponent implements OnInit {
   degrees?:TaxonomyViewModel[];
   dialects?:TaxonomyViewModel[];
 
-  constructor(private selectorService: SelectorService, 
+  constructor(private projectService: ProjectService,
     private metaService: MetaService, 
     private fb: FormBuilder,
     private ref: DynamicDialogRef) { 
@@ -70,7 +70,8 @@ export class EditElementComponent extends BaseComponent implements OnInit {
       this.dialects = this.metaService.GetByCategory(TaxonomyCategory.Dialect);
     });
 
-    this.selectorService.$selectedDefinition.subscribe((def) => {
+    this.projectService.$selectedDefinition.pipe(takeUntil(this.destroyed))
+    .subscribe((def) => {
       this.currentForm = def;
     })
 
@@ -105,8 +106,8 @@ export class EditElementComponent extends BaseComponent implements OnInit {
       this.currentForm!.feature = feature.join(',')
     }
     
-    this.currentForm!.lemma = this.definitionForm.get('lemma')?.value 
-    this.currentForm!.pos = this.definitionForm.get('pos')?.value
+    this.currentForm!.lemma = this.definitionForm.get('lemma')?.value;  
+    this.currentForm!.pos = this.definitionForm.get('pos')?.value;
     this.currentForm!.gender = this.definitionForm.get('gender')?.value; 
     this.currentForm!.case = this.definitionForm.get('case')?.value;
     this.currentForm!.dialect = this.definitionForm.get('dialect')?.value;
@@ -118,7 +119,7 @@ export class EditElementComponent extends BaseComponent implements OnInit {
     this.currentForm!.degree = this.definitionForm.get('degree')?.value;
     this.currentForm!.lang = this.definitionForm.get('lang')?.value;
 
-    this.selectorService.editMorph(this.currentForm!);
+    this.projectService.editMorph(this.currentForm!);
     this.ref.close(this.currentForm);
   }
 }

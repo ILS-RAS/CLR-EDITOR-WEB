@@ -19,6 +19,7 @@ import { MorphModel } from '../../../models/morphModel';
 import { ElementModel } from '../../../models/elementModel';
 import { query } from '@angular/animations';
 import { UserService } from '../../user/services/user.service';
+import { MorphService } from '../../morph/services/morph.service';
 
 @Injectable({
   providedIn: 'root',
@@ -59,6 +60,11 @@ export class ProjectService {
     ChunkViewModel[] | undefined
   >(undefined);
 
+  public $currentMorphs = new BehaviorSubject<MorphModel[]>([]);
+
+  public $selectedDefinition = new BehaviorSubject<MorphModel|undefined>(undefined);
+
+
   constructor(
     private projectApiService: ApiService<ProjectModel>,
     private headerApiService: ApiService<HeaderModel>,
@@ -67,7 +73,8 @@ export class ProjectService {
     private chunkApiService: ApiService<ChunkModel>,
     private interpApiService: ApiService<InterpModel>,
     private elementApiService:ApiService<ElementModel>,
-    private elementViewApiService:ApiService<ElementViewModel>
+    private elementViewApiService:ApiService<ElementViewModel>,
+    private morphService: MorphService,
   ) {}
 
   public InitProjectContext(project: ProjectModel | undefined) {
@@ -175,12 +182,15 @@ public async DeleteIndex(index: IndexModel) {
   });
 }
 
+//TO DO: join these two into one function
 public async GetNextIndex() {
   if (this.$currentIndexListPosition) {
     let value = this.$currentIndexListPosition.value;
     this.$currentIndexListPosition.next(value! + 1);
     this.$currentIndex.next(this.$currentIndeces.value![value! + 1]);
     this.GetChunk(this.$currentIndex.value!._id!)
+    this.$currentForm.next(undefined);
+    this.$selectedDefinition.next(undefined);
   }
 }
 
@@ -189,7 +199,9 @@ public async GetPrevIndex() {
     let value = this.$currentIndexListPosition.value;
     this.$currentIndexListPosition.next(value! - 1);
     this.$currentIndex.next(this.$currentIndeces.value![value! - 1]);
-    this.GetChunk(this.$currentIndex.value!._id!)
+    this.GetChunk(this.$currentIndex.value!._id!);
+    this.$currentForm.next(undefined);
+    this.$selectedDefinition.next(undefined);
   }
 }
 
@@ -245,6 +257,11 @@ public async GetChunk(indexId: string) {
     });
 }
 
+public async GetChunkViewById(chunkId: string) {
+  let result = this.chunkViewApiService.getById(chunkId, AppType.ChunkView);
+    return await lastValueFrom<ChunkViewModel>(result);
+}
+
 public async GetChunkByQuery(query: ChunkQuery){
   let result = this.chunkApiService.findByQuery(new ChunkModel({}), JSON.stringify(query), AppType.Chunk);
   return await lastValueFrom(result);
@@ -285,6 +302,11 @@ public async GetElementView(elementModel: ElementModel){
   return await lastValueFrom(result);
 }
 
+public async GetElementsByQuery(query: ElementQuery) {
+  let result = this.elementApiService.findByQuery(new ElementModel({}), JSON.stringify(query), AppType.Element);
+  return await lastValueFrom<ElementModel[]>(result);
+}
+
 public async DeleteElementsByChunk(chunkId: string){
   let result = this.elementApiService
   .removeByQuery(new  ElementModel({}), JSON.stringify(new ElementQuery({chunkId: chunkId})), AppType.Element);
@@ -321,5 +343,130 @@ public async SaveInterpLink(InterpModel:InterpModel){
   return await lastValueFrom(result);
 }
 
+//#endregion
+//#region Morph
+
+public async getMorphs(form: ChunkValueItemModel) {
+  if (form && form.value) {
+    this.morphService.GetItemsByForm(form.value.toLowerCase())
+    .then((forms) => {
+      this.$currentMorphs.next(forms);
+      let selected = forms.find(item => item._id == this.$currentForm.value?.morphId)
+      if (selected) {
+        this.$selectedDefinition.next(selected);
+      } else {
+        this.$selectedDefinition.next(undefined);
+      }
+    });
+  }
+}
+
+public async addMorph(morph: MorphModel) {
+  this.morphService.SaveMorph(morph).then((item) => {
+    this.$currentMorphs.next(this.$currentMorphs.getValue().concat([item]));
+  });
+}
+
+public async editMorph(morph: MorphModel) {
+  let morphed_elements = await this.GetElementsByQuery(new ElementQuery({morphId: morph._id}));
+  await Promise.all(morphed_elements.map(async (element) => {
+    this.GetChunkById(element.chunkId!).then((chunk) => {
+      let chunk_elements: ChunkValueItemModel[] = JSON.parse(chunk.valueObj as string);
+      let item = chunk_elements.find(elt => elt.morphId === morph._id)
+      if (item) {
+        item.lemma = morph.lemma;
+        item.form = morph.form;
+        item.pos = morph.pos;
+        item.gender = morph.gender;
+        item.case = morph.case;
+        item.dialect = morph.dialect;
+        item.feature = morph.feature;
+        item.person = morph.person;
+        item.number = morph.number;
+        item.tense = morph.tense;
+        item.mood = morph.mood;
+        item.voice = morph.voice;
+        item.lang = morph.lang;
+      }
+      chunk.valueObj = JSON.stringify(chunk_elements);
+      chunk.updated = new Date().toISOString();
+        if (!chunk.created) {
+          chunk.created = new Date('0001-01-01T00:00:00.000Z').toISOString();
+        } 
+        this.UpdateChunkDefinition(chunk);
+    });
+  }));
+  this.morphService.SaveMorph(morph).then((item) => {
+    let morphs = this.$currentMorphs.getValue();
+    if (morphs.find(morph => morph._id === item._id)) {
+      let index = morphs.indexOf(morphs.find(morph => morph._id === item._id)!)
+      morphs[index] = item;
+      this.$currentMorphs.next(morphs);
+      this.$selectedDefinition.next(item);
+    }
+  });
+}
+
+public async deleteMorph() {
+  let morphs = this.$currentMorphs.getValue();
+  let selected = morphs.find(val => val._id === this.$selectedDefinition.getValue()?._id);
+  if (selected) {
+    let morphed_elements = await this.GetElementsByQuery(new ElementQuery({morphId: selected._id}));
+    await Promise.all(morphed_elements.map(async (element) => {
+      let new_element = new ElementModel({
+        _id: element._id,
+        morphId: null,
+        chunkId: element.chunkId,
+        headerId: element.headerId,
+        value: element.value,
+        type: element.type,
+        order: element.order
+      });
+      this.SaveElement(new_element);
+
+      this.GetChunkById(element.chunkId!).then((chunk) => {
+        let chunk_elements: ChunkValueItemModel[] = JSON.parse(chunk.valueObj as string);
+        let item = chunk_elements.find(elt => elt._id === new_element._id);
+        if (item) {
+          item.morphId = null;
+          item.lemma = undefined;
+          item.form = undefined;
+          item.pos = undefined;
+          item.gender = undefined;
+          item.case = undefined;
+          item.dialect = undefined;
+          item.feature = undefined;
+          item.person = undefined;
+          item.number = undefined;
+          item.tense = undefined;
+          item.mood = undefined;
+          item.voice = undefined;
+          item.lang = undefined;
+        }
+        chunk.valueObj = JSON.stringify(chunk_elements);
+        chunk.updated = new Date().toISOString();
+        if (!chunk.created) {
+          chunk.created = new Date('0001-01-01T00:00:00.000Z').toISOString();
+        } 
+        this.UpdateChunkDefinition(chunk);
+      })})).then(() => {        
+        this.morphService.DeleteMorph(selected).then((item) => {
+          if (item) {
+            morphs.forEach((morph_item, index) => {
+              if (morph_item._id === item._id) {
+                morphs.splice(index, 1);
+                this.$currentMorphs.next(morphs);
+              }
+            });
+          }     
+        }).then(() => {
+          this.$selectedDefinition.next(undefined);
+          this.GetChunkViewById(this.$currentChunk.value?._id!).then((res) => {
+            this.$currentChunk.next(res);
+          }); 
+        });
+      })
+  }
+}
 //#endregion
 }

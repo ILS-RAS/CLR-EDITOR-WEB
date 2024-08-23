@@ -8,6 +8,7 @@ import { TextIndexBuilderComponent } from '../text-index-builder/text-index-buil
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+
 @Component({
   selector: 'app-text-index-tree',
   templateUrl: './text-index-tree.component.html',
@@ -56,7 +57,6 @@ export class TextIndexTreeComponent extends BaseComponent {
       .subscribe((index) => {
         if (index) {
           this.selection = index;
-          console.log(this.selection);
         }
       })
 
@@ -72,11 +72,6 @@ export class TextIndexTreeComponent extends BaseComponent {
         command: () => this.CreateChildIndex(),
       },
       {
-        label: 'Create Chunk',
-        icon: 'pi pi-plus',
-        command: () => this.CreateChunk(),
-      },
-      {
         label: 'Edit Index',
         icon: 'pi pi-file-edit',
         command: () => this.EditIndexName(),
@@ -87,19 +82,6 @@ export class TextIndexTreeComponent extends BaseComponent {
         command: () => this.DeleteIndex(),
       },
     ];
-  }
-
-  CreateChunk() {
-    let inx = this.projectService.$currentIndex.value;
-    if(inx && inx._id){
-      this.ref = this.dialogService.open(TextChunkEditorComponent, {
-        header: 'Chunk creation',
-        width: '600px',
-        data: {
-          chunk: new ChunkViewModel({ indexId: inx._id})
-        }
-      });
-    }
   }
   
   CreateTopIndex() {
@@ -202,6 +184,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     );
     this.projectService.$currentForm.next(undefined);
     this.projectService.$currentVersionChunks.next(undefined);
+    this.projectService.$selectedDefinition.next(undefined);
     this.projectService.GetChunk(event.node.key);
   }
 
@@ -209,6 +192,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     this.projectService.$currentForm.next(undefined);
     this.projectService.$currentVersionChunks.next(undefined);
     this.projectService.$currentChunk.next(undefined);
+    this.projectService.$selectedDefinition.next(undefined);
   }
 
   nodeExpand(event: any) {

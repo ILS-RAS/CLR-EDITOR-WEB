@@ -2,13 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { MetaService } from '../../services/meta.service';
 import { TaxonomyCategory } from '../../../../enums';
-import { TaxonomyViewModel } from '../../../../models';
+import { ChunkValueItemModel, TaxonomyViewModel } from '../../../../models';
 import { MorphModel } from '../../../../models/morphModel';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ProjectService } from '../../services/project.service';
 import { takeUntil } from 'rxjs';
 import { DynamicDialogRef } from 'primeng/dynamicdialog';
-import { SelectorService } from '../../services/selector.service';
 
 
 
@@ -19,7 +18,7 @@ import { SelectorService } from '../../services/selector.service';
 })
 export class CreateElementComponent extends BaseComponent implements OnInit {
   definitionForm : FormGroup;
-  currentForm?: MorphModel;
+  currentForm?: ChunkValueItemModel;
 
   languages?: TaxonomyViewModel[];
   genders?: TaxonomyViewModel[];
@@ -36,8 +35,7 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
   constructor(private metaService: MetaService, 
     private fb: FormBuilder, 
     private projectService: ProjectService,
-    private ref: DynamicDialogRef,
-    private selectorService: SelectorService) {
+    private ref: DynamicDialogRef) {
     super();
 
     this.definitionForm = this.fb.group({
@@ -83,7 +81,7 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
         }
       });
 
-    this.definitionForm.controls['form'].setValue(this.currentForm?.form?.toLowerCase());
+    this.definitionForm.controls['form'].setValue(this.currentForm?.value?.toLowerCase());
     this.definitionForm.controls['form'].disable();
   }
 
@@ -106,24 +104,23 @@ export class CreateElementComponent extends BaseComponent implements OnInit {
       if (this.definitionForm.get('feature')?.value) {
         feature = this.definitionForm.get('feature')?.value.toString()
       }
-      let newMorph = new MorphModel({
-        lemma: this.definitionForm.get('lemma')?.value,
-        form: this.definitionForm.get('form')?.value,
-        pos: this.definitionForm.get('pos')?.value.code,
-        gender: this.definitionForm.get('gender')?.value.code,
-        case: this.definitionForm.get('case')?.value.code,
-        dialect: this.definitionForm.get('dialect')?.value.code,
-        feature: feature,
-        person: this.definitionForm.get('person')?.value.code,
-        number: this.definitionForm.get('number')?.value.code,
-        tense: this.definitionForm.get('tense')?.value.code,
-        mood: this.definitionForm.get('mood')?.value.code,
-        voice: this.definitionForm.get('voice')?.value.code,
-        degree: this.definitionForm.get('degree')?.value.code,
-        lang: this.definitionForm.get('lang')?.value.code,
-        isRule: "false",
-      });
-      this.selectorService.addMorph(newMorph);
+      let newMorph = new MorphModel({});
+      newMorph.lemma = this.definitionForm.get('lemma')?.value;
+      newMorph.form = this.definitionForm.get('form')?.value;
+      newMorph.pos = this.definitionForm.get('pos')?.value.code;
+      newMorph.gender = this.definitionForm.get('gender')?.value.code;
+      newMorph.case = this.definitionForm.get('case')?.value.code;
+      newMorph.dialect = this.definitionForm.get('dialect')?.value.code;
+      newMorph.feature = feature;
+      newMorph.person = this.definitionForm.get('person')?.value.code;
+      newMorph.number = this.definitionForm.get('number')?.value.code;
+      newMorph.tense = this.definitionForm.get('tense')?.value.code;
+      newMorph.mood = this.definitionForm.get('mood')?.value.code;
+      newMorph.voice = this.definitionForm.get('voice')?.value.code;
+      newMorph.degree = this.definitionForm.get('degree')?.value.code;
+      newMorph.lang = this.definitionForm.get('lang')?.value.code;
+      newMorph.isRule = "false";
+      this.projectService.addMorph(newMorph);
       this.ref.close(newMorph)
       }
     }

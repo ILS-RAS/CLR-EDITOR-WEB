@@ -1,11 +1,8 @@
-<p-toast />
-<p-confirmDialog [closable]="false"/>
-
 <p-toolbar [style]="{'border':'none'}">
     <p-button icon="pi pi-plus" (onClick)="openAddModal()"></p-button>
-    <p-button icon="pi pi-pencil" (onClick)="openEditModal()"></p-button>
+    <p-button icon="pi pi-pencil" (onClick)="openEditModal()" [disabled]="disableButtons"></p-button>
     <p-button icon="pi pi-sync"></p-button>
-    <p-button icon="pi pi-trash" (onClick)="confirmDelete()"></p-button>
+    <p-button icon="pi pi-trash" (onClick)="confirmDelete()" [disabled]="disableButtons"></p-button>
 </p-toolbar>
 
 <!-- <p-dialog  header="Definitio formae"  [modal]="true" [(visible)]="addModalVisible" [style]="{'height':'100%', 'width':'60%'}">

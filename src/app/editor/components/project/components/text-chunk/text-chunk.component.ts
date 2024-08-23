@@ -2,6 +2,7 @@ import {
   Component,
   OnDestroy,
   OnInit,
+  Input,
 } from '@angular/core';
 import { ProjectService } from '../../services/project.service';
 import { ChunkViewModel } from '../../../../models/chunkViewModel';
@@ -25,6 +26,7 @@ import { MenuItem } from 'primeng/api';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { MorphModel } from '../../../../models/morphModel';
 @Component({
   selector: 'app-text-chunk',
   templateUrl: './text-chunk.component.html',
@@ -32,6 +34,8 @@ import { ConfirmationService, MessageService } from 'primeng/api';
   providers: [DialogService, ConfirmationService, MessageService]
 })
 export class TextChunkComponent extends BaseComponent implements OnInit, OnDestroy {
+  currentDef?: MorphModel;
+
   header?: HeaderModel;
   chunk?: ChunkViewModel;
   versions?: ChunkViewModel[];
@@ -42,6 +46,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
   isSelected: boolean = false;
   first: boolean = false;
   last: boolean = false;
+  canCreate: boolean = false;
   items: MenuItem[] = [];
   public progressBarIsOn?: boolean;
   ref: DynamicDialogRef | undefined;
@@ -72,6 +77,11 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
         command: (event) => this.EditChunk(),
       },
       {
+        label: 'Create',
+        icon: 'pi pi-pencil',
+        command: (event) => this.CreateChunk(),
+      },
+      {
         label: 'Delete',
         icon: 'pi pi-times',
         command: (event) => this.DeleteChunk(),
@@ -96,11 +106,21 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
       .pipe(takeUntil(this.destroyed))
       .subscribe((item) => {
         this.chunk = item;
+        this.canCreate = true;
         if (this.chunk) {
           this.chunk.elements = JSON.parse(item?.valueObj as string);
+          this.canCreate = false;
         }
+        this.items[0].visible = !this.canCreate;
+        this.items[1].visible = this.canCreate;
+        this.items[2].visible = !this.canCreate;
         this.uiService.$progressBarIsOn.next(false);
       });
+
+    this.projectService.$selectedDefinition.pipe(takeUntil(this.destroyed))
+    .subscribe((def) => {
+      this.currentDef = def;
+    })
 
     this.projectService.$currentVersionChunks
       .pipe(takeUntil(this.destroyed))
@@ -124,51 +144,44 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
     this.projectService.$currentIndexListPosition
     .pipe(takeUntil(this.destroyed))
     .subscribe((position) => {
-      if (position === 0) {
-        this.first = true;
-      } else {
-        this.first = false;
-      }
-
-      if (position! + 1 === this.projectService.$currentIndeces.value?.length){
-        this.last = true;
-      } else {
-        this.last = false;
-      }
+      this.first = position === 0 ? true : false;
+      this.last = position! + 1 === this.projectService.$currentIndeces.value?.length ? true : false;
     })
   }
 
   DeleteChunk() {
     let chunk = this.projectService.$currentChunk.value;
-    this.confirmationService.confirm({
-      message: 'Do you want to delete this record?',
-      header: 'Delete Confirmation',
-      icon: 'pi pi-info-circle',
-      acceptButtonStyleClass:"p-button-danger p-button-text",
-      rejectButtonStyleClass:"p-button-text p-button-text",
-      acceptIcon:"none",
-      rejectIcon:"none",
+    if (chunk) {
+      this.confirmationService.confirm({
+        message: 'Do you want to delete this record?',
+        header: 'Delete Confirmation',
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass:"p-button-danger p-button-text",
+        rejectButtonStyleClass:"p-button-text p-button-text",
+        acceptIcon:"none",
+        rejectIcon:"none",
 
-      accept: () => {
-        if (chunk) {
-          this.uiService.$progressBarIsOn.next(true);
-          this.projectService
-            .DeleteChunk(chunk)
-            .then(() => {
-              this.projectService.$currentChunk.next(undefined);
-            })
-            .finally(() => {
-              this.uiService.$progressBarIsOn.next(false);
-              if(chunk){
-                this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: `${chunk.indexName} text deleted`});
-              }
-            });
+        accept: () => {
+          if (chunk) {
+            this.uiService.$progressBarIsOn.next(true);
+            this.projectService
+              .DeleteChunk(chunk)
+              .then(() => {
+                this.projectService.$currentChunk.next(undefined);
+              })
+              .finally(() => {
+                this.uiService.$progressBarIsOn.next(false);
+                if(chunk){
+                  this.messageService.add({ severity: 'info', summary: 'Confirmed', detail: `Text ${chunk.indexName} deleted`});
+                }
+              });
+          }
+        },
+        reject: () => {
+            this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
         }
-      },
-      reject: () => {
-          this.messageService.add({ severity: 'error', summary: 'Rejected', detail: 'You have rejected' });
-      }
-  });
+      });
+    }
   }
 
   EditChunk() {
@@ -176,6 +189,19 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
       data: this.chunk,
       header: 'Fragmentum'
   });
+  }
+
+  CreateChunk() {
+    let inx = this.projectService.$currentIndex.value;
+    if(inx && inx._id){
+      this.ref = this.dialogService.open(TextChunkEditorComponent, {
+        header: 'Chunk creation',
+        width: '600px',
+        data: {
+          chunk: new ChunkViewModel({ indexId: inx._id})
+        }
+      });
+    }
   }
 
   toNext(){

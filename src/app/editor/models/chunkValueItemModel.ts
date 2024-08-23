@@ -6,20 +6,20 @@ export class ChunkValueItemModel extends BaseModel
     value?: string;
     type?: number;
     order?: number;
-    morphId?: string;
+    morphId?: string | null;
     lemma?: string;
     form?: string;
-    pos?: string;
-    gender?: string;
-    case?: string;
-    dialect?: string;
+    pos?: string; 
+    gender?: string | null;
+    case?: string | null;
+    dialect?: string | null;
     feature?: string | null;
-    person?: string;
-    number?: string;
-    tense?: string;
-    mood?: string;
-    voice?: string;
-    degree?: string;
+    person?: string | null;
+    number?: string | null;
+    tense?: string | null;
+    mood?: string | null;
+    voice?: string | null;
+    degree?: string | null;
     lang?: string;
 
     public constructor(fields: Partial<ChunkValueItemModel>) {

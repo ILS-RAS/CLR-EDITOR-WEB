@@ -6,7 +6,7 @@ export class ElementModel extends BaseModel{
     value?:string;
     type?:number;
     order?:number;
-    morphId?:string;
+    morphId?:string|null;
     headerId?:string;
 
     public constructor(fields: Partial<ElementModel>) {

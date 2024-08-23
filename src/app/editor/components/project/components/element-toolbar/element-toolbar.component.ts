@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
@@ -6,7 +6,8 @@ import { CreateElementComponent } from '../create-element/create-element.compone
 import { MorphModel } from '../../../../models/morphModel';
 import { EditElementComponent } from '../edit-element/edit-element.component';
 import { ConfirmationService } from 'primeng/api';
-import { SelectorService } from '../../services/selector.service';
+import { ProjectService } from '../../services/project.service';
+import { takeUntil } from 'rxjs';
 
 
 @Component({
@@ -14,14 +15,22 @@ import { SelectorService } from '../../services/selector.service';
   templateUrl: './element-toolbar.component.html',
   styleUrl: './element-toolbar.component.scss'
 })
-export class ElementToolbarComponent extends BaseComponent  {
+export class ElementToolbarComponent extends BaseComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
+  disableButtons: boolean = false;
 
   constructor(private dialogService: DialogService, 
     public messageService: MessageService, 
     public confirmationService: ConfirmationService,
-    private selectorService: SelectorService) {
+    private projectService: ProjectService) {
     super();
+  }
+
+  ngOnInit(): void {
+    this.projectService.$selectedDefinition.pipe(takeUntil(this.destroyed))
+    .subscribe((def) => {
+      this.disableButtons = def ? false : true;
+    })
   }
 
   openAddModal() {
@@ -34,7 +43,6 @@ export class ElementToolbarComponent extends BaseComponent  {
     })
   }
 
-  // TODO: add checking whether any of the morphs is selected
   openEditModal() {
     this.ref = this.dialogService.open(EditElementComponent, {width: '60%', height: '100%', modal: true});
 
@@ -50,7 +58,7 @@ export class ElementToolbarComponent extends BaseComponent  {
       message: 'Are you sure you want to delete the selected morph?',
       header: 'Delete',
       accept: () => {
-        this.selectorService.deleteMorph();
+        this.projectService.deleteMorph();
         this.messageService.add({severity:'success', summary:'Success', detail:'The morph has been succesfully deleted'})
       }
     });

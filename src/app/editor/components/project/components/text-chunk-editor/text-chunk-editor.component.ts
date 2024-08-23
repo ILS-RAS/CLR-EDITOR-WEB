@@ -38,11 +38,13 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
     this.form = this.formBuilder.group({
       chunkInput: new UntypedFormControl(''),
     });
-    this.chunk = refconf.data.chunk;
+    this.chunk = refconf.data;
   }
 
   ngOnInit(): void {
-    this.form.controls['chunkInput'].setValue(this.chunk.value);
+    if (this.chunk) {
+      this.form.controls['chunkInput'].setValue(this.chunk.value);
+    }
     this.form.statusChanges
       .pipe(takeUntil(this.destroyed))
       .subscribe((val) => (this.isDisabled = !Helper.IsFormValid(val)));
@@ -111,6 +113,7 @@ export class TextChunkEditorComponent extends BaseComponent implements OnInit {
       })
       .finally(() => {
         this.uiService.$progressBarIsOn.next(false);
+        this.ref.close();
       });
   }
 
