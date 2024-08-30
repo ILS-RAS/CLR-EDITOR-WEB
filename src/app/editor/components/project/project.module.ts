@@ -28,6 +28,7 @@ import { TableModule } from 'primeng/table';
 import { TieredMenuModule } from 'primeng/tieredmenu';
 import { ToastModule } from 'primeng/toast';
 import { ToolbarModule } from 'primeng/toolbar';
+import { TooltipModule } from 'primeng/tooltip';
 import { TreeModule } from 'primeng/tree';
 
 import { DefaultComponent } from './components/default/default.component';
@@ -42,8 +43,7 @@ import { TextHeaderEditorComponent } from './components/text-header-editor/text-
 import { DialogService } from 'primeng/dynamicdialog';
 import { ElementSelectorComponent } from './components/element-selector/element-selector.component';
 import { ElementToolbarComponent } from './components/element-toolbar/element-toolbar.component';
-import { CreateElementComponent } from './components/create-element/create-element.component';
-import { EditElementComponent } from './components/edit-element/edit-element.component';
+import { ElementEditorComponent } from './components/element-editor/element-editor.component';
 @NgModule({
   declarations: [
     DefaultComponent,
@@ -58,8 +58,7 @@ import { EditElementComponent } from './components/edit-element/edit-element.com
     TextHeaderEditorComponent,
     ElementSelectorComponent,
     ElementToolbarComponent,
-    CreateElementComponent,
-    EditElementComponent,
+    ElementEditorComponent,
   ],
   imports: [
     CommonModule,
@@ -91,6 +90,7 @@ import { EditElementComponent } from './components/edit-element/edit-element.com
     ChipsModule,
     MessageModule,
     DynamicDialogModule,
+    TooltipModule,
   ],
   providers:[DialogService]
 })

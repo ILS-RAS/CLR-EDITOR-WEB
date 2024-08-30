@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { MessageService } from 'primeng/api';
-import { CreateElementComponent } from '../create-element/create-element.component';
 import { MorphModel } from '../../../../models/morphModel';
-import { EditElementComponent } from '../edit-element/edit-element.component';
 import { ConfirmationService } from 'primeng/api';
 import { ProjectService } from '../../services/project.service';
 import { takeUntil } from 'rxjs';
+import { ElementEditorComponent } from '../element-editor/element-editor.component';
+import { ChunkValueItemModel } from '../../../../models';
+import { EditableRow } from 'primeng/table';
 
 
 @Component({
@@ -34,7 +35,14 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
   }
 
   openAddModal() {
-    this.ref = this.dialogService.open(CreateElementComponent, {header: 'Definitio formae', width: '60%', height: '100%', modal: true})
+    this.ref = this.dialogService.open(ElementEditorComponent, {
+      header: 'Definitio formae', 
+      width: '60%', 
+      height: '100%', 
+      modal: true,
+      data: {
+        editExisting: false,
+      }})
 
     this.ref.onClose.subscribe((item: MorphModel) => {
       if (item) {
@@ -44,7 +52,13 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
   }
 
   openEditModal() {
-    this.ref = this.dialogService.open(EditElementComponent, {width: '60%', height: '100%', modal: true});
+    this.ref = this.dialogService.open(ElementEditorComponent, {
+      width: '60%', 
+      height: '100%', 
+      modal: true,
+      data: {
+        editExisting: true,
+      }});
 
     this.ref.onClose.subscribe((item: MorphModel) => {
       if (item) {

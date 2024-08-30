@@ -89,6 +89,8 @@ export class ElementSelectorComponent extends BaseComponent implements OnInit {
           item.mood = this.selected?.mood;
           item.voice = this.selected?.voice;
           item.lang = this.selected?.lang;
+
+          this.projectService.$currentForm.next(item);
         }
         chunk.valueObj = JSON.stringify(elements);
         chunk.updated = new Date().toISOString();

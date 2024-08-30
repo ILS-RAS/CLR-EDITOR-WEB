@@ -9,7 +9,7 @@
         <input type="text" id="lem_input" pInputText formControlName="lemma"> 
     </div>
 
-    <div class="flex flex-column flex-parent flex-wrap flex-parent">
+    <div class="flex flex-column flex-parent flex-wrap">
         <p-dropdown [options]="languages" optionLabel="code" optionValue="code" placeholder="Language..." formControlName="lang" class="mt-2 mb-2"> </p-dropdown>
 
         <p-dropdown [options]="pos" optionLabel="code" optionValue="code" placeholder="Part of speech..." formControlName="pos" class="mt-2 mb-2"> </p-dropdown>
@@ -35,39 +35,17 @@
         <p-chips formControlName="feature" placeholder="Features..." class="mt-2 mb-2"> </p-chips>
     </div>
 
+    <div *ngIf="!this.definitionForm.valid"> 
+        <div *ngIf="this._lang?.invalid && (this._lang?.touched || this._lang?.dirty)">
+            <p-message severity="error" text="The field 'Language' must be filled" />
+        </div>
+        <div *ngIf="this._lemma?.invalid && (this._lang?.touched || this._lemma?.dirty)">
+            <p-message severity="error" text="The field 'Lemma' must be filled" />
+        </div>
+        <div *ngIf="this._pos?.invalid && (this._pos?.touched || this._pos?.dirty)">
+            <p-message severity="error" text="The field 'Part of speech' must be filled" />
+        </div>
+    </div>
+
     <p-button type="submit"> Submit </p-button>
-</form>    
-
-<!-- 
-<div class="flex flex-column mt-3 mb-2">
-    <label for="lem_input"> Lemma </label>
-    <input type="text" id="lem_input" pInputText formControlName="lemma"> 
-</div>
-
-<div class="flex flex-column flex-parent flex-wrap flex-parent">
-    <p-dropdown [options]="languages" optionLabel="code" placeholder="Language..." formControlName="lang" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="pos" optionLabel="code" placeholder="Part of speech..." formControlName="pos" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="genders" optionLabel="code" placeholder="Gender..." formControlName="gender" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="cases" optionLabel="code" placeholder="Case..." formControlName="case" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="persons" optionLabel="code" placeholder="Person..." formControlName="person" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="numbers" optionLabel="code" placeholder="Number..." formControlName="number" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="tenses" optionLabel="code" placeholder="Tense..." formControlName="tense" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="moods" optionLabel="code" placeholder="Mood..." formControlName="mood" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="voices" optionLabel="code" placeholder="Voice..." formControlName="voice" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="degrees" optionLabel="code" placeholder="Degree..." formControlName="degree" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-dropdown [options]="dialects" optionLabel="code" placeholder="Dialect..." formControlName="dialect" class="mt-2 mb-2"> </p-dropdown>
-
-    <p-chips formControlName="feature" placeholder="Features..." class="mt-2 mb-2"> </p-chips>
-</div>
-
-<p-button type="submit"> Submit </p-button> -->
+</form>
