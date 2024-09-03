@@ -190,6 +190,7 @@ public async GetNextIndex() {
     this.$currentIndex.next(this.$currentIndeces.value![value! + 1]);
     this.GetChunk(this.$currentIndex.value!._id!)
     this.$currentForm.next(undefined);
+    this.$currentMorphs.next([]);
     this.$selectedDefinition.next(undefined);
   }
 }
@@ -201,6 +202,7 @@ public async GetPrevIndex() {
     this.$currentIndex.next(this.$currentIndeces.value![value! - 1]);
     this.GetChunk(this.$currentIndex.value!._id!);
     this.$currentForm.next(undefined);
+    this.$currentMorphs.next([]);
     this.$selectedDefinition.next(undefined);
   }
 }

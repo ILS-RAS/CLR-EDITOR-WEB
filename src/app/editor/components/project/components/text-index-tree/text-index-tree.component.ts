@@ -192,6 +192,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     );
     this.projectService.$currentForm.next(undefined);
     this.projectService.$currentVersionChunks.next(undefined);
+    this.projectService.$currentMorphs.next([]);
     this.projectService.$selectedDefinition.next(undefined);
     this.projectService.GetChunk(event.node.key);
   }
@@ -199,6 +200,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   Unselect(event: any) {
     this.projectService.$currentForm.next(undefined);
     this.projectService.$currentVersionChunks.next(undefined);
+    this.projectService.$currentMorphs.next([]);
     this.projectService.$currentChunk.next(undefined);
     this.projectService.$selectedDefinition.next(undefined);
   }
