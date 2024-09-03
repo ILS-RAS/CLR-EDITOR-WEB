@@ -1,8 +1,13 @@
-  <form class="form" [formGroup]="form">
-    <input formControlName="name" required>
-    <input formControlName="order" required>
-  </form>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
-    <p-button label="Cancel" (click)="Cancel()" [text]="true"  styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10" class="w-full"></p-button>
-</ng-template>
+<form class="form" [formGroup]="form">
+  <div class="flex flex-wrap">  
+    <div class="flex flex-column">
+      <label for="name">Index name</label>
+      <input class="mb-3" pInputText formControlName="name" id="name" required>
+    </div>
+    <div class="flex flex-column ml-6">
+      <label for="order">Order</label>
+      <input pInputText formControlName="order" id="order" required>
+    </div>
+  </div>
+  <p-button icon="pi pi-check" (click)="isDisabled = false" label="Submit" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
+</form>

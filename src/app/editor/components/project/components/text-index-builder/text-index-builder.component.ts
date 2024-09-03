@@ -1,9 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
-import {
-  UntypedFormBuilder,
-  UntypedFormControl,
-  UntypedFormGroup,
-} from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { HeaderModel, IndexModel } from '../../../../models';
 import { IndexService } from '../../services/index.service';
 import { BaseComponent } from '../../../../../components/base/base/base.component';

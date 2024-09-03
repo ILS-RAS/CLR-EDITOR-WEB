@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ProjectRoutingModule } from './project-routing.module';
 
 import { ButtonModule } from 'primeng/button';
+import { CheckboxModule } from 'primeng/checkbox';
 import { ChipsModule } from 'primeng/chips';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ContextMenuModule } from 'primeng/contextmenu';
@@ -15,6 +16,7 @@ import { DynamicDialogModule } from 'primeng/dynamicdialog';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InplaceModule } from 'primeng/inplace';
 import { InputIconModule } from 'primeng/inputicon';
+import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
@@ -44,11 +46,14 @@ import { DialogService } from 'primeng/dynamicdialog';
 import { ElementSelectorComponent } from './components/element-selector/element-selector.component';
 import { ElementToolbarComponent } from './components/element-toolbar/element-toolbar.component';
 import { ElementEditorComponent } from './components/element-editor/element-editor.component';
+import { TextIndexBuilderComponent } from './components/text-index-builder/text-index-builder.component';
+
 @NgModule({
   declarations: [
     DefaultComponent,
     ProjectToolbarComponent,
     TextIndexTreeComponent,
+    TextIndexBuilderComponent,
     TextChunkComponent,
     TextChunkEditorComponent,
     TextIndexItemEditorComponent,
@@ -91,6 +96,8 @@ import { ElementEditorComponent } from './components/element-editor/element-edit
     MessageModule,
     DynamicDialogModule,
     TooltipModule,
+    InputNumberModule,
+    CheckboxModule
   ],
   providers:[DialogService]
 })

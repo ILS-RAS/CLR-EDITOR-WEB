@@ -1,3 +1,5 @@
+<p-confirmDialog [closable]="false" key="chunk-delete" />
+
 <p-panel *ngIf="index" [toggleable]="true" [style]="{'margin-top': '15px', 'max-width': '92vw'}">
     <ng-template pTemplate="header">
         <div class="flex align-items-center gap-2">
@@ -25,8 +27,8 @@
         </ng-template>
         <ng-template pTemplate="content">
             <div class="text-chunk">
-                <ng-container *ngFor="let element of version.elements">
-                    <app-text-chunk-element [element]="element" [chunk]="version"></app-text-chunk-element>
+                <ng-container>
+                    {{version.value}}
                 </ng-container>
             </div>
         </ng-template>

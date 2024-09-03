@@ -20,6 +20,7 @@ export class ElementEditorComponent extends BaseComponent implements OnInit {
   definitionForm : FormGroup;
   currentForm?: ChunkValueItemModel;
   currentDef?: MorphModel;
+  newMorph: MorphModel;
   editExisting: boolean;
 
   languages?: TaxonomyViewModel[];
@@ -42,6 +43,7 @@ export class ElementEditorComponent extends BaseComponent implements OnInit {
     super();
     
     this.editExisting = this.refconf.data.editExisting;
+    this.newMorph = this.refconf.data.newMorph;
 
     this.definitionForm = this.fb.group({
       lemma: ["", [Validators.required]],
@@ -90,26 +92,24 @@ export class ElementEditorComponent extends BaseComponent implements OnInit {
     
   this.definitionForm.controls['form'].setValue(this.currentForm?.value?.toLowerCase());
   this.definitionForm.controls['form'].disable();
-  
-  if (this.editExisting) {
-    let features: string[]|undefined = this.currentForm?.feature?.split(',');
 
-    this.definitionForm.patchValue({
-      lemma: this.currentForm?.lemma,
-      lang: this.currentForm?.lang,
-      pos: this.currentForm?.pos,
-      gender: this.currentForm?.gender,
-      case: this.currentForm?.case,
-      person: this.currentDef?.person,
-      number: this.currentDef?.number,
-      tense: this.currentDef?.tense,
-      mood: this.currentDef?.mood,
-      voice: this.currentDef?.voice,
-      degree: this.currentDef?.degree,
-      dialect: this.currentDef?.dialect,
-      feature: features
-      });
-    }
+  let features: string[]|undefined = this.newMorph?.feature?.split(',');
+
+  this.definitionForm.patchValue({
+    lemma: this.newMorph?.lemma,
+    lang: this.newMorph?.lang,
+    pos: this.newMorph?.pos,
+    gender: this.newMorph?.gender,
+    case: this.newMorph?.case,
+    person: this.newMorph?.person,
+    number: this.newMorph?.number,
+    tense: this.newMorph?.tense,
+    mood: this.newMorph?.mood,
+    voice: this.newMorph?.voice,
+    degree: this.newMorph?.degree,
+    dialect: this.newMorph?.dialect,
+    feature: features
+    });
   }
 
   get _lemma() { 
@@ -131,31 +131,30 @@ export class ElementEditorComponent extends BaseComponent implements OnInit {
       if (this.definitionForm.get('feature')?.value) {
         feature = this.definitionForm.get('feature')?.value.toString()
       }
-      let newMorph = new MorphModel({});
-      newMorph.lemma = this.definitionForm.get('lemma')?.value;
-      newMorph.form = this.definitionForm.get('form')?.value;
-      newMorph.pos = this.definitionForm.get('pos')?.value;
-      newMorph.gender = this.definitionForm.get('gender')?.value;
-      newMorph.case = this.definitionForm.get('case')?.value;
-      newMorph.dialect = this.definitionForm.get('dialect')?.value;
-      newMorph.feature = feature;
-      newMorph.person = this.definitionForm.get('person')?.value;
-      newMorph.number = this.definitionForm.get('number')?.value;
-      newMorph.tense = this.definitionForm.get('tense')?.value;
-      newMorph.mood = this.definitionForm.get('mood')?.value;
-      newMorph.voice = this.definitionForm.get('voice')?.value;
-      newMorph.degree = this.definitionForm.get('degree')?.value;
-      newMorph.lang = this.definitionForm.get('lang')?.value;
-      newMorph.isRule = "false";
+      this.newMorph.lemma = this.definitionForm.get('lemma')?.value;
+      this.newMorph.form = this.definitionForm.get('form')?.value;
+      this.newMorph.pos = this.definitionForm.get('pos')?.value;
+      this.newMorph.gender = this.definitionForm.get('gender')?.value;
+      this.newMorph.case = this.definitionForm.get('case')?.value;
+      this.newMorph.dialect = this.definitionForm.get('dialect')?.value;
+      this.newMorph.feature = feature;
+      this.newMorph.person = this.definitionForm.get('person')?.value;
+      this.newMorph.number = this.definitionForm.get('number')?.value;
+      this.newMorph.tense = this.definitionForm.get('tense')?.value;
+      this.newMorph.mood = this.definitionForm.get('mood')?.value;
+      this.newMorph.voice = this.definitionForm.get('voice')?.value;
+      this.newMorph.degree = this.definitionForm.get('degree')?.value;
+      this.newMorph.lang = this.definitionForm.get('lang')?.value;
+      this.newMorph.isRule = "false";
 
       if (this.editExisting) {
-        newMorph._id = this.currentForm?.morphId!;
-        this.projectService.editMorph(newMorph);
+        this.projectService.editMorph(this.newMorph);
       } else {
-        this.projectService.addMorph(newMorph);
+        this.newMorph._id = undefined;
+        this.projectService.addMorph(this.newMorph);
       }
 
-      this.ref.close(newMorph);
+      this.ref.close(this.newMorph);
     }
   }
 }

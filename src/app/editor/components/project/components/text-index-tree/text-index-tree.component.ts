@@ -1,5 +1,5 @@
 import { ChangeDetectorRef, Component, Input } from '@angular/core';
-import { MenuItem, TreeNode } from 'primeng/api';
+import { ConfirmationService, MenuItem, TreeNode } from 'primeng/api';
 import { ChunkViewModel, HeaderModel, IndexModel } from '../../../../models';
 import { BaseComponent } from '../../../../../components/base/base/base.component';
 import { ProjectService } from '../../services/project.service';
@@ -13,6 +13,7 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
   selector: 'app-text-index-tree',
   templateUrl: './text-index-tree.component.html',
   styleUrl: './text-index-tree.component.scss',
+  providers: [ConfirmationService]
 })
 export class TextIndexTreeComponent extends BaseComponent {
   @Input() header?: HeaderModel;
@@ -33,6 +34,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     private cd: ChangeDetectorRef,
     private projectService: ProjectService,
     public dialogService: DialogService,
+    public confirmationService: ConfirmationService,
   ) {
     super();
   }
@@ -64,7 +66,7 @@ export class TextIndexTreeComponent extends BaseComponent {
       {
         label: 'Create Top index',
         icon: 'pi pi-plus',
-        command: () => this.CreateChildIndex(),
+        command: () => this.CreateTopIndex(),
       },
       {
         label: 'Create Child index',
@@ -86,6 +88,7 @@ export class TextIndexTreeComponent extends BaseComponent {
   
   CreateTopIndex() {
     this.ref = this.dialogService.open(TextIndexBuilderComponent, {
+      header: 'Create top-level index',
       width: '600px',
       data: {
         index: new IndexModel({
@@ -96,25 +99,29 @@ export class TextIndexTreeComponent extends BaseComponent {
   }
 
   DeleteIndex() {
-    // let inx = this.projectService.$currentIndex.value;
-    // this.dialog
-    //   .open(ConfirmComponent, { width: `600px`, hasBackdrop: true, data: inx })
-    //   .afterClosed()
-    //   .subscribe((res) => {
-    //     if (res && inx && inx.headerId) {
-    //       this.projectService.DeleteIndex(inx).then(() => {
-    //         if (inx && inx.headerId) {
-    //           this.projectService.GetIndeces(inx.headerId);
-    //         }
-    //       });
-    //     }
-    //   });
+    let inx = this.projectService.$currentIndex.value;
+    if (inx && inx.headerId) {
+      this.confirmationService.confirm({
+        key: 'index-delete',
+        header: 'Delete',
+        message: 'Are you sure you want to delete the selected index?',
+        icon: 'pi pi-info-circle',
+        acceptButtonStyleClass:"p-button-danger p-button-text",
+        rejectButtonStyleClass:"p-button-text p-button-text",
+        accept: () => {
+          this.projectService.DeleteIndex(inx).then(() => {
+            this.projectService.GetIndeces(inx.headerId!);
+          })
+        }
+      })
+    }
   }
 
   EditIndexName() {
     let inx = this.projectService.$currentIndex.value;
     if (inx) {
       this.ref = this.dialogService.open(TextIndexItemEditorComponent, {
+        header: 'Edit index name and order',
         width: `600px`,
         modal: true,
         data: {
@@ -135,6 +142,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     let inx = this.projectService.$currentIndex.value;
     if (inx && inx._id) {
       this.ref = this.dialogService.open(TextIndexBuilderComponent, {
+        header: 'Create child index',
         width: '600px',
         data: {
           index: new IndexModel({

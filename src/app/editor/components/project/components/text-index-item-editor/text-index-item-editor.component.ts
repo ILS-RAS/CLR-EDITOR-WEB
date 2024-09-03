@@ -33,6 +33,8 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
     }
 
   ngOnInit(): void {
+    console.log(this.index);
+    
     this.form.controls["name"].setValue(this.index.name);
     this.form.controls["order"].setValue(this.index.order);
 

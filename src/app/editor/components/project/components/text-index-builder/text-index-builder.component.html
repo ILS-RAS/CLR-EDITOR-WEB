@@ -12,3 +12,18 @@
             (change)="Change()">Диапазон</mat-checkbox>
     </form>
 </app-dialog> -->
+<form class="form" [formGroup]="form">
+    <div class="flex flex-column">
+        <div class="range mb-3">
+            <p-inputNumber formControlName="startValueInput" [required]="true"> </p-inputNumber>
+            <div *ngIf="isRange">
+                <p-inputNumber formControlName="endValueInput"></p-inputNumber>
+            </div>
+        </div>
+        <div class="flex flex-wrap">
+            <p-checkbox id="range" formControlName="checkControl" (onChange)="Change()" value="isRange" class="check-range"> </p-checkbox>
+            <label class="ml-2 mt-1" for="range">Диапазон</label>
+        </div>
+        <p-button class="mt-3" icon="pi pi-check" (click)="isDisabled = false" label="Submit" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
+    </div>
+</form>

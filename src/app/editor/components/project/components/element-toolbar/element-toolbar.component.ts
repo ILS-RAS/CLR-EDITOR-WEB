@@ -14,7 +14,8 @@ import { EditableRow } from 'primeng/table';
 @Component({
   selector: 'app-element-toolbar',
   templateUrl: './element-toolbar.component.html',
-  styleUrl: './element-toolbar.component.scss'
+  styleUrl: './element-toolbar.component.scss',
+  providers: [ConfirmationService]
 })
 export class ElementToolbarComponent extends BaseComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
@@ -22,7 +23,7 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
 
   constructor(private dialogService: DialogService, 
     public messageService: MessageService, 
-    public confirmationService: ConfirmationService,
+    private confirmationService: ConfirmationService,
     private projectService: ProjectService) {
     super();
   }
@@ -42,6 +43,7 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
       modal: true,
       data: {
         editExisting: false,
+        newMorph: new MorphModel({})
       }})
 
     this.ref.onClose.subscribe((item: MorphModel) => {
@@ -58,6 +60,7 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
       modal: true,
       data: {
         editExisting: true,
+        newMorph: this.projectService.$selectedDefinition.value,
       }});
 
     this.ref.onClose.subscribe((item: MorphModel) => {
@@ -67,9 +70,42 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
     })
   }
 
+  openCloneModal() {
+    this.ref = this.dialogService.open(ElementEditorComponent, {
+      width: '60%', 
+      height: '100%', 
+      modal: true,
+      data: {
+        editExisting: false,
+        newMorph: this.projectService.$selectedDefinition.value,
+      }
+    });
+
+    this.ref.onClose.subscribe((item: MorphModel) => {
+      if (item) {
+        this.messageService.add({severity:'success', summary:'Success', detail:'The morph has been succesfully saved'})
+      }
+    })
+  }
+
+
+  markAsRule() {
+    let morph = this.projectService.$selectedDefinition.value;
+    if (morph) {
+      morph.isRule = morph.isRule ? 'false' : 'true';
+      this.projectService.editMorph(morph).then(() => {
+        this.messageService.add({severity:'success', summary:"Success", detail: 'Now the morph is marked as rule'})
+      });
+    }
+  }
+
   confirmDelete() {
     this.confirmationService.confirm({
+      key: 'morph-delete',
       message: 'Are you sure you want to delete the selected morph?',
+      icon: 'pi pi-info-circle',
+      acceptButtonStyleClass:"p-button-danger p-button-text",
+      rejectButtonStyleClass:"p-button-text p-button-text",
       header: 'Delete',
       accept: () => {
         this.projectService.deleteMorph();

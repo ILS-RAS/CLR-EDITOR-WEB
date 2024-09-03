@@ -363,7 +363,9 @@ public async getMorphs(form: ChunkValueItemModel) {
 
 public async addMorph(morph: MorphModel) {
   this.morphService.SaveMorph(morph).then((item) => {
-    this.$currentMorphs.next(this.$currentMorphs.getValue().concat([item]));
+   if (this.$currentForm) {
+    this.getMorphs(this.$currentForm.value!);
+   }
   });
 }
 
@@ -388,6 +390,7 @@ public async editMorph(morph: MorphModel) {
         item.voice = morph.voice;
         item.lang = morph.lang;
       }
+      this.$currentForm.next(item);
       chunk.valueObj = JSON.stringify(chunk_elements);
       chunk.updated = new Date().toISOString();
         if (!chunk.created) {

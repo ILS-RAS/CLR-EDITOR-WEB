@@ -153,6 +153,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
     let chunk = this.projectService.$currentChunk.value;
     if (chunk) {
       this.confirmationService.confirm({
+        key: 'chunk-delete',
         message: 'Do you want to delete this record?',
         header: 'Delete Confirmation',
         icon: 'pi pi-info-circle',
