@@ -8,12 +8,13 @@ import { TextIndexBuilderComponent } from '../text-index-builder/text-index-buil
 import { TextIndexItemEditorComponent } from '../text-index-item-editor/text-index-item-editor.component';
 import { TextChunkEditorComponent } from '../text-chunk-editor/text-chunk-editor.component';
 import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-text-index-tree',
   templateUrl: './text-index-tree.component.html',
   styleUrl: './text-index-tree.component.scss',
-  providers: [ConfirmationService]
+  providers: [ConfirmationService, MessageService]
 })
 export class TextIndexTreeComponent extends BaseComponent {
   @Input() header?: HeaderModel;
@@ -35,6 +36,7 @@ export class TextIndexTreeComponent extends BaseComponent {
     private projectService: ProjectService,
     public dialogService: DialogService,
     public confirmationService: ConfirmationService,
+    public messageService: MessageService,
   ) {
     super();
   }
@@ -95,7 +97,12 @@ export class TextIndexTreeComponent extends BaseComponent {
           headerId: this.projectService.$currentHeader.value?._id,
         }),
       }
-    });
+    })
+    this.ref.onClose.subscribe((item) => {
+      if (item) {
+        this.messageService.add({severity:'success', summary:'Success', detail:`A top-level index has been created`})
+      }
+     });;
   }
 
   DeleteIndex() {
@@ -111,6 +118,7 @@ export class TextIndexTreeComponent extends BaseComponent {
         accept: () => {
           this.projectService.DeleteIndex(inx).then(() => {
             this.projectService.GetIndeces(inx.headerId!);
+            this.messageService.add({severity:'error', summary:'Success', detail:`The selected index has been deleted`});
           })
         }
       })
@@ -135,6 +143,11 @@ export class TextIndexTreeComponent extends BaseComponent {
           }),
         }
       });
+     this.ref.onClose.subscribe((item) => {
+      if (item) {
+        this.messageService.add({severity:'success', summary:'Success', detail:`The selected index has been edited`})
+      }
+     })
     }
   }
 
@@ -152,6 +165,11 @@ export class TextIndexTreeComponent extends BaseComponent {
           })
         }
       });
+      this.ref.onClose.subscribe((item) => {
+        if (item) {
+          this.messageService.add({severity:'success', summary:'Success', detail:`A child index has been created`})
+        }
+       });
     }
   }
 

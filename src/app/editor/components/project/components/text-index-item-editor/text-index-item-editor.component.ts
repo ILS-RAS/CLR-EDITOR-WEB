@@ -54,8 +54,9 @@ export class TextIndexItemEditorComponent extends BaseComponent implements OnIni
     this.projectService.SaveIndex(this.index).then((item) => {
       let savedIndex = item as IndexModel;
       if (savedIndex && savedIndex.headerId) {
-        this.projectService.GetIndeces(savedIndex.headerId);
-        this.ref.close()
+        this.projectService.GetIndeces(savedIndex.headerId).then((res) => {
+          this.ref.close(res);
+        });
       }
     })
 

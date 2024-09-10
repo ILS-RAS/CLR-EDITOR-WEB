@@ -3,7 +3,7 @@
 
 <div *ngIf="this.display" class="mt-3 max-width custom-border">
     <app-element-toolbar> </app-element-toolbar>
-    <p-table [value]="forms" [(selection)]="selected" (selectionChange)="onChange()" styleClass="p-datatable-gridlines" >
+    <p-table [value]="forms" [(selection)]="selected" [responsive]="true" [scrollable]="true" scrollHeight="flex" (selectionChange)="onChange()" styleClass="p-datatable-gridlines" >
         <ng-template pTemplate="header">
             <tr>
                 <th></th>
@@ -22,7 +22,7 @@
             </tr>
         </ng-template>
         <ng-template pTemplate="body" let-form>
-            <tr [ngClass]="{'test': form.isRule == true}">
+            <tr [ngClass]="{'rule': form.isRule == true}">
                 <td>
                     <p-tableRadioButton [value]="form"></p-tableRadioButton>
                 </td>

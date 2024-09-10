@@ -90,6 +90,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
 
   EditHeader() {
     this.dialogService.open(TextHeaderEditorComponent, {
+      header: 'Edit header',
       width: '600px',
       data: this.header,
     });
@@ -97,6 +98,7 @@ export class ProjectToolbarComponent extends BaseComponent implements OnInit {
 
   AddHeader() {
     this.dialogService.open(TextHeaderEditorComponent, {
+      header: 'Add header',
       width: '600px',
       data: new HeaderModel({}),
     });

@@ -1,9 +1,9 @@
-<p-toolbar [style]="{'width':'92vw'}">
+<p-toolbar [style]="{'width':'86vw'}">
     <div class="p-toolbar-group-start">
         <app-project-selector></app-project-selector>
     </div>
     <div class="p-toolbar-group-center flex-1">
-        <p-dropdown *ngIf="project" [style]="{'width': '40vw'}"
+        <p-dropdown *ngIf="project" [style]="{'width': '35vw'}"
             [(ngModel)]="selected" [options]="headers" optionLabel="desc" placeholder="Select a Header"
             (onChange)="Change()"></p-dropdown>
     </div>

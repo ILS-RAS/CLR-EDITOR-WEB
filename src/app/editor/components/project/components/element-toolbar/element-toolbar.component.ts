@@ -94,7 +94,11 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
     if (morph) {
       morph.isRule = morph.isRule ? 'false' : 'true';
       this.projectService.editMorph(morph).then(() => {
-        this.messageService.add({severity:'success', summary:"Success", detail: 'Now the morph is marked as rule'})
+        if (morph.isRule == 'true') {
+          this.messageService.add({severity:'success', summary:'Success', detail: 'Now the morph is marked as rule'});
+        } else {
+          this.messageService.add({severity:'success', summary:'Success', detail: 'Now the morph is no longer a rule'})
+        }
       });
     }
   }

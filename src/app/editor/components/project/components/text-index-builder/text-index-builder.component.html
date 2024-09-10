@@ -1,29 +1,29 @@
-<!-- <app-dialog (onCancel)="Cancel()" (onSave)="Save()" [disabled]="isDisabled" title='Index'>
-    <form class="form" [formGroup]="form">
-        <div class="range">
-            <mat-form-field class="input-field-full-width">
-                <input matInput type="number" formControlName="startValueInput" required>
-            </mat-form-field>
-            <mat-form-field class="input-field-full-width bordered" *ngIf="isRange">
-                <input matInput type="number" formControlName="endValueInput">
-            </mat-form-field>
-        </div>
-        <mat-checkbox formControlName="checkControl" class="check-range" color="primary"
-            (change)="Change()">Диапазон</mat-checkbox>
-    </form>
-</app-dialog> -->
 <form class="form" [formGroup]="form">
     <div class="flex flex-column">
         <div class="range mb-3">
-            <p-inputNumber formControlName="startValueInput" [required]="true"> </p-inputNumber>
-            <div *ngIf="isRange">
-                <p-inputNumber formControlName="endValueInput"></p-inputNumber>
+            <div class="flex flex-column">
+                <label *ngIf="isRange" class="mb-1"> Начало диапазона </label>
+                <p-inputNumber inputId="integeronly" formControlName="startValueInput" [required]="true"> </p-inputNumber>
+            </div>
+            <div *ngIf="isRange" class="flex flex-column">
+                <label class="mb-1"> Конец диапазона </label>
+                <p-inputNumber inputId="integeronly" formControlName="endValueInput"></p-inputNumber>
             </div>
         </div>
-        <div class="flex flex-wrap">
+        <div class="flex flex-wrap mb-3">
             <p-checkbox id="range" formControlName="checkControl" (onChange)="Change()" value="isRange" class="check-range"> </p-checkbox>
-            <label class="ml-2 mt-1" for="range">Диапазон</label>
+            <label class="ml-2 mt-2 mb-1" for="range">Диапазон</label>
         </div>
-        <p-button class="mt-3" icon="pi pi-check" (click)="isDisabled = false" label="Submit" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
     </div>
+    
+    <div *ngIf="!this.form.valid">
+        <div *ngIf="this.form.hasError('range')">
+            <p-message severity="error" text="The end value of diapason can not be less than the start value"></p-message>
+        </div>
+        <div *ngIf="this._startValue?.hasError('required')">
+            <p-message severity="error" text="The start value is required"></p-message>
+        </div>
+    </div>
+
+    <p-button class="mt-3" icon="pi pi-check" (click)="isDisabled = false" label="Submit" pAutoFocus [autofocus]="true" (click)="Save()" [disabled]="isDisabled"></p-button>
 </form>

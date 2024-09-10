@@ -25,17 +25,33 @@
         </mat-form-field>
       </form> -->
 
-<p-dialog [header]="title" [(visible)]="isDisabled" [modal]="true" [style]="{ width: '30vw', height:'50%' }"
-  [draggable]="false" [resizable]="false">
-  <form class="form" [formGroup]="form">
-    <label for="codeInput">Код</label>
-    <input type="text" id="codeInput" pInputText formControlName="codeInput" required="true" />
-  </form>
-  <ng-template pTemplate="footer">
-    <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()"
-      [disabled]="isDisabled"></p-button>
-    <p-button label="Cancel" (click)="Cancel()" [text]="true"
-      styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
-      class="w-full"></p-button>
-  </ng-template>
-</p-dialog>
+<form class="form" [formGroup]="form">
+  <div class="flex flex-column flex-wrap">
+    <div class="m-3 flex flex-column">
+      <label for="codeInput">Код</label>
+      <input type="text" id="codeInput" pInputText formControlName="codeInput" required="true" />
+    </div>
+    <div>
+      <div class="m-3 flex flex-column">
+        <label for="langSelect">Язык издания</label>
+        <p-dropdown formControlName="langSelect" [options]="languages" optionLabel="code" optionValue="code"> </p-dropdown>
+      </div>
+      <div class="m-3 flex flex-column">
+        <label for="editionTypeSelect">Тип издания</label>
+        <p-dropdown formControlName="editionTypeSelect" [options]="editionTypes" optionLabel="code" optionValue="code"></p-dropdown>
+      </div>
+    </div>
+    <div class="m-3 flex flex-column">
+      <label for="biblioInput">Описание</label>
+      <textarea pInputTextarea formControlName="biblioInput" rows="10"> </textarea> 
+    </div>
+  </div>
+
+  <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()"
+  [disabled]="isDisabled"></p-button>
+</form>
+<ng-template pTemplate="footer">
+  <!-- <p-button label="Cancel" (click)="Cancel()" [text]="true"
+    styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
+    class="w-full"></p-button> -->
+</ng-template>
