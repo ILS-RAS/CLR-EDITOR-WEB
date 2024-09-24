@@ -7,14 +7,15 @@ import { Helper } from '../../../../../utils';
 import { ProjectService } from '../../services/project.service';
 import { DynamicDialogConfig, DynamicDialogRef } from 'primeng/dynamicdialog';
 
-export function CustomRangeValidator(form: UntypedFormGroup): ValidatorFn {
+function CustomRangeValidator(form: UntypedFormGroup, isRange: boolean): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const start = form.get('startValueInput')?.value;
     const end = form.get('endValueInput')?.value;
 
-    return start !== null && end !== null && start <= end ? null : {range : true}
+    return isRange && (start == null || end == null || start >= end) ? {range : true} : null;
   }
 }
+
 
 @Component({
   selector: 'app-text-index-builder',
@@ -45,7 +46,7 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.form.addValidators(CustomRangeValidator(this.form));
+    this.form.addValidators(CustomRangeValidator(this.form, this.isRange));
     this.form.updateValueAndValidity();
     
     this.form.statusChanges.subscribe(

@@ -1,44 +1,17 @@
-<!-- <form class="form" [formGroup]="form">
-        <mat-form-field class="input-field-full-width">
-          <mat-label>Index</mat-label>
-          <input matInput formControlName="codeInput" required>
-        </mat-form-field>
-        <mat-form-field class="input-field-full-width">
-            <mat-label>Typus</mat-label>
-            <mat-select formControlName="editionTypeSelect" required>
-                @for (editionType of editionTypes; track editionType) {
-                <mat-option [value]="editionType.code">{{editionType.code}}</mat-option>
-                }
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="input-field-full-width">
-            <mat-label>Lingua</mat-label>
-            <mat-select formControlName="langSelect" required>
-                @for (language of languages; track language) {
-                <mat-option [value]="language.code">{{language.code}}</mat-option>
-                }
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field class="input-field-full-width">
-          <mat-label>Bibliographia</mat-label>
-          <textarea rows="10" matInput formControlName="biblioInput" required></textarea>
-        </mat-form-field>
-      </form> -->
-
 <form class="form" [formGroup]="form">
   <div class="flex flex-column flex-wrap">
     <div class="m-3 flex flex-column">
       <label for="codeInput">Код</label>
       <input type="text" id="codeInput" pInputText formControlName="codeInput" required="true" />
     </div>
-    <div>
+    <div class="flex flex-row">
       <div class="m-3 flex flex-column">
         <label for="langSelect">Язык издания</label>
-        <p-dropdown formControlName="langSelect" [options]="languages" optionLabel="code" optionValue="code"> </p-dropdown>
+        <p-dropdown formControlName="langSelect" [options]="languages" optionLabel="code" optionValue="code" [style]="{'min-width':'12vw'}"> </p-dropdown>
       </div>
       <div class="m-3 flex flex-column">
         <label for="editionTypeSelect">Тип издания</label>
-        <p-dropdown formControlName="editionTypeSelect" [options]="editionTypes" optionLabel="code" optionValue="code"></p-dropdown>
+        <p-dropdown formControlName="editionTypeSelect" [options]="editionTypes" optionLabel="code" optionValue="code" [style]="{'min-width':'12vw'}"></p-dropdown>
       </div>
     </div>
     <div class="m-3 flex flex-column">
@@ -50,8 +23,3 @@
   <p-button icon="pi pi-check" (click)="isDisabled = false" label="Ok" pAutoFocus [autofocus]="true" (click)="Save()"
   [disabled]="isDisabled"></p-button>
 </form>
-<ng-template pTemplate="footer">
-  <!-- <p-button label="Cancel" (click)="Cancel()" [text]="true"
-    styleClass="w-full text-primary-50 border-1 border-white-alpha-30 hover:bg-white-alpha-10"
-    class="w-full"></p-button> -->
-</ng-template>

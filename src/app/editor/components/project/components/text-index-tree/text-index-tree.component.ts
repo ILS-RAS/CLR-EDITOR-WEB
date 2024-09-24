@@ -43,26 +43,6 @@ export class TextIndexTreeComponent extends BaseComponent {
 
   ngOnInit() {
     this.loading = true;
-    this.projectService.$currentIndeces
-      .pipe(takeUntil(this.destroyed))
-      .subscribe((indeces) => {
-        if (indeces) {
-          this.nodes = indeces
-            .filter((i) => !i.parentId)
-            .sort((a, b) => (a.order > b.order ? 1 : -1))
-            .map((index) => this.createNode(index));
-          this.loading = false;
-          this.cd.markForCheck();
-        }
-      });
-
-    this.projectService.$currentIndex
-      .pipe(takeUntil(this.destroyed))
-      .subscribe((index) => {
-        if (index) {
-          this.selection = index;
-        }
-      })
 
     this.items = [
       {
@@ -86,6 +66,28 @@ export class TextIndexTreeComponent extends BaseComponent {
         command: () => this.DeleteIndex(),
       },
     ];
+
+    this.projectService.$currentIndeces
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((indeces) => {
+      if (indeces) {
+        this.nodes = indeces
+          .filter((i) => !i.parentId)
+          .sort((a, b) => (a.order > b.order ? 1 : -1))
+          .map((index) => this.createNode(index));
+        this.loading = false;
+        this.cd.markForCheck();
+        this.items[3].visible = this.nodes.length <= 1 ? false : true; //TODO: сделать другую проверку на возможность удаления, учитывающую иерархию
+      }
+    });
+
+  this.projectService.$currentIndex
+    .pipe(takeUntil(this.destroyed))
+    .subscribe((index) => {
+      if (index) {
+        this.selection = index;
+      }
+    })
   }
   
   CreateTopIndex() {

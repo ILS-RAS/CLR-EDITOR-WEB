@@ -7,8 +7,6 @@ import { ConfirmationService } from 'primeng/api';
 import { ProjectService } from '../../services/project.service';
 import { takeUntil } from 'rxjs';
 import { ElementEditorComponent } from '../element-editor/element-editor.component';
-import { ChunkValueItemModel } from '../../../../models';
-import { EditableRow } from 'primeng/table';
 
 
 @Component({
@@ -101,6 +99,14 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
         }
       });
     }
+  }
+
+  markForAll() {
+    
+  }
+
+  unmarkForAll() {
+
   }
 
   confirmDelete() {

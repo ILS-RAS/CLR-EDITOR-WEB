@@ -187,8 +187,9 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
 
   EditChunk() {
     this.ref = this.dialogService.open(TextChunkEditorComponent, { 
-      data: this.chunk,
-      header: 'Fragmentum'
+      header: 'Fragmentum',
+      width: '50vw',
+      data: this.chunk
   });
   }
 
@@ -197,7 +198,7 @@ export class TextChunkComponent extends BaseComponent implements OnInit, OnDestr
     if(inx && inx._id){
       this.ref = this.dialogService.open(TextChunkEditorComponent, {
         header: 'Chunk creation',
-        width: '600px',
+        width: '50vw',
         data: {
           chunk: new ChunkViewModel({ indexId: inx._id})
         }

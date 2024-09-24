@@ -1,3 +1,6 @@
+<p-confirmDialog key="header-delete" />
+<p-toast></p-toast>
+
 <p-toolbar [style]="{'width':'86vw'}">
     <div class="p-toolbar-group-start">
         <app-project-selector></app-project-selector>
@@ -9,7 +12,9 @@
     </div>
     <div class="p-toolbar-group-end">
         <p-button styleClass="p-button-secondary" [style]="{'margin-right': '0.5vw', 'margin-left': '0.5vw'}"
-            icon="pi pi-bars" (click)="menu.toggle($event)"></p-button>
+            icon="pi pi-list" (click)="this.OpenContents()" [disabled]="contentsDisabled"></p-button>
+        <p-button styleClass="p-button-secondary" [style]="{'margin-right': '0.5vw', 'margin-left': '0.5vw'}"
+            icon="pi pi-bars" (click)="menu.toggle($event)" [disabled]="menuDisabled"></p-button>
         <p-tieredMenu #menu [model]="items" [popup]="true"></p-tieredMenu>
     </div>
 </p-toolbar>

@@ -4,10 +4,12 @@ import { HeaderModel, ProjectModel } from '../../../../models';
 import { ProjectService } from '../../services/project.service';
 import { Router } from '@angular/router';
 import { takeUntil } from 'rxjs';
+import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-default',
   templateUrl: './default.component.html',
-  styleUrl: './default.component.scss'
+  styleUrl: './default.component.scss',
+  providers:[MessageService]
 })
 export class DefaultComponent extends BaseComponent implements OnInit {
   public project?: ProjectModel;
