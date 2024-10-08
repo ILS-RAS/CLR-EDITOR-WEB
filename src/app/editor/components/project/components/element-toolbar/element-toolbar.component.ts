@@ -5,7 +5,7 @@ import { MessageService } from 'primeng/api';
 import { MorphModel } from '../../../../models/morphModel';
 import { ConfirmationService } from 'primeng/api';
 import { ProjectService } from '../../services/project.service';
-import { takeUntil } from 'rxjs';
+import {lastValueFrom, takeUntil } from 'rxjs';
 import { ElementEditorComponent } from '../element-editor/element-editor.component';
 
 
@@ -18,6 +18,7 @@ import { ElementEditorComponent } from '../element-editor/element-editor.compone
 export class ElementToolbarComponent extends BaseComponent implements OnInit {
   ref: DynamicDialogRef | undefined;
   disableButtons: boolean = false;
+  loading: boolean = false;
 
   constructor(private dialogService: DialogService, 
     public messageService: MessageService, 
@@ -107,6 +108,28 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
 
   unmarkForAll() {
 
+  }
+
+requestMorphs() {
+    let reqBody = {
+      lexeme: this.projectService.$currentForm.value?.value,
+      lang: this.projectService.$currentHeader.value?.lang
+    }
+    
+    this.projectService.requestMorphs(reqBody).then((res) => {
+      if (!(res instanceof Error)) {
+        lastValueFrom(res).finally(() => {
+          this.loading = false;
+          if (this.projectService.$currentForm.value) {
+            this.projectService.getMorphs(this.projectService.$currentForm.value);
+          }
+          this.messageService.add({severity:'success', summary:'Success', detail:'New morphs have been successfully requested. If you do not see any changes, it is possible that all the forms are already contained in the database.'});
+        });
+      } else {
+        this.loading = false;
+        this.messageService.add({severity:'danger', summary:'Error', detail:'An error occured. Please try again later'})
+      }
+    })
   }
 
   confirmDelete() {

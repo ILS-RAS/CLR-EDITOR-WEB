@@ -1,11 +1,13 @@
 <p-confirmDialog [closable]="false" key="morph-delete"/>
-<p-toast></p-toast>
+<p-dialog [visible]="loading" [modal]="true" [closable]='false'>
+    <p-progressSpinner> </p-progressSpinner>
+</p-dialog>
 
 <p-toolbar [style]="{'border':'none'}">
     <p-button icon="pi pi-plus" (onClick)="openAddModal()" pTooltip="Добавить определение" appendTo="body" tooltipPosition="top" [showDelay]="500"></p-button>
     <p-button icon="pi pi-pencil" (onClick)="openEditModal()" [disabled]="disableButtons" pTooltip="Редактировать определение" appendTo="body" tooltipPosition="top" [showDelay]="500"></p-button>
     <p-button icon="pi pi-copy" (onClick)="openCloneModal()" [disabled]="disableButtons" pTooltip="Добавить на основе текущего" appendTo="body" tooltipPosition="top" [showDelay]="500"></p-button>
-    <p-button icon="pi pi-sync"></p-button>
+    <p-button icon="pi pi-sync" (onClick)="requestMorphs()"></p-button>
     <p-button icon="pi pi-check-square" (onClick)="markAsRule()" [disabled]="disableButtons" pTooltip="Отметить определение как правило" appendTo="body" tooltipPosition="top" [showDelay]="500"></p-button>
     <button pButton class="p-button-icon-only p-ripple custom-button-size" (onClick)="markForAll()" [disabled]="disableButtons" pTooltip="Выбрать определение для всех форм" appendTo="body" tooltipPosition="top" [showDelay]="500">
         <img src="../../../../../../assets/icons/choose_for_all.svg">

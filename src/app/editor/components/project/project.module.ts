@@ -22,6 +22,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
 import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { SidebarModule } from 'primeng/sidebar';
 import { SpeedDialModule } from 'primeng/speeddial';
@@ -97,7 +98,8 @@ import { TextIndexBuilderComponent } from './components/text-index-builder/text-
     DynamicDialogModule,
     TooltipModule,
     InputNumberModule,
-    CheckboxModule
+    CheckboxModule,
+    ProgressSpinnerModule,
   ],
   providers:[DialogService]
 })

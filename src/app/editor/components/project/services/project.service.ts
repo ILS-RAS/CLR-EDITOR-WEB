@@ -20,6 +20,8 @@ import { ElementModel } from '../../../models/elementModel';
 import { query } from '@angular/animations';
 import { UserService } from '../../user/services/user.service';
 import { MorphService } from '../../morph/services/morph.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -75,6 +77,7 @@ export class ProjectService {
     private elementApiService:ApiService<ElementModel>,
     private elementViewApiService:ApiService<ElementViewModel>,
     private morphService: MorphService,
+    private httpClient: HttpClient,
   ) {}
 
   public InitProjectContext(project: ProjectModel | undefined) {
@@ -471,6 +474,20 @@ public async deleteMorph() {
           }); 
         });
       })
+  }
+}
+
+public async requestMorphs(body: any) {
+  let token = sessionStorage.getItem('token')
+  if (token) {
+    let headers = new HttpHeaders()
+    .set('Content-Type', 'application/json')
+    .set('x-access-token', token);
+    return this.httpClient.post(`${environment.API}morph-items/analyse`, body, {
+      headers: headers
+    });
+  } else {
+    return new Error();
   }
 }
 //#endregion
