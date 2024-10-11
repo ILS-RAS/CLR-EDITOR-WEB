@@ -112,7 +112,7 @@ export class ElementToolbarComponent extends BaseComponent implements OnInit {
 
 requestMorphs() {
     let reqBody = {
-      lexeme: this.projectService.$currentForm.value?.value,
+      lexeme: this.projectService.$currentForm.value?.value?.toLowerCase(),
       lang: this.projectService.$currentHeader.value?.lang
     }
     
@@ -141,8 +141,9 @@ requestMorphs() {
       rejectButtonStyleClass:"p-button-text p-button-text",
       header: 'Delete',
       accept: () => {
-        this.projectService.deleteMorph();
-        this.messageService.add({severity:'success', summary:'Success', detail:'The morph has been succesfully deleted'})
+        this.projectService.deleteMorph().finally(() => {
+          this.messageService.add({severity:'success', summary:'Success', detail:'The morph has been succesfully deleted'});
+        });
       }
     });
   }
