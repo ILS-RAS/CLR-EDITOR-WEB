@@ -159,7 +159,7 @@ public async GetIndeces(headerId: string): Promise<IndexModel[]> {
     )
     .toPromise()
     .then((result) => {
-      let res_sorted = result.sort(this.SortIndeces);
+      let res_sorted = result.sort(Helper.SortIndeces);
       this.$currentIndeces.next(res_sorted);
       this.$currentIndexListPosition.next(0);
       if(result[0]._id) {
@@ -208,35 +208,6 @@ public async GetPrevIndex() {
     this.$currentMorphs.next([]);
     this.$selectedDefinition.next(undefined);
   }
-}
-
-private SortIndeces(a: IndexModel, b: IndexModel){
-  if (a.name === b.name) {
-    return 0;
-  }
-
-  let a_arr = a.name!.split('.');
-  let b_arr = b.name!.split('.');
-  
-  let len = Math.min(a_arr.length, b_arr.length);
-
-  for (let i = 0; i < len; i++) {
-    if (Number(a_arr[i]) > Number(b_arr[i])) {
-      return 1;
-    } else if (Number(a_arr[i]) < Number(b_arr[i])) {
-      return - 1
-    }
-  }
-
-  if (a_arr.length < b_arr.length) {
-    return -1;
-  }
-
-  if (b_arr.length < a_arr.length) {
-    return 1;
-  }
-
-  return 0;
 }
 
 //#endregion

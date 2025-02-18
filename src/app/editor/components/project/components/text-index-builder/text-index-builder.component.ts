@@ -72,7 +72,6 @@ export class TextIndexBuilderComponent extends BaseComponent implements OnInit {
   }
 
   Save() {
-    console.log (this.form.valid)
       if (this.index && this.form.valid) {
         let startValue = this.form.controls["startValueInput"].value;
         let endValue = this.isRange ? this.form.controls["endValueInput"].value : startValue;

@@ -1,4 +1,5 @@
 import { UserRole } from "../editor/enums";
+import { IndexModel } from "../editor/models";
 
 export class Helper {
   public static CompareStrings(a: string, b: string) {
@@ -23,6 +24,35 @@ export class Helper {
     }else{
       return "Editor";
     }
+  }
+
+  public static SortIndeces(a: IndexModel, b: IndexModel){
+    if (a.name === b.name) {
+      return 0;
+    }
+  
+    let a_arr = a.name!.split('.');
+    let b_arr = b.name!.split('.');
+    
+    let len = Math.min(a_arr.length, b_arr.length);
+  
+    for (let i = 0; i < len; i++) {
+      if (Number(a_arr[i]) > Number(b_arr[i])) {
+        return 1;
+      } else if (Number(a_arr[i]) < Number(b_arr[i])) {
+        return - 1
+      }
+    }
+  
+    if (a_arr.length < b_arr.length) {
+      return -1;
+    }
+  
+    if (b_arr.length < a_arr.length) {
+      return 1;
+    }
+  
+    return 0;
   }
 
   public static newGuid() {

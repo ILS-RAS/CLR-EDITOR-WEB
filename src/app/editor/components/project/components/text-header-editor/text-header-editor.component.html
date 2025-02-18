@@ -4,7 +4,7 @@
       <label for="codeInput">Код</label>
       <input type="text" id="codeInput" pInputText formControlName="codeInput" required="true" />
     </div>
-    <div class="flex flex-row">
+    <div class="flex flex-row align-items-baseline justify-content-between">
       <div class="m-3 flex flex-column">
         <label for="langSelect">Язык издания</label>
         <p-dropdown formControlName="langSelect" [options]="languages" optionLabel="code" optionValue="code" [style]="{'min-width':'12vw'}"> </p-dropdown>
@@ -12,6 +12,10 @@
       <div class="m-3 flex flex-column">
         <label for="editionTypeSelect">Тип издания</label>
         <p-dropdown formControlName="editionTypeSelect" [options]="editionTypes" optionLabel="code" optionValue="code" [style]="{'min-width':'12vw'}"></p-dropdown>
+      </div>
+      <div *ngIf="ableToClone" class="m-3 flex flex-column">
+          <label for="cloneOrig">Клонировать </label>
+          <p-checkbox formControlName="cloneOrig" (onChange)="Change()" [value]="cloneOrig" [binary]="true"> </p-checkbox>
       </div>
     </div>
     <div class="m-3 flex flex-column">
